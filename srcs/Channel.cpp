@@ -1,6 +1,4 @@
-#pragma once
-
-#include "ircserver.hpp"
+#include "Channel.hpp"
 
 Channel::Channel(std::string name, Client *creator) : _name(name)
 {
@@ -18,6 +16,7 @@ Channel	&Channel::operator=(Channel const &src)
 	_name = src._name;
 	_operators = src._operators;
 	_all_users = src._all_users;
+	return (*this);
 }
 
 void	Channel::add_regular_user(Client *user)
