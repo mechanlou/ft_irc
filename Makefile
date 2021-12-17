@@ -1,10 +1,14 @@
-NAME = test
+NAME = server
 
-HEADERS_FILE = headers
+HEADERS_DIR = headers
 
-HEADERS = 
+HEADERS =	ircserver.hpp
+			# Channel.hpp
 
-SRCS = srcs/main.cpp
+SRCS =	srcs/main.cpp \
+		srcs/msg_handling.cpp \
+		srcs/msg_sending.cpp
+		# srcs/Channel.cpp \
 
 OBJS = ${SRCS:.cpp=.o}
 
@@ -12,11 +16,11 @@ OBJS = ${SRCS:.cpp=.o}
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(HEADERS)
+$(NAME): $(OBJS) $(HEADERS_DIR)/$(HEADERS)
 	clang++ $(OBJS) -o $(NAME)
 
-$(OBJS): %.o: %.cpp $(HEADERS)
-	clang++ -Wall -Wextra -Werror -std=c++98 -I$(HEADERS_FILE) -c $< -o $@
+$(OBJS): %.o: %.cpp $(HEADERS_DIR)/$(HEADERS)
+	clang++ -Wall -Wextra -Werror -std=c++98 -I$(HEADERS_DIR) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

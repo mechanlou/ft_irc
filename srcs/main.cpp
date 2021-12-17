@@ -1,19 +1,4 @@
-#include <iostream>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <poll.h>
-#include <cstring>
-#include <string>
-#include <vector>
-#include <sstream>
-
-#define QUEUE_LEN 5
-#define BUFFER_SIZE 100
-#define PORT "1995"
+#include "ircserver.hpp"
 
 int	get_listen_sock_fd(void)
 {
@@ -77,68 +62,43 @@ int	handle_new_accept(int sock_fd)
 	return (client_sock);
 }
 
-int	send_msg_to_others(int src_fd, int sock_fd, std::vector<pollfd> &fds, std::string msg)
+void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
+	int const &sock_fd)
 {
-	std::vector<pollfd>::iterator	it = fds.begin();
-	std::vector<pollfd>::iterator	it_end = fds.end();
+	int		i;
+	pollfd	tmp_poll;
 
-	while (it != it_end)
+	tmp_poll.events = POLLIN;
+	i = 0;
+	while (poll_ret)
 	{
-		if ((*it).fd != src_fd && (*it).fd != sock_fd && (*it).fd != 0)
+		fds.at(i);
+		if (fds[i].revents & POLLIN)
 		{
-			if (send((*it).fd, msg.c_str(), msg.size(), 0) == -1)
+			if (fds[i].fd == sock_fd)
 			{
-				std::cout << strerror(errno) << std::endl;
-				return (-1);
+				if ((tmp_poll.fd = handle_new_accept(sock_fd)) == -1)
+					perror("accept");
+				else
+				{
+					fds.push_back(tmp_poll);
+					std::cout << tmp_poll.fd << " connecté" << std::endl;
+				}
 			}
+			else if (fds[i].fd == 0)
+				exit(0);
+			else if (receive_msg(fds[i].fd, sock_fd, fds))
+				exit(1);
+			poll_ret--;
 		}
-		it++;
+		i++;
 	}
-	return (0);
-}
-
-int	read_msg_from_fd(int src_fd, int sock_fd, std::vector<pollfd> &fds)
-{
-	char							buff[BUFFER_SIZE];
-	int								recv_ret;
-	std::vector<pollfd>::iterator	it;
-	std::ostringstream				msg;
-	
-	recv_ret = recv(src_fd, buff, BUFFER_SIZE - 1, 0);
-	if (recv_ret < 0)
-		return (-1);
-	else if (!recv_ret)
-	{
-		it = fds.begin();
-		while ((*it).fd != src_fd)
-			it++;
-		fds.erase(it);
-		if (close(src_fd))
-		{
-			std::cerr << "close error (how ?)" << std::endl;
-			return (-1);
-		}
-		std::cout << src_fd << " déconnecté" << std::endl;
-	}
-	else
-	{
-		buff[recv_ret] = '\0';
-		msg << src_fd << " : " << buff;
-		std::cout << msg.str();
-		if (send_msg_to_others(src_fd, sock_fd, fds, msg.str()) == -1)
-		{
-			std::cerr << "send error" << std::endl;
-			return (-1);
-		}
-	}
-	return (0);
 }
 
 int main(void)
 {
 	int		sock_fd;
 	int		poll_ret;
-	int		i;
 	pollfd	tmp_poll;
 	std::vector<pollfd>	fds;
 	
@@ -156,32 +116,7 @@ int main(void)
 			std::cerr << "poll error wtf bruh" << std::endl;
 			return (1);
 		}
-		i = 0;
-		while (poll_ret)
-		{
-			fds.at(i);
-			if (fds[i].revents & POLLIN)
-			{
-				if (fds[i].fd == sock_fd)
-				{
-					if ((tmp_poll.fd = handle_new_accept(sock_fd)) == -1)
-						perror("accept");
-					else
-					{
-						fds.push_back(tmp_poll);
-						std::cout << tmp_poll.fd << " connecté" << std::endl;
-					}
-				}
-				else if (fds[i].fd == 0)
-					return (0);
-				else if (read_msg_from_fd(fds[i].fd, sock_fd, fds))
-					return (1);
-				poll_ret--;
-			}
-			i++;
-		}
+		handle_poll_event(fds, poll_ret, sock_fd);
 	}
-	
-	std::cout << "Voila :/" << std::endl;
 	return (0);
 }
