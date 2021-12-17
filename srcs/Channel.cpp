@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ircserver.hpp"
 
 Channel::Channel(std::string name, Client *creator) : _name(name)
