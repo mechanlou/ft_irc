@@ -7,7 +7,8 @@ HEADERS =	ircserver.hpp
 
 SRCS =	srcs/main.cpp \
 		srcs/msg_handling.cpp \
-		srcs/msg_sending.cpp
+		srcs/msg_sending.cpp 
+	#	srcs/command.cpp
 		# srcs/Channel.cpp \
 
 OBJS = ${SRCS:.cpp=.o}

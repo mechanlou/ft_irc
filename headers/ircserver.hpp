@@ -13,7 +13,8 @@
 #include <vector>
 #include <sstream>
 #include <cstdlib>
-// #include "Channel.hpp"
+#include "Channel.hpp"
+
 
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
