@@ -1,21 +1,22 @@
 #include "ircserver.hpp"
 
-Channel::Channel(std::string name, Client *creator) : _name(name)
+Channel::Channel(std::string name, Client *creator) : name(name)
 {
 	_all_users.push_back(creator);
 	_operators.push_back(creator);
 }
 
-Channel::Channel(Channel const &src) : _name(src._name),
+Channel::Channel(Channel const &src) : name(src.name),
 	_operators(src._operators), _all_users(src._all_users) {}
 
 Channel::~Channel(void) {}
 
 Channel	&Channel::operator=(Channel const &src)
 {
-	_name = src._name;
+	name = src.name;
 	_operators = src._operators;
 	_all_users = src._all_users;
+	return (*this);
 }
 
 void	Channel::add_regular_user(Client *user)
@@ -49,14 +50,14 @@ void	Channel::remove_user(Client *user)
 		_all_users.erase(it);
 }
 
-std::string	Channel::get_name(void) const
+std::vector<Client *>	Channel::get_chan_users(void) const
 {
-	return (_name);
+	return (_all_users);
 }
 
-void		Channel::set_name(std::string const &new_name)
+std::vector<Client *>	Channel::get_chan_operators(void) const
 {
-	_name = new_name;
+	return (_operators);
 }
 
 // int	Channel::msg_to_channel(const char *msg) const

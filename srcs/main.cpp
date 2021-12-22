@@ -48,12 +48,8 @@ int	handle_new_accept(int sock_fd)
 	client_addr_size = sizeof(client_addr);
 	if ((client_sock = accept(sock_fd,
 		reinterpret_cast<sockaddr *>(&client_addr), &client_addr_size)) == -1)
-	{
-		// std::cerr << strerror(client_sock) << std::endl;
 		return (-1);
-	}
 	fcntl(client_sock, F_SETFL, O_NONBLOCK);
-	
 	if (send(client_sock, "Connecté\n", 10, 0) == -1)
 	{
 		std::cerr << "send \"Connecté\" error" << std::endl;
@@ -63,7 +59,7 @@ int	handle_new_accept(int sock_fd)
 }
 
 void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
-	int const &sock_fd)
+	int const &sock_fd, std::vector<Channel> &channels)
 {
 	int		i;
 	pollfd	tmp_poll;
@@ -87,7 +83,7 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 			}
 			else if (fds[i].fd == 0)
 				exit(0);
-			else if (receive_msg(fds[i].fd, sock_fd, fds))
+			else if (receive_msg(fds[i].fd, sock_fd, fds, channels))
 				exit(1);
 			poll_ret--;
 		}
@@ -100,7 +96,8 @@ int main(void)
 	int		sock_fd;
 	int		poll_ret;
 	pollfd	tmp_poll;
-	std::vector<pollfd>	fds;
+	std::vector<pollfd>		fds;
+	std::vector<Channel>	channels;
 	
 	if ((sock_fd = get_listen_sock_fd()) == -1)
 		return (1);
@@ -116,7 +113,7 @@ int main(void)
 			std::cerr << "poll error wtf bruh" << std::endl;
 			return (1);
 		}
-		handle_poll_event(fds, poll_ret, sock_fd);
+		handle_poll_event(fds, poll_ret, sock_fd, channels);
 	}
 	return (0);
 }
