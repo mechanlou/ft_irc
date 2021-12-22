@@ -1,7 +1,4 @@
-#include "Channel.hpp"
-
-Channel::Channel(void)
-{}
+#include "ircserver.hpp"
 
 Channel::Channel(std::string name, Client *creator) : name(name)
 {
