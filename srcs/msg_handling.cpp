@@ -1,6 +1,49 @@
 #include "ircserver.hpp"
 
 
+void cpass(void)
+{
+   std::cout<< "mot de passe pour les serveurs" << std::endl;
+}
+
+void cnick(void)
+{
+   std::cout<< "NICKNAME" << std::endl;
+}
+
+void cuser(void)
+{
+   std::cout<< "USER" << std::endl;
+}
+
+void cquit(void)
+{
+   std::cout<< "QUIT" << std::endl;
+}
+
+int is_command(std::string message)
+{
+    std::string tab[4] = {"PASS", "NICK", "USER", "QUIT"}; 
+    void(*ftab[])(void) =
+    {
+        cpass,
+        cnick,
+        cuser,
+        cquit,
+    };
+    for(int i = 0; i < 4; i++)
+    {
+		
+	    if(message.find(tab[i]) != std::string::npos)
+        { 
+            (ftab[i])();
+            return (1);
+        }
+    }
+    return 0;
+}
+
+
 int	recv_entire_msg(int	src_fd, std::string *msg)
 {
 	int		recv_ret;
@@ -27,6 +70,8 @@ int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds)
 	std::string						received_msg;
 	
 	recv_ret = recv_entire_msg(src_fd, &received_msg);
+	if(is_command(received_msg))
+	{}
 	if (recv_ret < 0)
 		return (-1);
 	else if (!recv_ret)
