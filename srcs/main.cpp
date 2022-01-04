@@ -98,7 +98,8 @@ int main(void)
 	pollfd	tmp_poll;
 	std::vector<pollfd>		fds;
 	std::vector<Channel>	channels;
-	
+	std::vector<Client>		clients;
+
 	if ((sock_fd = get_listen_sock_fd()) == -1)
 		return (1);
 	tmp_poll.fd = sock_fd;

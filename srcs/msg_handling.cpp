@@ -1,6 +1,5 @@
 #include "ircserver.hpp"
 
-
 int	recv_entire_msg(int	src_fd, std::string *msg)
 {
 	int		recv_ret;
