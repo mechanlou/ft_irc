@@ -24,7 +24,13 @@ class	Channel
 
 	private :
 
+	//std::string				_topic;
+	//std::string				_password;
 	std::string				_name;
 	std::vector<Client *>	_operators;
 	std::vector<Client *>	_all_users;
+	
+	//std::vector<Client *>	_ban;
+	//std::vector<Client *>	_speakmodered;
+	//int size;
 };
