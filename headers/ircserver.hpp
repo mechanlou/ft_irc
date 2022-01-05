@@ -15,10 +15,13 @@
 #include <cstdlib>
 #include <exception>
 #include "Channel.hpp"
+#include "reply_codes.hpp"
+#include "reply_functions.hpp"
 
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
 #define PORT "1995"
+#define SERV_NAME "irc.example.net"
 
 class			ReplyDoesntExistException : public std::exception
 {
