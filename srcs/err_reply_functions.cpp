@@ -9,7 +9,7 @@ void	add_crlf(std::string &msg)
 std::string	get_reply_prefix(void) // pas utilisée
 {
 	std::string	msg(":"); // starts with ':'
-	msg += SERVER_NAME; // prefix (server name)
+	msg += SERV_NAME; // prefix (server name)
 	msg.push_back(' ');
 	return (msg);
 }
