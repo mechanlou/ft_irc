@@ -101,7 +101,6 @@ int main(void)
 	int		poll_ret;
 	pollfd	tmp_poll;
 	std::vector<pollfd>	fds;
-	
 	if ((sock_fd = get_listen_sock_fd()) == -1)
 		return (1);
 	tmp_poll.fd = sock_fd;
