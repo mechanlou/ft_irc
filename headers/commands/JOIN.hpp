@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:55:27 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/05 18:21:33 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/21 10:45:24 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ class JOIN : public commands
 {
     private:
 
-        void join_chan()
+        void join_chan(std::string name, client *cli, std::vector<channel *> *chan)
     public:
-        void execute(std::string argument, Client *client, &Channel Channel);
+        void execute(std::string argument, Client *client, std::vector<channel *> *chan);
         JOIN()
         ~JOIN();
 }
 
-void JOIN::excute(std::string argument, Client *client, &Channel)
+void JOIN::excute(std::string argument, Client *client, std::vector<channel *> *chan)
 {
     if(argument == "#")
     {

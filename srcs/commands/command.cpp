@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:35:12 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/05 16:49:54 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/21 10:52:28 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Channel* commands::_check_chan(std::string name, std::vector<Channel *> *chan) c
     {
         c = *it;
         if(name == c->get_name())
-            return (chan);
+            return (c);
     }
     return (NULL);
 }
@@ -36,13 +36,13 @@ Channel* commands::_check_chan(std::string name, std::vector<Channel *> *chan) c
 bool commands::_check_client(Client *user, std::vector<Channel *> *chan)
 {
     std::vector<Client *> members = chan->getMember();
-    std::vector<Channel *>::iterator it = chan->begin();
+    std::vector<Client *>::iterator it = members.begin();
     Client *c;
     
-   for(;it != chan->end() ; it++)
+   for(;it != members.end() ; it++)
    {
        c = *it;
-       if(user->get_sock_fd() == c->get_sock_fd)
+       if(user->get_sock_fd() == c->get_sock_fd())
         return true;
    }
    return false;

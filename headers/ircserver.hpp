@@ -34,6 +34,3 @@ int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds);
 int	send_msg_to_others(int src_fd, int sock_fd,
 	std::vector<pollfd> &fds, const char *msg);
 int	send_message_fd(int	dest_fd, const char *msg);
-
-/*class serve
-}
