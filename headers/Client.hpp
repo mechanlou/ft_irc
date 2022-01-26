@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:00:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/21 10:05:13 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 16:00:51 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,27 @@ class Client
     private:
         std::string _nickname;
         std::string _name;
+        std::string _truename;
+        
         
         std::vector<std::string> *invit;
-        
+        sockaddr_in	_address;
         int     _sock_fd;
         bool    _op;
+		bool	_register;
     
     public:
+        Client(int sfd, sockaddr_in address);
+        ~Client();
         std::string get_nickname();
         std::string get_name();
+        std::string get_truename();
+		std::string get_ip();
         int         get_sock_fd();
         bool        get_op();
         void        set_nickname(std::string nick);
         void        set_name(std::string name);
-        
+        void        set_truename(std::string name);
+		void		set_register(bool b);
  
 };
