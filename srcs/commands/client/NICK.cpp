@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/21 11:41:00 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 15:31:16 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool nick:: _checknick(std::string user, std::vector<Client *> *clients)
     for (std::vector<Client *>::iterator it = clients->begin(); it != clients->end(); it++)
 	{
 		Client *c = *it;
-		if (c->getNick() == user)
+		if (c->get_nick() == user)
 			return false;
 	}
 	return true;
@@ -47,7 +47,13 @@ bool nick::_validnick(std::string nick)
 
 void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<Channel *> *chan)
 {
-    
+    std::vector<Client *> informe;
+	
+	for(std::vector<Channel *>::iterator it = chan->begin(); it != chan->end(); it++)
+	{
+		Channel *c = *it;
+		if(c->is_members(cli->get_nick))
+	}
 }
 
 void nick::excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<Client *> *Clients)
@@ -67,7 +73,7 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel *> *chan, st
     std::string nick = buf.substr(begin,len);
     if(nick[0] == ':')
         nick = nick.substr(1, nick.length() - 1);
-    if(nick == cli->getNick())
+    if(nick == cli->get_nickname())
         return;
     if (!_validnick(nick))
 	{

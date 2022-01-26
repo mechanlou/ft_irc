@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:55:27 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/21 10:45:24 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 15:21:42 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void JOIN::excute(std::string argument, Client *client, std::vector<channel *> *
         return;
     }
     
-    int space = argument.find(' ')
+    int space = argument.find(' ');
     
 }
