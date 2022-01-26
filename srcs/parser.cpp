@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/21 10:41:49 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 17:53:22 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void parser::parse(std::string buf, Client *cli)
 		_pass.excute();
 		
 	if(com == "NICK")
-		_nick.excute();
+		_nick.excute(buf,cli,&channels,_client_serv);
 		
 	if(com == "USER")
 		_user.excute();

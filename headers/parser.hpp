@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/21 10:34:57 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 17:50:52 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ private:
 	NAMES		_names;
 	PART		_part;
 	KILL		_kill;
-	NICK		_nick;
+	nick		_nick;
 	MODE		_mode;
 	OPER		_oper;
 	PRIVMSG		_privmsg;
