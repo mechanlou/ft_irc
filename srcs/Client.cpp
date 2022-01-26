@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:32:11 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 16:09:55 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 16:57:28 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,26 @@ void Client::set_truename(std::string truename)
     _truename = truename;
 }
 
-void Client::set_register()
+void Client::set_register(bool b)
+{
+	_register = b;
+}
+
+bool Client::is_invited(std::string chan)
+{
+	for(std::vector<std::string>::iterator it = invit->begin(); it != invit->end(); it++)
+	{
+		if(chan == *it)
+			return(true);
+	}
+	return(false);
+}
+
+void Client::add_chan_inv(std::string chan)
+{
+	if(!(is_invited(chan)))
+	{
+		invit->push_back(chan);
+	}
+}
+

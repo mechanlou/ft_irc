@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:00:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 16:00:51 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 16:48:40 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ class Client
         void        set_name(std::string name);
         void        set_truename(std::string name);
 		void		set_register(bool b);
+		void		add_chan_inv(std::string chan);
+		bool		is_invited(std::string chan);
  
 };

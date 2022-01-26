@@ -1,19 +1,19 @@
 #include "ircserver.hpp"
 
-Channel::Channel(std::string name, Client *creator) : name(name)
+Channel::Channel(std::string name, Client *creator) : _name(name)
 {
 	_all_users.push_back(creator);
 	_operators.push_back(creator);
 }
 
-Channel::Channel(Channel const &src) : name(src.name),
+Channel::Channel(Channel const &src) : _name(src._name),
 	_operators(src._operators), _all_users(src._all_users) {}
 
 Channel::~Channel(void) {}
 
 Channel	&Channel::operator=(Channel const &src)
 {
-	name = src.name;
+	_name = src._name;
 	_operators = src._operators;
 	_all_users = src._all_users;
 	return (*this);
