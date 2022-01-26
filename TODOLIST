@@ -1,0 +1,64 @@
+srcs:http://abcdrfc.free.fr/rfc-vf/rfc1459.html#411
+
+
+list Command server:
+
+Commande : PASS
+Paramètres : <mot de passe>
+
+Commande : NICK
+Paramètres : <pseudonyme> [ <compteur de distance> ]
+
+Commande: USER
+Paramètres: <nom utilisateur> <hôte> <nom de serveur> <nom réel>
+
+Commande: QUIT
+Paramètres: [<Message de départ >]
+
+Commande: PART
+Paramètres: <canal>{,< canal >}
+
+Commande: OPER
+Paramètres: <utilisateur> <mot de passe>
+
+Commande Channel:
+
+Commande: JOIN
+Paramètres: <canal>{,<canal>} [<clé>{,<clé>}]
+
+Commande: MODE
+Paramètres: <canal> {[+|-]|o|p|s|i|t|n|b|v} [<limite>] [<utilisateur>] [<masque de bannissement >]
+
+o - donne/retire les privilèges d'opérateur de canal
+p - drapeau de canal privé
+s - drapeau de canal secret
+i - drapeau de canal accessible uniquement sur invitation
+t - drapeau de sujet de canal modifiable uniquement par les opérateurs
+n - pas de messages dans un canal provenant de clients à l'extérieur du canal
+m - canal modéré
+l - définit le nombre maximal de personnes dans un canal
+b - définit un masque de bannissement pour interdire l'accès à des utilisateurs
+v - donne/retire la possibilité de parler dans un canal modéré
+k - définit la clé du canal (mot de passe)
+
+Commande: MODE (for user)
+Paramètres: <pseudonyme> {[+|-]|i|w|s|o}
+i - marque un utilisateur comme invisible ;
+s - marque un utilisateur comme recevant les notifications du serveur ;
+w - l'utilisateur reçoit les WALLOPs ;
+o - drapeau d'opérateur
+
+Commande: TOPIC
+Paramètres: <canal> [<sujet>]
+
+Commande: NAMES
+Paramètres: [<canal>{,<canal>}]
+
+Commande: LIST
+Paramètres: [<canal>{,<canal>} [<serveur>]]
+
+Commande: INVITE
+Paramètres: <pseudonyme> <canal>
+
+Commande: KICK
+Paramètres: <canal> <utilisateur> [<commentaire>]

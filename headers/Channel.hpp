@@ -25,9 +25,16 @@ class	Channel
 	std::vector<Client *>	get_chan_operators(void) const;
 
 	// int		msg_to_channel(const char *msg) const;
-
+  std::string				_name;
+  //std::string				_topic;
+	//std::string				_password;
+  //int size;
 	private :
 
 	std::vector<Client *>	_operators;
 	std::vector<Client *>	_all_users;
+	
+	//std::vector<Client *>	_ban;
+	//std::vector<Client *>	_speakmodered;
+	
 };

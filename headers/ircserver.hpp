@@ -20,9 +20,11 @@
 #include "reply_codes.hpp"
 #include "reply_functions.hpp"
 
+
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
 #define PORT "1995"
+
 #define SERV_NAME "irc.tamere.net"
 #define VERSION "6.6.7"
 #define	START_DATE "not long ago acutally"
