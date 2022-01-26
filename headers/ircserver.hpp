@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <exception>
 #include <ctime>
+#include <algorithm>
 #include "Channel.hpp"
 #include "reply_codes.hpp"
 #include "reply_functions.hpp"

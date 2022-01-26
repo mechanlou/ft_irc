@@ -9,6 +9,7 @@ class	Channel
 	public :
 
 	std::string	name;
+	char		mode;
 
 	Channel(void);
 	Channel(std::string name, Client *creator);

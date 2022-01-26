@@ -488,14 +488,28 @@ int	rpl_endofwho(int fd, std::string dest_nick, std::string name)
 	return (send_message_fd(fd, msg.c_str()));
 }
 
-int	rpl_namreply(int fd, std::string dest_nick, std::string reply) // arevoir
+int	rpl_namreply(int fd, std::string dest_nick, Channel chan) // arevoir
 {
 	std::string	msg(RPL_NAMREPLY);
+	std::vector<Client *>::iterator it = chan.get_chan_users().begin();
+	std::vector<Client *>::iterator it_end = chan.get_chan_users().end();
+	std::vector<Client *>::iterator it_op = chan.get_chan_operators().begin();
+	std::vector<Client *>::iterator it_op_end = chan.get_chan_operators().end();
 
 	msg.push_back(' ');
 	msg += dest_nick;
 	msg.push_back(' ');
-	msg += reply;
+	msg += chan.name;
+	msg += " :";
+	while (it != it_end)
+	{
+		if (std::find(it_op, it_op_end, *it) != it_op_end)
+			msg.push_back('@');
+		msg += (*it)->nickname;
+		it++;
+		if (it != it_end)
+			msg.push_back(' ');
+	}
 	add_crlf(msg);
 	return (send_message_fd(fd, msg.c_str()));
 }
