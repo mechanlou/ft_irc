@@ -488,31 +488,31 @@ int	rpl_endofwho(int fd, std::string dest_nick, std::string name)
 	return (send_message_fd(fd, msg.c_str()));
 }
 
-int	rpl_namreply(int fd, std::string dest_nick, Channel chan) // arevoir
-{
-	std::string	msg(RPL_NAMREPLY);
-	std::vector<Client *>::iterator it = chan.get_chan_users().begin();
-	std::vector<Client *>::iterator it_end = chan.get_chan_users().end();
-	std::vector<Client *>::iterator it_op = chan.get_chan_operators().begin();
-	std::vector<Client *>::iterator it_op_end = chan.get_chan_operators().end();
+// int	rpl_namreply(int fd, std::string dest_nick, Channel chan) // AREVOIR
+// {
+// 	std::string	msg(RPL_NAMREPLY);
+// 	std::vector<Client *>::iterator it = chan.get_chan_users().begin();
+// 	std::vector<Client *>::iterator it_end = chan.get_chan_users().end();
+// 	std::vector<Client *>::iterator it_op = chan.get_chan_operators().begin();
+// 	std::vector<Client *>::iterator it_op_end = chan.get_chan_operators().end();
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg.push_back(' ');
-	msg += chan.name;
-	msg += " :";
-	while (it != it_end)
-	{
-		if (std::find(it_op, it_op_end, *it) != it_op_end)
-			msg.push_back('@');
-		msg += (*it)->nickname;
-		it++;
-		if (it != it_end)
-			msg.push_back(' ');
-	}
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg.push_back(' ');
+// 	msg += chan.name;
+// 	msg += " :";
+// 	while (it != it_end)
+// 	{
+// 		if (std::find(it_op, it_op_end, *it) != it_op_end)
+// 			msg.push_back('@');
+// 		msg += (*it)->nickname;
+// 		it++;
+// 		if (it != it_end)
+// 			msg.push_back(' ');
+// 	}
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
 int	rpl_endofnames(int fd, std::string dest_nick, std::string channel)
 {
@@ -737,343 +737,344 @@ int	rpl_nousers(int fd, std::string dest_nick)
 	return (send_message_fd(fd, msg.c_str()));
 }
 
-int	rpl_tracelink(int fd, std::string dest_nick)
+// int	rpl_tracelink(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(RPL_TRACELINK);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_traceconnecting(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_tracehandshake(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_traceunknown(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_traceoperator(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_traceuser(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_traceserver(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_tracenewtype(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_tracelog(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statslinkinfo(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(RPL_STATSLINKINFO);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statscommands(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statscline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statsnline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statsiline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statskline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statsyline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_endofstats(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statslline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statsuptime(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statsoline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+// int	rpl_statshline(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
+
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
+
+int	rpl_umodeis(int fd, std::string dest_nick, std::string user_mode)
 {
-	std::string	msg(RPL_TRACELINK);
+	std::string	msg(RPL_UMODEIS);
 
 	msg.push_back(' ');
 	msg += dest_nick;
-	msg += "";
+	msg.push_back(' ');
+	msg += user_mode;
 	add_crlf(msg);
 	return (send_message_fd(fd, msg.c_str()));
 }
 
-int	rpl_traceconnecting(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_luserclient(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(RPL_LUSERCLIENT);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_tracehandshake(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_luserop(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_traceunknown(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_luserunknown(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_traceoperator(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_luserchannels(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_traceuser(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_luserme(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_traceserver(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_adminme(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_tracenewtype(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_adminloc1(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_tracelog(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_adminloc2(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
 
-int	rpl_statslinkinfo(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
+// int	rpl_adminemail(int fd, std::string dest_nick)
+// {
+// 	std::string	msg(ERR_NOTOPLEVEL);
 
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statscommands(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statscline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statsnline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statsiline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statskline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statsyline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_endofstats(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statslline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statsuptime(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statsoline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_statshline(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_umodeis(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_luserclient(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_luserop(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_luserunknown(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_luserchannels(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_luserme(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_adminme(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_adminloc1(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_adminloc2(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
-
-int	rpl_adminemail(int fd, std::string dest_nick)
-{
-	std::string	msg(ERR_NOTOPLEVEL);
-
-	msg.push_back(' ');
-	msg += dest_nick;
-	msg += "";
-	add_crlf(msg);
-	return (send_message_fd(fd, msg.c_str()));
-}
+// 	msg.push_back(' ');
+// 	msg += dest_nick;
+// 	msg += "";
+// 	add_crlf(msg);
+// 	return (send_message_fd(fd, msg.c_str()));
+// }
