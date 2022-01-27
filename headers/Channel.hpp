@@ -21,8 +21,6 @@ class	Channel
 	void		set_name(std::string const &new_name);
 
 	// int		msg_to_channel(const char *msg) const;
-	//std::string				_topic;
-	//std::string				_password;
 	std::string				_name;
 	//int size;
 
@@ -32,6 +30,4 @@ class	Channel
 	std::vector<Client *>	_operators;
 	std::vector<Client *>	_all_users;
 	
-	//std::vector<Client *>	_ban;
-	//std::vector<Client *>	_speakmodered;
 };
