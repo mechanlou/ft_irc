@@ -1,12 +1,13 @@
 #include "ircserver.hpp"
 
+
 int	rpl_welcome(int fd, std::string dest_nick, std::string user, std::string host)
 {
 	std::string	msg(RPL_WELCOME);
 
 	msg.push_back(' ');
 	msg += dest_nick;
-	msg += "Welcome to the Internet Relay Network ";
+	msg += " Welcome to the Internet Relay Network ";
 	msg += dest_nick;
 	msg.push_back('!');
 	msg += user;
@@ -56,6 +57,16 @@ int	rpl_myinfo(int fd, std::string dest_nick, std::string user_modes, std::strin
 	msg += user_modes;
 	msg.push_back(' ');
 	msg += channel_modes;
+	add_crlf(msg);
+	return (send_message_fd(fd, msg.c_str()));
+}
+
+int	rpl_pong(int fd)
+{
+	std::string	msg("PONG");
+
+	msg.push_back(' ');
+	msg += SERV_NAME;
 	add_crlf(msg);
 	return (send_message_fd(fd, msg.c_str()));
 }

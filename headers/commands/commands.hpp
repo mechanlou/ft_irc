@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:11:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/21 10:45:41 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 17:02:27 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Channel.hpp"
+#include "Channel.hpp"
 #include "ircserver.hpp"
 
 class commands
@@ -22,5 +22,3 @@ class commands
         commands();
         virtual ~commands();
 };
-
-
