@@ -50,15 +50,17 @@ void	Channel::remove_user(Client *user)
 		_all_users.erase(it);
 }
 
-std::vector<Client *>	Channel::get_chan_users(void) const
+std::vector<Client *>	Channel::get_all_users() const
 {
 	return (_all_users);
 }
 
-std::vector<Client *>	Channel::get_chan_operators(void) const
+std::vector<Client *>	Channel::get_operators() const
 {
 	return (_operators);
 }
+
+
 
 // int	Channel::msg_to_channel(const char *msg) const
 // {

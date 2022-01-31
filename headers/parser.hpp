@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/27 16:21:04 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/31 17:32:22 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ class parser
 {
 private:
     JOIN		_join;
-    PASS		_pass;
-    USER		_user;
+    pass		_pass;
+    user		_user;
 	KICK		_kick;
 	nick		_nick;
 	OPER		_oper;

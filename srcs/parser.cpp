@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 17:53:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/31 17:42:18 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void parser::parse(std::string buf, Client *cli)
 	std::cout << "commande =" << com << std::endl;
 	
 	if(com == "PASS")
-		_pass.excute();
+		_pass.excute(buf, cli);
 		
-	if(com == "NICK")
-		_nick.excute(buf,cli,&channels,_client_serv);
+	if(com == "NICK" && cli->_etat == 1)
+		_nick.excute(buf,cli, &channels, _client_serv);
 		
 	if(com == "USER")
-		_user.excute();
+		_user.excute(buf, cli);
 		
 	if(com == "OPER")
 		_oper.excute();

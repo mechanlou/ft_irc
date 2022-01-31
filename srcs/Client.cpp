@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:32:11 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 16:57:28 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/01/31 14:23:57 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ Client::Client(int sfd, sockaddr_in address)
     _sock_fd = sfd;
     _address = address;
     _register = false;
+    _etat = 0;
 }
 
 Client::~Client()

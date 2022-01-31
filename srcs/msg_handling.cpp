@@ -28,8 +28,6 @@ int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds,
 	
 	(void) channels;
 	recv_ret = recv_entire_msg(src_fd, &received_msg);
-	if(is_command(received_msg))
-	{}
 	if (recv_ret < 0)
 		return (-1);
 	else if (!recv_ret)
