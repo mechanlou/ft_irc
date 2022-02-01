@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/31 17:30:32 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 14:30:08 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,16 @@ void user::excute(std::string buf, Client *cli)
     {
         err_alreadyregistered(cli->get_sock_fd());
         return;
+    }
+}
+
+void user::_register(Client *cli)
+{
+    
+    if(cli->get_name().empty() || cli->get_nickname().empty() || cli->get_truename().empty())
+        return;
+    if(cli->get_pass() == servpass)
+    {
+        cli->set_register(true);
     }
 }

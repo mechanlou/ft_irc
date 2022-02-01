@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/31 17:42:18 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 14:21:08 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void parser::parse(std::string buf, Client *cli)
 		_nick.excute(buf,cli, &channels, _client_serv);
 		
 	if(com == "USER")
+	{
 		_user.excute(buf, cli);
-		
+		_user.register(cli);
+	}	
 	if(com == "OPER")
 		_oper.excute();
 		

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:32:11 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/31 14:23:57 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:23:32 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ Client::Client(int sfd, sockaddr_in address)
     _sock_fd = sfd;
     _address = address;
     _register = false;
+    _op = false;
     _etat = 0;
 }
 
@@ -46,6 +47,12 @@ std::string Client::get_ip()
     return (ip);
 }
 
+std::string Client::get_pass()
+{
+    return(_password);
+}
+
+
 int Client::get_sock_fd()
 {
     return(_sock_fd);
@@ -55,6 +62,17 @@ bool Client::get_op()
 {
     return(_op);
 }
+
+bool Client::get_register()
+{
+    return(_register);
+}
+
+int Client::get_etat()
+{
+    return(_etat);
+}
+
 
 void Client::set_nickname(std::string nick)
 {
@@ -76,21 +94,12 @@ void Client::set_register(bool b)
 	_register = b;
 }
 
-bool Client::is_invited(std::string chan)
+void Client::set_pass(std::string pass)
 {
-	for(std::vector<std::string>::iterator it = invit->begin(); it != invit->end(); it++)
-	{
-		if(chan == *it)
-			return(true);
-	}
-	return(false);
+    _password = pass;
 }
 
-void Client::add_chan_inv(std::string chan)
+void Client::set_etat()
 {
-	if(!(is_invited(chan)))
-	{
-		invit->push_back(chan);
-	}
+    _etat = 1;
 }
-

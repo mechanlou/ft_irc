@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:16:03 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/31 15:26:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 14:29:04 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ class user: public commands
         user();
         ~user();
         void excute(std::string buf, Client *cli);
-                
+        void _register(Client *cli);
 };

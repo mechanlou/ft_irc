@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 14:25:46 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/31 16:12:32 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 14:08:16 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 class pass: public commands
 {
-    private:
     
     public:
         pass();
