@@ -19,17 +19,22 @@
 #include "Channel.hpp"
 #include "reply_codes.hpp"
 #include "reply_functions.hpp"
+#include "parser.hpp"
 #include "commands/commands.hpp"
 
 
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
-#define PORT "1995"
+#define PORT "6667"
+#define PASSWORD "bonjour"
 
 #define SERV_NAME "irc.tamere.net"
 #define VERSION "6.6.7"
 #define	START_DATE "not long ago acutally"
 #define PROTOCOLE_VERSION "2.9"
+
+
+class parser;
 
 struct msg_content
 {

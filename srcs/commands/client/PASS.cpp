@@ -6,22 +6,36 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:43:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/21 10:42:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:40:48 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../headers/commands/commands.hpp"
+#include "PASS.hpp"
 
-int checkpass(Client *cli ,std::string pass)
+pass::pass()
 {
-    if(pass.empty())
-        return(ERR_NEEDMOREPARAMS); 
-    if(cli->etat != 0)
-        return(ERR_ALREADYREGISTRED);
-    if(pass == PASSWORD)
-        cli->etat++;
-    else
-     send_message_fd(cli->sock_fd,"bad password");
-    return(0);
+    
+}
+
+pass::~pass()
+{
+    
+}
+
+void pass::excute(std::string buf, Client *cli)
+{
+    if(cli->get_register())
+    {
+        err_alreadyregistered(cli->get_sock_fd());
+        return;
+    }
+    if(buf.find(' ') == buf.npos)
+    {
+        err_needmoreparams(cli->get_sock_fd(),cli->get_nickname(), buf.substr(0, 4));
+        return;
+    }
+    std::string mdp = buf.substr(5,buf.length() - 5); 
+    cli->set_pass(mdp);
+    cli->set_etat();
 }

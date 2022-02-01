@@ -6,23 +6,23 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:55:27 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 17:02:23 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:40:20 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.hpp"
 
-class JOIN : public commands
+class join : public commands
 {
     private:
 
-        void join_chan(std::string name, client *cli, std::vector<channel *> *chan)
+      //  void join_chan(std::string name, client *cli, std::vector<channel *> *chan);
     public:
-        void execute(std::string argument, Client *client, std::vector<channel *> *chan);
-        JOIN()
-        ~JOIN();
-}
-
+       // void execute(std::string argument, Client *client, std::vector<channel *> *chan);
+        join(){};
+        ~join(){};
+};
+/*
 void JOIN::excute(std::string argument, Client *client, std::vector<channel *> *chan)
 {
     if(argument == "#")
@@ -34,4 +34,4 @@ void JOIN::excute(std::string argument, Client *client, std::vector<channel *> *
     
     int space = argument.find(' ');
     
-}
+}*/

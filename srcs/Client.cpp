@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:32:11 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/31 14:05:16 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:23:32 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ Client::Client(int sfd, sockaddr_in address)
     _sock_fd = sfd;
     _address = address;
     _register = false;
+    _op = false;
+    _etat = 0;
 }
 
 Client::~Client()
@@ -45,6 +47,12 @@ std::string Client::get_ip()
     return (ip);
 }
 
+std::string Client::get_pass()
+{
+    return(_password);
+}
+
+
 int Client::get_sock_fd()
 {
     return(_sock_fd);
@@ -54,6 +62,17 @@ bool Client::get_op()
 {
     return(_op);
 }
+
+bool Client::get_register()
+{
+    return(_register);
+}
+
+int Client::get_etat()
+{
+    return(_etat);
+}
+
 
 void Client::set_nickname(std::string nick)
 {
@@ -70,4 +89,17 @@ void Client::set_truename(std::string truename)
     _truename = truename;
 }
 
-void Client::set_register()
+void Client::set_register(bool b)
+{
+	_register = b;
+}
+
+void Client::set_pass(std::string pass)
+{
+    _password = pass;
+}
+
+void Client::set_etat()
+{
+    _etat = 1;
+}
