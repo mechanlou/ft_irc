@@ -65,17 +65,17 @@ bool Channel::is_members(std::string client)
 	
 }
 
-// int	Channel::msg_to_channel(const char *msg) const
-// {
-// 	std::vector<Client *>::iterator it;
-// 	std::vector<Client *>::iterator end;
+int	Channel::msg_to_channel(const char *msg) const
+{
+	std::vector<Client *>::iterator it;
+	std::vector<Client *>::iterator end;
 
-// 	it = _all_users.begin();
-// 	end = _all_users.end();
-// 	while (it != end)
-// 	{
-// 		if (send_message_fd((*it)->sock_fd, msg) == -1)
-// 			return (-1);
-// 		it++;
-// 	}
-// }
+	it = _all_users.begin();
+	end = _all_users.end();
+	while (it != end)
+	{
+		if (send_message_fd((*it)->sock_fd, msg) == -1)
+			return (-1);
+		it++;
+	}
+}

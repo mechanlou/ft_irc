@@ -1,6 +1,6 @@
 #include "ircserver.hpp"
 
-int	recv_entire_msg(int	src_fd, std::string *msg)
+int	recv_entire_msg(int	src_fd, std::string *msg) // NEED TO READ ONCE PER POLL
 {
 	int		recv_ret;
 	char	buff[BUFFER_SIZE];
@@ -27,7 +27,10 @@ int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds)
 	
 	recv_ret = recv_entire_msg(src_fd, &received_msg);
 	if (recv_ret < 0)
+	{
+		perror("recv");
 		return (-1);
+	}
 	else if (!recv_ret)
 	{
 		it = fds.begin();

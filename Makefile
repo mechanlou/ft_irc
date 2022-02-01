@@ -3,6 +3,7 @@ NAME = server
 HEADERS_DIR = headers
 
 HEADERS =	headers/Channel.hpp \
+			headers/Client.hpp \
 			headers/ircserver.hpp
 
 SRCS =	srcs/main.cpp \

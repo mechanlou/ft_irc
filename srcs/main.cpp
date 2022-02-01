@@ -50,7 +50,8 @@ int	handle_new_accept(int sock_fd, std::vector<Client> &all_clients)
 		reinterpret_cast<sockaddr *>(&client_addr), &client_addr_size)) == -1)
 		return (-1);
 	fcntl(client_sock, F_SETFL, O_NONBLOCK);
-	std::cout << inet_ntoa(client_addr.sin_addr) << " connecté au fd " << client_sock << std::endl;
+	std::cout << inet_ntoa(client_addr.sin_addr) << " connecté au fd "
+		<< client_sock << std::endl;
 	all_clients.push_back(Client(client_sock, client_addr));
 	return (client_sock);
 }
@@ -81,6 +82,12 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 				exit(1);
 			poll_ret--;
 		}
+		// if (fds[i].revents & POLLOUT)
+		// {
+		// 	if (send_pending_msg(fds[i], sock_fd, fds))
+		// 		exit(1);
+		// 	poll_ret--;
+		// }
 		i++;
 	}
 }
@@ -92,8 +99,8 @@ int main(void)
 	pollfd	tmp_poll;
 
 	std::vector<pollfd>		fds;
-	// std::vector<Channel>	channels;
 	std::vector<Client>		clients;
+	// std::vector<Channel>	channels;
 
 
 	if ((sock_fd = get_listen_sock_fd()) == -1)
