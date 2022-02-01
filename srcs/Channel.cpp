@@ -60,7 +60,10 @@ std::vector<Client *>	Channel::get_operators() const
 	return (_operators);
 }
 
-
+bool Channel::is_members(std::string client)
+{
+	
+}
 
 // int	Channel::msg_to_channel(const char *msg) const
 // {

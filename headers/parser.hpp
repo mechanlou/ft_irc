@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/31 17:32:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:46:04 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,24 @@ class channel;
 class parser
 {
 private:
-    JOIN		_join;
+    
     pass		_pass;
     user		_user;
-	KICK		_kick;
 	nick		_nick;
-	OPER		_oper;
-	PRIVMSG		_privmsg;
-	QUIT		_quit;
-	NOTICE		_notice;
+	join		_join;
+/*	kick		_kick;
+	oper		_oper;
+	privmsg		_privmsg;
+	quit	_quit;
+	notice		_notice;*/
 
 
-	std::vector<channel *> channels; 
+	//std::vector<channel *> channels; 
     
 public:
 	parser();
 	~parser();
-    void parse(std::string buf, Client *cli);
+    void parse(std::string buf, Client *cli, std::vector<Client *> *list_cli, std::vector<Channel *> *list_chan);
     
 };
 

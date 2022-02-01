@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:43:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 14:48:39 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:40:48 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void pass::excute(std::string buf, Client *cli)
     }
     std::string mdp = buf.substr(5,buf.length() - 5); 
     cli->set_pass(mdp);
-    cli->set_etat(1);
+    cli->set_etat();
 }

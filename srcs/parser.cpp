@@ -6,13 +6,13 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 14:21:08 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:58:57 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/parser.hpp"
 
-parser::~parser()
+parser::parser()
 {
 	
 }
@@ -22,7 +22,7 @@ parser::~parser()
 	
 }
 
-void parser::parse(std::string buf, Client *cli)
+void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli, std::vector<Channel *> *list_chan)
 {
 	int space = 0;
 
@@ -35,15 +35,15 @@ void parser::parse(std::string buf, Client *cli)
 	if(com == "PASS")
 		_pass.excute(buf, cli);
 		
-	if(com == "NICK" && cli->_etat == 1)
-		_nick.excute(buf,cli, &channels, _client_serv);
+	if(com == "NICK" && cli->get_etat() == 1)
+		_nick.excute(buf,cli, list_chan, list_cli);
 		
-	if(com == "USER")
+	if(com == "USER" && cli->get_etat() == 1)
 	{
 		_user.excute(buf, cli);
-		_user.register(cli);
+		_user._register(cli);
 	}	
-	if(com == "OPER")
+/*	if(com == "OPER")
 		_oper.excute();
 		
 	if(com == "QUIT")
@@ -79,13 +79,12 @@ void parser::parse(std::string buf, Client *cli)
 	if(com == "NOTICE")
 		_notice.excute();
 	
-	if(com == "WHO")
-		_who.excute();
+
 	
 	if(com == "KILL")
 		_kill.excute();
 	
-
+*/
 }
 
 

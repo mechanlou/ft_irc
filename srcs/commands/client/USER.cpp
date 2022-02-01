@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 14:30:08 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 15:46:29 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void user::_register(Client *cli)
     
     if(cli->get_name().empty() || cli->get_nickname().empty() || cli->get_truename().empty())
         return;
-    if(cli->get_pass() == servpass)
+    if(cli->get_pass() == PASSWORD)
     {
         cli->set_register(true);
     }
