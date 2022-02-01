@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 15:46:04 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 16:58:45 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "commands.hpp"
-#include "JOIN.hpp"
-#include "PASS.hpp"
-#include "USER.hpp"
-#include "PRIVMSG.hpp"
-#include "KICK.hpp"
-#include "OPER.hpp"
-#include "NICK.hpp"
-#include "NOTICE.hpp"
+#include "commands/JOIN.hpp"
+#include "commands/PASS.hpp"
+#include "commands/USER.hpp"
+#include "commands/PRIVMSG.hpp"
+#include "commands/KICK.hpp"
+#include "commands/OPER.hpp"
+#include "commands/NICK.hpp"
+#include "commands/NOTICE.hpp"
 
 
 

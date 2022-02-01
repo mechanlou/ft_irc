@@ -16,10 +16,10 @@
 #include <exception>
 #include <ctime>
 #include <algorithm>
-#include "Channel.hpp"
+// #include "Channel.hpp"
 #include "reply_codes.hpp"
 #include "reply_functions.hpp"
-#include "parser.hpp"
+// #include "parser.hpp"
 #include "commands/commands.hpp"
 
 
@@ -53,8 +53,7 @@ class			ReplyDoesntExistException : public std::exception
 };
 
 class	Channel;
-int			receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds,
-	std::vector<Channel> &channels);
+int			receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds);
 int			send_msg_to_others(int src_fd, int sock_fd,
 	std::vector<pollfd> &fds, const char *msg);
 int			send_message_fd(int	dest_fd, const char *msg);

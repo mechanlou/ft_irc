@@ -18,15 +18,13 @@ int	recv_entire_msg(int	src_fd, std::string *msg)
 	return (recv_ret);
 }
 
-int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds,
-	std::vector<Channel> &channels)
+int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds)
 {
 	int								recv_ret;
 	std::vector<pollfd>::iterator	it;
 	std::ostringstream				to_send;
 	std::string						received_msg;
 	
-	(void) channels;
 	recv_ret = recv_entire_msg(src_fd, &received_msg);
 	if (recv_ret < 0)
 		return (-1);

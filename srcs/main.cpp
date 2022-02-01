@@ -39,10 +39,10 @@ int	get_listen_sock_fd(void)
 	return (sock_fd);
 }
 
-int	handle_new_accept(int sock_fd)
+int	handle_new_accept(int sock_fd, std::vector<Client> &all_clients)
 {
 	int					client_sock;
-	sockaddr_storage	client_addr;
+	sockaddr_in			client_addr;
 	socklen_t			client_addr_size;
 
 	client_addr_size = sizeof(client_addr);
@@ -50,16 +50,13 @@ int	handle_new_accept(int sock_fd)
 		reinterpret_cast<sockaddr *>(&client_addr), &client_addr_size)) == -1)
 		return (-1);
 	fcntl(client_sock, F_SETFL, O_NONBLOCK);
-	if (send(client_sock, "Connecté\n", 10, 0) == -1)
-	{
-		std::cerr << "send \"Connecté\" error" << std::endl;
-		return (-1);
-	}
+	std::cout << inet_ntoa(client_addr.sin_addr) << " connecté au fd " << client_sock << std::endl;
+	all_clients.push_back(Client(client_sock, client_addr));
 	return (client_sock);
 }
 
 void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
-	int const &sock_fd, std::vector<Channel> &channels)
+	int const &sock_fd, std::vector<Client> &all_clients)
 {
 	int		i;
 	pollfd	tmp_poll;
@@ -73,17 +70,14 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 		{
 			if (fds[i].fd == sock_fd)
 			{
-				if ((tmp_poll.fd = handle_new_accept(sock_fd)) == -1)
+				if ((tmp_poll.fd = handle_new_accept(sock_fd, all_clients)) == -1)
 					perror("accept");
 				else
-				{
 					fds.push_back(tmp_poll);
-					std::cout << tmp_poll.fd << " connecté" << std::endl;
-				}
 			}
 			else if (fds[i].fd == 0)
 				exit(0);
-			else if (receive_msg(fds[i].fd, sock_fd, fds, channels))
+			else if (receive_msg(fds[i].fd, sock_fd, fds))
 				exit(1);
 			poll_ret--;
 		}
@@ -98,7 +92,7 @@ int main(void)
 	pollfd	tmp_poll;
 
 	std::vector<pollfd>		fds;
-	std::vector<Channel>	channels;
+	// std::vector<Channel>	channels;
 	std::vector<Client>		clients;
 
 
@@ -116,7 +110,7 @@ int main(void)
 			std::cerr << "poll error wtf bruh" << std::endl;
 			return (1);
 		}
-		handle_poll_event(fds, poll_ret, sock_fd, channels);
+		handle_poll_event(fds, poll_ret, sock_fd, clients);
 	}
 	return (0);
 }

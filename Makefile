@@ -6,9 +6,10 @@ HEADERS =	headers/Channel.hpp \
 			headers/ircserver.hpp
 
 SRCS =	srcs/main.cpp \
-		srcs/Channel.cpp \
+		srcs/Client.cpp \
 		srcs/msg_handling.cpp \
 		srcs/msg_sending.cpp
+		# srcs/Channel.cpp \
 
 OBJS = ${SRCS:.cpp=.o}
 

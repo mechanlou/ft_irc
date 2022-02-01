@@ -2,7 +2,7 @@
 
 #include "ircserver.hpp"
 
-struct Client;
+class Client;
 
 class	Channel
 {
