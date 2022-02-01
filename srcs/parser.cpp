@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
 /*   Updated: 2022/02/01 15:58:57 by wperu            ###   ########lyon.fr   */

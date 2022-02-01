@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:00:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 15:21:34 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/01 16:17:18 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,4 @@ class Client
         void        set_name(std::string name);
         void        set_truename(std::string name);
 		void		set_register(bool b);
-		void		add_chan_inv(std::string chan);
-		bool		is_invited(std::string chan);
- 
 };

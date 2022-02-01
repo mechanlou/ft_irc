@@ -68,7 +68,7 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 	i = 0;
 	while (poll_ret)
 	{
-		fds.at(i);
+		fds.at(i); // throws exception if we ever get out of range
 		if (fds[i].revents & POLLIN)
 		{
 			if (fds[i].fd == sock_fd)

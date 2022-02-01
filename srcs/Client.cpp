@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:32:11 by wperu             #+#    #+#             */
 /*   Updated: 2022/02/01 15:23:32 by wperu            ###   ########lyon.fr   */
