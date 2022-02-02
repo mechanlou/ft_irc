@@ -112,13 +112,11 @@ int main(void)
 	fds.push_back(tmp_poll);
 	while (1)
 	{
-		std::cout << "start blocking" << std::endl;
 		if ((poll_ret = poll(&fds[0], fds.size(), -1)) == -1)
 		{
 			std::cerr << "poll error wtf bruh" << std::endl;
 			return (1);
 		}
-		std::cout << "stopped blocking" << std::endl;
 		handle_poll_event(fds, poll_ret, sock_fd, clients);
 	}
 	return (0);
