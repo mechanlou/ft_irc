@@ -60,12 +60,22 @@ std::vector<Client *>	Channel::get_operators() const
 	return (_operators);
 }
 
+std::string Channel::get_topic() const
+{
+	return(_topic);
+}
+
+void Channel::set_topic(std::string topic)
+{
+	_topic = topic;
+}
+
 bool Channel::is_members(std::string client)
 {
 	
 }
 
-int	Channel::msg_to_channel(const char *msg) const
+int	Channel::msg_to_channel(const char *msg)
 {
 	std::vector<Client *>::iterator it;
 	std::vector<Client *>::iterator end;
@@ -74,7 +84,7 @@ int	Channel::msg_to_channel(const char *msg) const
 	end = _all_users.end();
 	while (it != end)
 	{
-		if (send_message_fd((*it)->sock_fd, msg) == -1)
+		if (send_message_fd((*it)->get_sock_fd(), msg) == -1)
 			return (-1);
 		it++;
 	}

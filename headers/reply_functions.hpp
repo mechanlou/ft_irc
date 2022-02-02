@@ -80,8 +80,8 @@ int	rpl_whoischannels(int fd, std::string dest_nick, std::string nick,
 int	rpl_whowasuser(int fd, std::string dest_nick, std::string nick,
 	std::string user, std::string host, std::string real_name);
 int	rpl_endofwhowas(int fd, std::string dest_nick, std::string nick);
-// int	rpl_liststart(int fd, std::string dest_nick);
-int	rpl_list(int fd, std::string dest_nick, std::string channel, std::string visible, std::string topic);
+int	rpl_liststart(int fd);
+int	rpl_list(int fd, std::string channel);
 int	rpl_listend(int fd, std::string dest_nick);
 int	rpl_channelmodeis(int fd, std::string dest_nick, std::string channel,
 	std::string mode, std::string mode_params);

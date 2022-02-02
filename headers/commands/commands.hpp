@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:11:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 17:23:42 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/02 14:28:46 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 #include "Client.hpp"
 
 class commands
-{
+{           
     protected:
+        std::vector<std::string> _cmd;
+        
         Channel* _check_chan(std::string name, std::vector<Channel *> *chan) const;
         bool     _check_client(Client *user, Channel *chan);
+        void     _getcmd(std::string buf);
     public:
         commands();
         virtual ~commands();

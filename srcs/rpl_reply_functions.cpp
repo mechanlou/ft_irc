@@ -301,29 +301,22 @@ int	rpl_endofwhowas(int fd, std::string dest_nick, std::string nick)
 	return (send_message_fd(fd, msg.c_str()));
 }
 
-// int	rpl_liststart(int fd, std::string dest_nick)
-// {
-// 	std::string	msg(ERR_NOTOPLEVEL);
+int	rpl_liststart(int fd)
+{
+ 	std::string	msg(RPL_LISTSTART);
 
-// 	msg.push_back(' ');
-// 	msg += dest_nick;
-// 	msg += "";
-// 	add_crlf(msg);
-// 	return (send_message_fd(fd, msg.c_str()));
-// }
+ 	msg.push_back(' ');
+	msg += "Channel :Users Name";
+ 	add_crlf(msg);
+ 	return (send_message_fd(fd, msg.c_str()));
+}
 
-int	rpl_list(int fd, std::string dest_nick, std::string channel, std::string visible, std::string topic)
+int	rpl_list(int fd, std::string channel)
 {
 	std::string	msg(RPL_LIST);
 
 	msg.push_back(' ');
-	msg += dest_nick;
-	msg.push_back(' ');
 	msg += channel;
-	msg.push_back(' ');
-	msg += visible;
-	msg += " :";
-	msg += topic;
 	add_crlf(msg);
 	return (send_message_fd(fd, msg.c_str()));
 }
@@ -334,7 +327,7 @@ int	rpl_listend(int fd, std::string dest_nick)
 
 	msg.push_back(' ');
 	msg += dest_nick;
-	msg += ":End of LIST";
+	msg += ":End of /LIST";
 	add_crlf(msg);
 	return (send_message_fd(fd, msg.c_str()));
 }
