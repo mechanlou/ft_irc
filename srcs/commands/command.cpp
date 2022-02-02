@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:35:12 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/02 14:28:30 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/02 14:49:54 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void commands::_getcmd(std::string buf)
     char space = ' ';
     std::vector<std::string> cmd_tmp;
     std::string line;
-    std::stringstream ss;
+    std::stringstream ss(buf);
     while (std::getline(ss,line,space))
     {
         while(line.back() == '\n' || line.back() == '\r')
