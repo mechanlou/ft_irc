@@ -15,7 +15,7 @@ class	Channel
 	Channel	&operator=(Channel const &src);
 
 
-	void 					set_topic(std::string topic)
+	void 					set_topic(std::string topic);
 	void					add_regular_user(Client *user);
 	void					add_operator_user(Client *user);
 	void					remove_user(Client *user);

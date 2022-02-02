@@ -78,16 +78,16 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 			}
 			else if (fds[i].fd == 0)
 				exit(0);
-			else if (receive_msg(fds[i].fd, sock_fd, fds))
+			else if (receive_msg(fds[i].fd, fds, all_clients))
 				exit(1);
 			poll_ret--;
 		}
-		// if (fds[i].revents & POLLOUT)
-		// {
-		// 	if (send_pending_msg(fds[i], sock_fd, fds))
-		// 		exit(1);
-		// 	poll_ret--;
-		// }
+		if (fds[i].revents & POLLOUT)
+		{
+			if (send_pending_msg(get_client_from_fd(fds[i].fd, all_clients), fds))
+				exit(1);
+			poll_ret--;
+		}
 		i++;
 	}
 }
@@ -112,11 +112,13 @@ int main(void)
 	fds.push_back(tmp_poll);
 	while (1)
 	{
+		std::cout << "start blocking" << std::endl;
 		if ((poll_ret = poll(&fds[0], fds.size(), -1)) == -1)
 		{
 			std::cerr << "poll error wtf bruh" << std::endl;
 			return (1);
 		}
+		std::cout << "stopped blocking" << std::endl;
 		handle_poll_event(fds, poll_ret, sock_fd, clients);
 	}
 	return (0);

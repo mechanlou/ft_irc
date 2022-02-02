@@ -1,4 +1,4 @@
-#include "ircserver.cpp"
+#include "ircserver.hpp"
 
 std::string	extract_word(std::string msg, size_t &start)
 {
@@ -49,4 +49,19 @@ msg_content	pars_msg(std::string msg)
 		}
 	}
 	return (content);
+}
+
+Client	&get_client_from_fd(int src_fd, std::vector<Client> &clients)
+{
+	std::vector<Client>::iterator	it = clients.begin();
+	std::vector<Client>::iterator	end = clients.end();
+
+	while (it != end)
+	{
+		if (it->get_sock_fd() == src_fd)
+			return (*it);
+		it++;
+	}
+	throw (std::exception());
+	return (*it);
 }

@@ -1,29 +1,27 @@
 #include "ircserver.hpp"
 
-int	recv_entire_msg(int	src_fd, std::string *msg) // NEED TO READ ONCE PER POLL
+int	recv_entire_msg(int	src_fd, std::string *msg)
 {
 	int		recv_ret;
 	char	buff[BUFFER_SIZE];
 
-	do
+	recv_ret = recv(src_fd, buff, BUFFER_SIZE - 1, 0);
+	if (recv_ret > 0)
 	{
-		recv_ret = recv(src_fd, buff, BUFFER_SIZE - 1, 0);
-		if (recv_ret > 0)
-		{
-			buff[recv_ret] = '\0';
-			*msg += buff;
-		}
+		buff[recv_ret] = '\0';
+		*msg += buff;
 	}
-	while (recv_ret > 0 && !strchr(buff, '\n'));
 	return (recv_ret);
 }
 
-int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds)
+int	receive_msg(int src_fd, std::vector<pollfd> &fds,
+	std::vector<Client> &all_clients) // NEED TO REDO DISCONNECTIONS
 {
-	int								recv_ret;
 	std::vector<pollfd>::iterator	it;
+	int								recv_ret;
 	std::ostringstream				to_send;
 	std::string						received_msg;
+	Client				&src_client = get_client_from_fd(src_fd, all_clients);
 	
 	recv_ret = recv_entire_msg(src_fd, &received_msg);
 	if (recv_ret < 0)
@@ -46,12 +44,14 @@ int	receive_msg(int src_fd, int sock_fd, std::vector<pollfd> &fds)
 	}
 	else
 	{
-		to_send << src_fd << " : " << received_msg;
-		std::cout << to_send.str();
-		if (send_msg_to_others(src_fd, sock_fd, fds, (to_send.str()).c_str()) == -1)
+		src_client.recv_buffer += received_msg;
+		if (received_msg.find_first_of(END_OF_MSG) != std::string::npos)
 		{
-			std::cerr << "send error" << std::endl;
-			return (-1);
+			received_msg = src_client.recv_buffer;
+			src_client.recv_buffer.clear();
+			to_send << src_fd << " : " << received_msg;
+			std::cout << to_send.str();
+			send_msg_to_others(src_fd, all_clients, fds, (to_send.str()).c_str());
 		}
 	}
 	return (0);

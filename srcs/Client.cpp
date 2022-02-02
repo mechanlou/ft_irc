@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:32:11 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 15:23:32 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/02 15:41:42 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,49 +26,49 @@ Client::~Client()
     
 }
 
-std::string Client::get_nickname()
+std::string Client::get_nickname() const
 {
     return(_nickname);
 }
 
-std::string Client::get_name()
+std::string Client::get_name() const
 {
     return(_name);
 }
 
-std::string Client::get_truename()
+std::string Client::get_truename() const
 {
     return(_truename);
 }
 
-std::string Client::get_ip()
+std::string Client::get_ip() const
 {
     std::string ip = inet_ntoa(_address.sin_addr);
     return (ip);
 }
 
-std::string Client::get_pass()
+std::string Client::get_pass() const
 {
     return(_password);
 }
 
 
-int Client::get_sock_fd()
+int Client::get_sock_fd() const
 {
     return(_sock_fd);
 }
 
-bool Client::get_op()
+bool Client::get_op() const
 {
     return(_op);
 }
 
-bool Client::get_register()
+bool Client::get_register() const
 {
     return(_register);
 }
 
-int Client::get_etat()
+int Client::get_etat() const
 {
     return(_etat);
 }

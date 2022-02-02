@@ -2,11 +2,11 @@ NAME = server
 
 HEADERS_DIR = headers
 
-HEADERS =	headers/Channel.hpp \
-			headers/Client.hpp \
+HEADERS =	headers/Client.hpp \
 			headers/ircserver.hpp
 
 SRCS =	srcs/main.cpp \
+		srcs/utils.cpp \
 		srcs/Client.cpp \
 		srcs/msg_handling.cpp \
 		srcs/msg_sending.cpp
