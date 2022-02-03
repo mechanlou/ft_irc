@@ -1,5 +1,25 @@
 #include "ircserver.hpp"
 
+int	close_connection(int src_fd, std::vector<pollfd> &fds,
+	std::vector<Client> &all_clients) // CHANGE WAY WE REMOVE CLIENTS
+{
+	std::vector<pollfd>::iterator	it_fds = fds.begin();
+	std::vector<Client>::iterator	it_clients = all_clients.begin();
+
+	while (it_fds->fd != src_fd)
+		it_fds++;
+	fds.erase(it_fds);
+	while (it_clients->get_sock_fd() != src_fd)
+		it_clients++;
+	all_clients.erase(it_clients);
+	if (close(src_fd))
+	{
+		perror("close fd (what)");
+		return (-1);
+	}
+	return (0);
+}
+
 int	recv_entire_msg(int	src_fd, std::string *msg)
 {
 	int		recv_ret;
@@ -15,9 +35,8 @@ int	recv_entire_msg(int	src_fd, std::string *msg)
 }
 
 int	receive_msg(int src_fd, std::vector<pollfd> &fds,
-	std::vector<Client> &all_clients) // NEED TO REDO DISCONNECTIONS
+	std::vector<Client> &all_clients)
 {
-	std::vector<pollfd>::iterator	it;
 	int								recv_ret;
 	std::ostringstream				to_send;
 	std::string						received_msg;
@@ -31,16 +50,8 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	}
 	else if (!recv_ret)
 	{
-		it = fds.begin();
-		while ((*it).fd != src_fd)
-			it++;
-		fds.erase(it);
-		if (close(src_fd))
-		{
-			std::cerr << "close error (how ?)" << std::endl;
-			return (-1);
-		}
 		std::cout << src_fd << " déconnecté" << std::endl;
+		return (close_connection(src_fd, fds, all_clients));
 	}
 	else
 	{

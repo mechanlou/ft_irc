@@ -58,7 +58,6 @@ int			receive_msg(int src_fd,	std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients);
 void		add_crlf(std::string &msg);
 msg_content	pars_msg(std::string msg);
-Client		&get_client_from_fd(int src_fd, std::vector<Client> &clients);
 int			broadcast_msg(std::vector<Client> &all_clients,
 	std::vector<pollfd> &fds, const char *msg); // POUR BROADCAST UN MSG
 void		send_msg_to_others(int src_fd, std::vector<Client> &all_clients,

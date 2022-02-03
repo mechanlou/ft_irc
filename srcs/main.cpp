@@ -12,27 +12,27 @@ int	get_listen_sock_fd(void)
 	hints.ai_flags = AI_PASSIVE;
 	if (getaddrinfo(NULL, PORT, &hints, &serv_info))
 	{
-		std::cerr << "Struct error" << std::endl;
+		perror("Struct error");
 		return (-1);
 	}
 	if ((sock_fd = socket(serv_info->ai_family,
 		serv_info->ai_socktype, serv_info->ai_protocol)) == -1)
 	{
 		freeaddrinfo(serv_info);
-		std::cerr << "Socket error" << std::endl;
+		perror("Socket error");
 		return (-1);
 	}
 	fcntl(sock_fd, F_SETFL, O_NONBLOCK);
 	if (bind(sock_fd, serv_info->ai_addr, serv_info->ai_addrlen) == -1)
 	{
 		freeaddrinfo(serv_info);
-		std::cerr << "Bind error" << std::endl;
+		perror("Bind error");
 		return (-1);
 	}
 	if (listen(sock_fd, QUEUE_LEN) == -1)
 	{
 		freeaddrinfo(serv_info);
-		std::cerr << "Listen error" << std::endl;
+		perror("Listen error");
 		return (-1);
 	}
 	freeaddrinfo(serv_info);
@@ -76,8 +76,6 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 				else
 					fds.push_back(tmp_poll);
 			}
-			else if (fds[i].fd == 0)
-				exit(0);
 			else if (receive_msg(fds[i].fd, fds, all_clients))
 				exit(1);
 			poll_ret--;
@@ -105,18 +103,18 @@ int main(void)
 
 	if ((sock_fd = get_listen_sock_fd()) == -1)
 		return (1);
-	tmp_poll.fd = sock_fd;
 	tmp_poll.events = POLLIN;
-	fds.push_back(tmp_poll);
-	tmp_poll.fd = 0;
+	tmp_poll.fd = sock_fd;
 	fds.push_back(tmp_poll);
 	while (1)
 	{
+		// std::cout << "blocked" << std::endl;
 		if ((poll_ret = poll(&fds[0], fds.size(), -1)) == -1)
 		{
-			std::cerr << "poll error wtf bruh" << std::endl;
+			perror("poll error wtf bruh");
 			return (1);
 		}
+		// std::cout << "unblocked" << std::endl;
 		handle_poll_event(fds, poll_ret, sock_fd, clients);
 	}
 	return (0);
