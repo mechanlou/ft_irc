@@ -6,10 +6,11 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:55:27 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 15:40:20 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 16:26:37 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include "commands.hpp"
 
 class join : public commands

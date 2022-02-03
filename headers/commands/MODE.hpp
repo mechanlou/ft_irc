@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   MODE.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 14:05:59 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 14:06:09 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 16:26:50 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include "commands.hpp"
 

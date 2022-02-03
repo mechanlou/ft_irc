@@ -44,8 +44,9 @@ int	recv_entire_msg(int	src_fd, std::string *msg)
 int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients, std::vector<Channel> &all_channels)
 {
+	// std::ostringstream				to_send;
+	parser							tool;
 	int								recv_ret;
-	std::ostringstream				to_send;
 	std::string						received_msg;
 	Client				&src_client = get_client_from_fd(src_fd, all_clients);
 
@@ -62,15 +63,16 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	}
 	else
 	{
-		
 		src_client.recv_buffer += received_msg;
 		if (received_msg.find_first_of(END_OF_MSG) != std::string::npos)
 		{
 			received_msg = src_client.recv_buffer;
 			src_client.recv_buffer.clear();
-			to_send << src_fd << " : " << received_msg;
-			std::cout << to_send.str();
-			send_msg_to_others(src_fd, all_clients, fds, (to_send.str()).c_str());
+			tool.parse(received_msg, &get_client_from_fd(src_fd, all_clients),
+				all_clients, all_channels, fds); // parse call
+			// to_send << src_fd << " : " << received_msg;
+			// std::cout << to_send.str();
+			// send_msg_to_others(src_fd, all_clients, fds, (to_send.str()).c_str());
 		}
 	}
 	return (0);

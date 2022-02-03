@@ -2,6 +2,7 @@
 #include "ircserver.hpp"
 
 class Client;
+class Channel;
 
 // errors
 

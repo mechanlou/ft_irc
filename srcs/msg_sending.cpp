@@ -1,24 +1,5 @@
 #include "ircserver.hpp"
 
-// int	send_message_fd(Client &dest, const char *msg)
-// {
-// 	int	send_ret;
-// 	int	total_sent = 0;
-// 	int	msg_len = strlen(msg);
-
-// 	while (total_sent < msg_len)
-// 	{
-// 		send_ret = send(dest_fd, msg + total_sent, msg_len - total_sent, 0);
-// 		if (send_ret == -1)
-// 		{
-// 			perror("send message fd");
-// 			return (-1);
-// 		}
-// 		total_sent += send_ret;
-// 	}
-// 	return (0);
-// }
-
 void	send_msg_client(Client &dst, std::vector<pollfd> &fds, const char *msg)
 {
 	int	i;

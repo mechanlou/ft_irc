@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:56:07 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 17:33:55 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 16:26:57 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include "commands.hpp"
 
 class nick :public commands
