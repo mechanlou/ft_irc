@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/01/26 17:37:25 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 16:48:32 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<
 		Channel *c = *it;
 		if(c->is_members(cli->get_nickname()))
 		{
-			std::vector<Client *> clis = c->get_members();
+			std::vector<Client *> clis = c->get_all_users();
 			for(std::vector<Client *>::iterator its = clis.begin(); its != clis.end();its++)
 			{
 				Client *dest = *its;

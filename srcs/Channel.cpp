@@ -1,4 +1,5 @@
 #include "ircserver.hpp"
+#include "Channel.hpp"
 
 Channel::Channel(std::string name, Client *creator) : _name(name)
 {
@@ -70,10 +71,15 @@ void Channel::set_topic(std::string topic)
 	_topic = topic;
 }
 
-// bool Channel::is_members(std::string client)
-// {
-	
-// }
+ bool Channel::is_members(std::string client)
+ {
+	for(std::vector<Client *>::iterator it = _all_users.begin(); it != _all_users.end(); it++)
+	{
+		if((*it)->get_nickname() == client)
+			return true;
+	}
+	return false;
+ }
 
 void	Channel::msg_to_channel(const char *msg, std::vector<pollfd> &fds)
 {
