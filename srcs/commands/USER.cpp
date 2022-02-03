@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 15:46:29 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 18:11:29 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int user::_check_arg(std::string buf)
         return (i);
 }
 
-void user::excute(std::string buf, Client *cli)
+void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
 {
     if(buf.find(' ') == buf.npos)
     {
-        err_needmoreparams(cli->get_sock_fd(),cli->get_nickname(), buf.substr(0, 4));
+        err_needmoreparams(*cli,fds, buf.substr(0, 4));
         return;
     }
     buf = buf.substr(5, buf.length() - 5);
@@ -56,7 +56,7 @@ void user::excute(std::string buf, Client *cli)
     }
     if(realname.empty() || _check_arg(buf) < 3)
     {
-        err_needmoreparams(cli->get_sock_fd(),cli->get_nickname(), buf.substr(0, 4)));
+        err_needmoreparams(*cli,fds, buf.substr(0, 4));
         return;
     }
     
@@ -67,7 +67,7 @@ void user::excute(std::string buf, Client *cli)
     }
     else
     {
-        err_alreadyregistered(cli->get_sock_fd());
+        err_alreadyregistered(*cli,fds);
         return;
     }
 }

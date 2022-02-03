@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 16:52:51 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 18:44:27 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/parser.hpp"
+#include "parser.hpp"
 
 parser::parser()
 {
@@ -22,7 +22,7 @@ parser::~parser()
 	
 }
 
-void parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,
+void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,
 		std::vector<Channel *> *list_chan, std::vector<pollfd> &fds)
 {
 	int space = 0;
@@ -34,20 +34,22 @@ void parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,
 	std::cout << "commande =" << com << std::endl;
 	
 	if(com == "PASS")
-		_pass.excute(buf, cli);
-		
+		_pass.excute(buf, cli,fds);
 	if(com == "NICK" && cli->get_etat() == 1)
-		_nick.excute(buf,cli, list_chan, list_cli);
+		_nick.excute(buf,cli, list_chan, list_cli,fds);
 		
 	if(com == "USER" && cli->get_etat() == 1)
 	{
-		_user.excute(buf, cli);
+		_user.excute(buf, cli,fds);
 		_user._register(cli);
-	}	
-/*	if(com == "OPER")
-		_oper.excute();
+	}
+	if(com == "LIST")
+		_list.excute(buf,list_chan,cli,fds);	
 		
-	if(com == "QUIT")
+	if(com == "NAMES")
+		_names.excute(buf,cli,list_chan,fds);
+		
+	/*if(com == "QUIT")
 		_quit.excute();
 		
 	if(com == "JOIN")
@@ -61,13 +63,7 @@ void parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,
 		
 	if(com == "TOPIC")
 		_topic.excute();
-		
-	if(com == "NAMES")
-		_names.excute();
-		
-	if(com == "LIST")
-		_list.excute();
-		
+				
 	if(com == "INVITE")
 		_invite.excute();
 		
@@ -80,10 +76,6 @@ void parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,
 	if(com == "NOTICE")
 		_notice.excute();
 	
-
-	
-	if(com == "KILL")
-		_kill.excute();
 	
 */
 }

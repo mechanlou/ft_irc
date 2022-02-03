@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 16:48:32 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 18:43:31 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,12 @@ void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<
 	}
 }
 
-void nick::excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<Client *> *Clients)
+void nick::excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<Client *> *Clients, std::vector<pollfd> &fds)
 {
     std::string message;
     if(buf.find(' ') == buf.npos)
     {
-        message = ":server " + std::string(ERR_NONICKNAMEGIVEN) + ":No nickname given\r\n";
-        send(cli->get_sock_fd(), message.c_str(), message.length(), 0);
+        err_nonicknamegiven(*cli,fds);
 		return ;
     }
 
@@ -99,14 +98,12 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel *> *chan, st
         return;
     if (!_validnick(nick))
 	{
-		message = ":server " + std::string(ERR_ERRONEUSNICKNAME) + " nick: Erroneus nickname\r\n";
-		send(cli->get_sock_fd(), message.c_str(), message.length(), 0);
+		err_erroneusnickname(*cli,fds);
 		return ;
 	}
 	if (!_checknick(nick, Clients))
 	{
-		message = ":server " + std::string(ERR_NICKNAMEINUSE) + " nick: Nickname is already in use\r\n";
-		send(cli->get_sock_fd(), message.c_str(), message.length(), 0);
+		err_nicknameinuse(*cli,fds);
 		return ;
 	}
 

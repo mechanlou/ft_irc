@@ -3,48 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 16:52:29 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 18:42:34 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "commands/JOIN.hpp"
-#include "commands/PASS.hpp"
-#include "commands/USER.hpp"
-#include "commands/PRIVMSG.hpp"
-#include "commands/KICK.hpp"
-#include "commands/OPER.hpp"
-#include "commands/NICK.hpp"
-#include "commands/NOTICE.hpp"
-
-
+#include "PASS.hpp"
+#include "USER.hpp"
+#include "PRIVMSG.hpp"
+#include "KICK.hpp"
+#include "NICK.hpp"
+#include "NOTICE.hpp"
+#include "TOPIC.hpp"
+#include "INVITE.hpp"
+#include "MODE.hpp"
+#include "LIST.hpp"
+#include "NAMES.hpp"
+#include "QUIT.hpp"
+#include "PART.hpp"
 
 #include "Channel.hpp"
 #include "ircserver.hpp"
 
 class client;
 class channel;
+		
 
 class parser
 {
-private:
-    
-    pass		_pass;
-    user		_user;
-	nick		_nick;
-	join		_join;
-/*	kick		_kick;
-	oper		_oper;
-	privmsg		_privmsg;
-	quit	_quit;
-	notice		_notice;*/
 
-	//std::vector<channel *> channels; 
+    private:
+    	pass		_pass;
+    	user		_user;
+		nick		_nick;
+		join		_join;
+		list		_list;
+		names		_names;
     
-public:
+	public:
 	parser();
 	~parser();
     void parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,

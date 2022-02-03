@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:18:48 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 15:50:30 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 18:49:29 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ void names::excute(std::string buf,Client *cli, std::vector<Channel *> *chan, st
         {
             tmp_chan = _check_chan(_cmd[i], chan);
             if(tmp_chan != NULL)
-                rpl_namreply(cli, fds, tmp_chan);
+                rpl_namreply(*cli, fds, *tmp_chan);
+            rpl_endofnames(*cli, fds, _cmd[i]);
         }
     }
-    rpl_endofnames(*cli, fds)
+    
     
 }
 

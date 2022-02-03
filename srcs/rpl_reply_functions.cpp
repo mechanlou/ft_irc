@@ -486,31 +486,31 @@ void	rpl_version(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // AREVOIR
-// {
-// 	std::string	msg(RPL_NAMREPLY);
-// 	std::vector<Client *>::iterator it = chan.get_chan_users().begin();
-// 	std::vector<Client *>::iterator it_end = chan.get_chan_users().end();
-// 	std::vector<Client *>::iterator it_op = chan.get_chan_operators().begin();
-// 	std::vector<Client *>::iterator it_op_end = chan.get_chan_operators().end();
+void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // AREVOIR
+{
+	std::string	msg(RPL_NAMREPLY);
+	std::vector<Client *>::iterator it = chan.get_all_users().begin();
+	std::vector<Client *>::iterator it_end = chan.get_all_users().end();
+	std::vector<Client *>::iterator it_op = chan.get_operators().begin();
+	std::vector<Client *>::iterator it_op_end = chan.get_operators().end();
 
-// 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
-// 	msg.push_back(' ');
-// 	msg += chan.name;
-// 	msg += " :";
-// 	while (it != it_end)
-// 	{
-// 		if (std::find(it_op, it_op_end, *it) != it_op_end)
-// 			msg.push_back('@');
-// 		msg += (*it)->nickname;
-// 		it++;
-// 		if (it != it_end)
-// 			msg.push_back(' ');
-// 	}
-// 	add_crlf(msg);
-// 	send_msg_client(dst, fds, msg.c_str());
-// }
+	msg.push_back(' ');
+	msg += dst.get_nickname();
+	msg.push_back(' ');
+	msg += chan.get_name();
+	msg += " :";
+	while (it != it_end)
+	{
+		if (std::find(it_op, it_op_end, *it) != it_op_end)
+			msg.push_back('@');
+		msg += (*it)->get_nickname();
+		it++;
+		if (it != it_end)
+			msg.push_back(' ');
+	}
+	add_crlf(msg);
+	send_msg_client(dst, fds, msg.c_str());
+}
 
 void	rpl_endofnames(Client &dst, std::vector<pollfd> &fds, std::string channel)
 {

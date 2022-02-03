@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:56:07 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 16:26:57 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 18:08:18 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "commands.hpp"
 
-class nick :public commands
+class nick : public commands
 {
     private:
         bool _checknick(std::string user, std::vector<Client *> *clients);
@@ -24,7 +24,7 @@ class nick :public commands
     public:
         nick();
         ~nick();
-        void excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<Client *> *Clients);
+        void excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<Client *> *Clients,std::vector<pollfd> &fds);
         
     
 };
