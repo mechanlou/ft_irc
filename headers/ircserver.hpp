@@ -19,8 +19,8 @@
 #include "reply_codes.hpp"
 #include "reply_functions.hpp"
 #include "commands/commands.hpp"
+#include "Channel.hpp"
 // #include "parser.hpp"
-// #include "Channel.hpp"
 
 #define	END_OF_MSG "\n" //a remplacer par "\n\r" pour IRC
 #define QUEUE_LEN 5
@@ -55,13 +55,13 @@ class			ReplyDoesntExistException : public std::exception
 class	Channel;
 
 int			receive_msg(int src_fd,	std::vector<pollfd> &fds,
-	std::vector<Client> &all_clients);
+	std::vector<Client> &all_clients, std::vector<Channel> &all_channels);
 void		add_crlf(std::string &msg);
 msg_content	pars_msg(std::string msg);
 int			broadcast_msg(std::vector<Client> &all_clients,
 	std::vector<pollfd> &fds, const char *msg); // POUR BROADCAST UN MSG
 void		send_msg_to_others(int src_fd, std::vector<Client> &all_clients,
-	std::vector<pollfd> &fds, const char *msg); // POUR BROADCAST SAUF A CELUI QUI A ENVOYÉ
+	std::vector<pollfd> &fds, const char *msg); // POUR BROADCAST SAUF A UN CLIENT
 void		send_msg_client(Client &dst, std::vector<pollfd> &fds,
 	const char *msg);	//FONCTION A UTILISER POUR ENOVYER UN MESSAGE
 int			send_pending_msg(Client &dst, std::vector<pollfd> &fds);

@@ -37,14 +37,14 @@ void	Channel::remove_user(Client *user)
 
 	it = _operators.begin();
 	end = _operators.end();
-	while (it != end && (*it)->nickname != user->nickname)
+	while (it != end && (*it)->get_nickname() != user->get_nickname())
 		it++;
 	if (it != end)
 		_operators.erase(it);
 
 	it = _all_users.begin();
 	end = _all_users.end();
-	while (it != end && (*it)->nickname != user->nickname)
+	while (it != end && (*it)->get_nickname() != user->get_nickname())
 		it++;
 	if (it != end)
 		_all_users.erase(it);
@@ -70,12 +70,12 @@ void Channel::set_topic(std::string topic)
 	_topic = topic;
 }
 
-bool Channel::is_members(std::string client)
-{
+// bool Channel::is_members(std::string client)
+// {
 	
-}
+// }
 
-int	Channel::msg_to_channel(const char *msg)
+void	Channel::msg_to_channel(const char *msg, std::vector<pollfd> &fds)
 {
 	std::vector<Client *>::iterator it;
 	std::vector<Client *>::iterator end;
@@ -84,8 +84,7 @@ int	Channel::msg_to_channel(const char *msg)
 	end = _all_users.end();
 	while (it != end)
 	{
-		if (send_message_fd((*it)->get_sock_fd(), msg) == -1)
-			return (-1);
+		send_msg_client(**it, fds, msg);
 		it++;
 	}
 }

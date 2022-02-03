@@ -1,16 +1,23 @@
 #include "ircserver.hpp"
 
 int	close_connection(int src_fd, std::vector<pollfd> &fds,
-	std::vector<Client> &all_clients) // CHANGE WAY WE REMOVE CLIENTS
+	std::vector<Client> &all_clients, std::vector<Channel> &all_chans)
 {
 	std::vector<pollfd>::iterator	it_fds = fds.begin();
 	std::vector<Client>::iterator	it_clients = all_clients.begin();
+	std::vector<Channel>::iterator	it_chans = all_chans.begin();
+	std::vector<Channel>::iterator	it_chans_end = all_chans.end();
 
 	while (it_fds->fd != src_fd)
 		it_fds++;
 	fds.erase(it_fds);
 	while (it_clients->get_sock_fd() != src_fd)
 		it_clients++;
+	while (it_chans != it_chans_end)
+	{
+		it_chans->remove_user(&(*it_clients));
+		it_chans++;
+	}
 	all_clients.erase(it_clients);
 	if (close(src_fd))
 	{
@@ -35,7 +42,7 @@ int	recv_entire_msg(int	src_fd, std::string *msg)
 }
 
 int	receive_msg(int src_fd, std::vector<pollfd> &fds,
-	std::vector<Client> &all_clients)
+	std::vector<Client> &all_clients, std::vector<Channel> &all_channels)
 {
 	int								recv_ret;
 	std::ostringstream				to_send;
@@ -51,7 +58,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	else if (!recv_ret)
 	{
 		std::cout << src_fd << " déconnecté" << std::endl;
-		return (close_connection(src_fd, fds, all_clients));
+		return (close_connection(src_fd, fds, all_clients, all_channels));
 	}
 	else
 	{

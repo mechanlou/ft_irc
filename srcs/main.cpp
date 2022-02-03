@@ -57,7 +57,8 @@ int	handle_new_accept(int sock_fd, std::vector<Client> &all_clients)
 }
 
 void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
-	int const &sock_fd, std::vector<Client> &all_clients)
+	int const &sock_fd, std::vector<Client> &all_clients,
+	std::vector<Channel> &all_channels)
 {
 	int		i;
 	pollfd	tmp_poll;
@@ -76,7 +77,7 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 				else
 					fds.push_back(tmp_poll);
 			}
-			else if (receive_msg(fds[i].fd, fds, all_clients))
+			else if (receive_msg(fds[i].fd, fds, all_clients, all_channels))
 				exit(1);
 			poll_ret--;
 		}
@@ -98,8 +99,7 @@ int main(void)
 
 	std::vector<pollfd>		fds;
 	std::vector<Client>		clients;
-	// std::vector<Channel>	channels;
-
+	std::vector<Channel>	channels;
 
 	if ((sock_fd = get_listen_sock_fd()) == -1)
 		return (1);
@@ -115,7 +115,7 @@ int main(void)
 			return (1);
 		}
 		// std::cout << "unblocked" << std::endl;
-		handle_poll_event(fds, poll_ret, sock_fd, clients);
+		handle_poll_event(fds, poll_ret, sock_fd, clients, channels);
 	}
 	return (0);
 }

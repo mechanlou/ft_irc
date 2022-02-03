@@ -3,14 +3,15 @@ NAME = server
 HEADERS_DIR = headers
 
 HEADERS =	headers/Client.hpp \
+			headers/Channel.hpp \
 			headers/ircserver.hpp
 
 SRCS =	srcs/main.cpp \
 		srcs/utils.cpp \
 		srcs/Client.cpp \
+		srcs/Channel.cpp \
 		srcs/msg_handling.cpp \
 		srcs/msg_sending.cpp
-		# srcs/Channel.cpp \
 
 OBJS = ${SRCS:.cpp=.o}
 
