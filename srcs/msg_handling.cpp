@@ -48,7 +48,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	std::ostringstream				to_send;
 	std::string						received_msg;
 	Client				&src_client = get_client_from_fd(src_fd, all_clients);
-	
+
 	recv_ret = recv_entire_msg(src_fd, &received_msg);
 	if (recv_ret < 0)
 	{
@@ -62,6 +62,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	}
 	else
 	{
+		
 		src_client.recv_buffer += received_msg;
 		if (received_msg.find_first_of(END_OF_MSG) != std::string::npos)
 		{

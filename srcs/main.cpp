@@ -83,6 +83,7 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 		}
 		if (fds[i].revents & POLLOUT)
 		{
+			puts("ok");
 			if (send_pending_msg(get_client_from_fd(fds[i].fd, all_clients), fds))
 				exit(1);
 			poll_ret--;
