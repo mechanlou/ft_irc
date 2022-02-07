@@ -16,6 +16,7 @@
 #include <exception>
 #include <ctime>
 #include <algorithm>
+#include <stdio.h>
 #include "reply_codes.hpp"
 #include "reply_functions.hpp"
 #include "commands/commands.hpp"
@@ -36,12 +37,6 @@
 
 class parser;
 
-struct msg_content
-{
-	std::string					command;
-	std::vector<std::string>	args;
-};
-
 class			ReplyDoesntExistException : public std::exception
 {
 	public :
@@ -57,7 +52,8 @@ class	Channel;
 int			receive_msg(int src_fd,	std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients, std::vector<Channel> &all_channels);
 void		add_crlf(std::string &msg);
-msg_content	pars_msg(std::string msg);
+void	pars_msg(std::string msg, std::string &command,
+	std::vector<std::string> &args);
 int			broadcast_msg(std::vector<Client> &all_clients,
 	std::vector<pollfd> &fds, const char *msg); // POUR BROADCAST UN MSG
 void		send_msg_to_others(int src_fd, std::vector<Client> &all_clients,

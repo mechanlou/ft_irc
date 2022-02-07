@@ -52,6 +52,18 @@ std::string Client::get_pass() const
     return(_password);
 }
 
+std::string	Client::get_full_prefix() const //with ':'
+{
+	std::string	prefix(":");
+
+	prefix += _nickname;
+	prefix += '!';
+	prefix += _name;
+	prefix += '@';
+	prefix += get_ip();
+	return (prefix);
+}
+
 
 int Client::get_sock_fd() const
 {

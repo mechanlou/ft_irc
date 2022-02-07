@@ -20,11 +20,10 @@ std::string	extract_word(std::string msg, size_t &start)
 	return (msg.substr(start, end - start));
 }
 
-msg_content	pars_msg(std::string msg)
+void	pars_msg(std::string msg, std::string &command, std::vector<std::string> &args)
 {
 	size_t	i;
 	size_t	j;
-	msg_content	content;
 
 	i = 0;
 	if (msg[i] == ':')
@@ -34,8 +33,8 @@ msg_content	pars_msg(std::string msg)
 		while (msg[i] == ' ')
 			i++;
 	}
-	content.command = extract_word(msg, i);
-	i += content.command.size();
+	command = extract_word(msg, i);
+	i += command.size();
 	j = 0;
 	while (i < msg.size() && msg[i] != '\r')
 	{
@@ -43,12 +42,11 @@ msg_content	pars_msg(std::string msg)
 			i++;
 		if (msg[i] != '\r')
 		{
-			content.args.push_back(extract_word(msg, i));
-			i += content.args[j].size();
+			args.push_back(extract_word(msg, i));
+			i += args[j].size();
 			j++;
 		}
 	}
-	return (content);
 }
 
 Client	&get_client_from_fd(int src_fd, std::vector<Client> &clients)

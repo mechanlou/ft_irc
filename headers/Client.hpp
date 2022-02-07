@@ -39,6 +39,7 @@ class Client
         std::string get_truename() const;
 		std::string get_ip() const;
         std::string get_pass() const;
+		std::string	get_full_prefix() const;
         int         get_sock_fd() const;
         int         get_etat() const;
         bool        get_op() const;
