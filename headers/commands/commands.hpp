@@ -6,10 +6,11 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:11:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/02 14:28:46 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/07 12:10:20 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include "Channel.hpp"
 #include "ircserver.hpp"
 #include "Client.hpp"
