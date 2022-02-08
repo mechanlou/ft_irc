@@ -23,10 +23,10 @@ quit::~quit()
 bool _is_informed(Client *dest, std::vector<Client *> informed)
 {
 
-    for (std::vector<client *>::iterator it = informed.begin(); it != informed.end(); it++)
+    for (std::vector<Client *>::iterator it = informed.begin(); it != informed.end(); it++)
 	{
-		client *search = *it;
-		if (search->getNick() == dest->getNick())
+		Client *search = *it;
+		if (search->get_nickname() == dest->get_nickname())
 			return true;
 	}
 	return false;
@@ -34,21 +34,21 @@ bool _is_informed(Client *dest, std::vector<Client *> informed)
 
 void _announcement(std::string message, Client *cli, std::vector<Channel *> *chan)
 {
-	std::vector<client *> informed;
+	std::vector<Client *> informed;
 	informed.push_back(cli);
 
-	for (std::vector<channel *>::iterator it = channels->begin(); it != channels->end(); it++)
+	for (std::vector<Channel *>::iterator it = chan->begin(); it != chan->end(); it++)
 	{
-		channel *c = *it;
-		if (c->isMember(cli->getNick()))
+		Channel *c = *it;
+		if (c->is_members(cli->get_nickname()))
 		{
-			std::vector<client *> cls = c->getMembers();
-			for (std::vector<client *>::iterator it2 = cls.begin(); it2 != cls.end(); it2++)
+			std::vector<Client *> cls = c->get_all_users();
+			for (std::vector<Client *>::iterator it2 = cls.begin(); it2 != cls.end(); it2++)
 			{
-				client *dest = *it2;
-				if (!_alreadyInformed(dest, informed))
+				Client *dest = *it2;
+				if (!_is_informed(dest, informed))
 				{
-					send(dest->getSd(), message.c_str(), message.length(), 0);
+					send(dest->get_sock_fd(), message.c_str(), message.length(), 0);
 					informed.push_back(dest);
 				}
 			}
@@ -64,5 +64,5 @@ void quit::excute(std::string buf, Client *cli, std::vector<Channel *> *chan,std
 		bye = bye.substr(1, bye.length() - 1);
 
 	buf = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " QUIT :Quit: " + bye + "\r\n";
-	_informChange(buf, cli, chan);
+	_announcement(buf, cli, chan);
 }

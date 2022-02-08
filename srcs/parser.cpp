@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 12:35:13 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 15:29:01 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,24 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli
 	if(com == "NAMES")
 		_names.excute(buf,cli,list_chan,fds);
 		
-	/*if(com == "QUIT")
-		_quit.excute();
+	if(com == "QUIT")
+		_quit.excute(buf,cli,list_chan,fds);
 		
 	if(com == "JOIN")
-		_join.excute();
+		_join.excute(buf);
 		
 	if(com == "PART")
 		_part.excute();
 		
-	if(com == "MODE")
-		_mode.excute();
+	// if(com == "MODE")
+	// 	_mode.excute();
 		
 	if(com == "TOPIC")
 		_topic.excute();
 				
-	if(com == "INVITE")
+	/*if(com == "INVITE")
 		_invite.excute();
-		
+	*/	
 	if(com == "KICK")
 		_kick.excute();
 		
@@ -77,7 +77,7 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli
 		_notice.excute();
 	
 	
-*/
+
 }
 
 

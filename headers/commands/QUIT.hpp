@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #pragma once
-#include "commands"
+#include "commands.hpp"
 
 class quit : public commands
 {
@@ -23,4 +23,4 @@ class quit : public commands
         quit();
         ~quit();
         void excute(std::string buf, Client *cli, std::vector<Channel *> *chan,std::vector<pollfd> &fds);
-}
+};

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:00:25 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/07 11:55:51 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 15:40:09 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ void topic::excute(std::string buf, Client *cli, std::vector<Channel *> *chan,st
     tmp_chan = _check_chan(_cmd[1], chan);
     if(tmp_chan != NULL)
     {
-        if(!tmp_chan->is_members(cli))
+        if(!tmp_chan->is_members(cli->get_nickname()))
         {
-            err_notochannel(*cli,fds,tmp_chan);
+            err_notochannel(*cli,fds,_cmd[1]);
             return;
         }
         else if (_cmd.size() == 2)
         {
             if(tmp_chan->get_topic().empty())
             {
-                rpl_notopic(*cli, fds, _cmd[1]));
+                rpl_notopic(*cli, fds, _cmd[1]);
                 return;
             }
             else
@@ -54,15 +54,15 @@ void topic::excute(std::string buf, Client *cli, std::vector<Channel *> *chan,st
         else
         {
             if(_cmd[2].front() == ':')
-                cur_chan->set_topic(&_cmd[2][1]);
+                tmp_chan->set_topic(&_cmd[2][1]);
             else
-                cur_chan->set_topic(_cmd(2));
+                tmp_chan->set_topic(_cmd[2]);
         }
     }
     
 }
 
-void topic::get_cmd()
+void topic::get_cmd(std::string buf)
 {
     char space = ' ';
     int i = 0;
@@ -70,7 +70,7 @@ void topic::get_cmd()
     std::string line;
     std::stringstream ss(buf);
 
-    while(stddd:getline(ss,line,space))
+    while(std::getline(ss,line,space))
     {
         cmd_tmp.push_back(line);
         i++;
@@ -78,7 +78,7 @@ void topic::get_cmd()
             space = '\n';
     }
     
-    while(cmd_tmp.back().back() == '\n' || cmd_tmp.back() == '\r')
+    while(cmd_tmp.back().back() == '\n' || cmd_tmp.back() == "\r")
         cmd_tmp.back().pop_back();
 
     _cmd.clear();

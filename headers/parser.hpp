@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 12:31:57 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 15:25:42 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+
 #include "commands/JOIN.hpp"
 #include "commands/PASS.hpp"
 #include "commands/USER.hpp"
@@ -20,10 +21,10 @@
 #include "commands/NOTICE.hpp"
 #include "commands/TOPIC.hpp"
 // #include "commands/INVITE.hpp"
-#include "commands/MODE.hpp"
+//#include "commands/MODE.hpp"
 #include "commands/LIST.hpp"
 #include "commands/NAMES.hpp"
-// #include "commands/QUIT.hpp"
+#include "commands/QUIT.hpp"
 #include "commands/PART.hpp"
 
 #include "Channel.hpp"
@@ -43,7 +44,13 @@ class parser
 		join		_join;
 		list		_list;
 		names		_names;
-    
+		privmsg		_privmsg;
+		part		_part;
+		quit		_quit;
+		notice		_notice;
+		topic		_topic;
+		kick		_kick;
+		
 	public:
 	parser();
 	~parser();
