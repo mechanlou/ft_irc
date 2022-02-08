@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   TOPIC.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:00:25 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:30:34 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:50:34 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "TOPIC.hpp"
+#include "commands/TOPIC.hpp"
 
 topic::topic()
 {   

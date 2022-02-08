@@ -1,4 +1,4 @@
-#include "PART.hpp"
+#include "commands/PART.hpp"
 
 part::part()
 {

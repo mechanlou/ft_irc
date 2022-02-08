@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   NAMES.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:18:48 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:22:37 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:50:04 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "NAMES.hpp"
+#include "commands/NAMES.hpp"
 
 names::names()
 {

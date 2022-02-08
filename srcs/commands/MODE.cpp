@@ -3,11 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   MODE.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 14:07:26 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/01 14:07:37 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:50:04 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MODE.hpp"
+#include "commands/MODE.hpp"

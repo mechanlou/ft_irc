@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   USER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 18:11:29 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:50:37 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "USER.hpp"
+#include "commands/USER.hpp"
 
 user::user()
 {

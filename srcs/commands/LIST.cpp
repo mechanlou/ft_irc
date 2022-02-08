@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   LIST.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:08:24 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:25:20 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:50:03 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "LIST.hpp"
+#include "commands/LIST.hpp"
 
 list::list()
 {

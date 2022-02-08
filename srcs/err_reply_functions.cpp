@@ -92,19 +92,19 @@ void	err_wasnosuchnick(Client &dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	err_toomanytargets(Client &dst, std::vector<pollfd> &fds, std::string target, std::string error_code, std::string abort_msg)
-{
-	std::string	msg(ERR_TOOMANYTARGETS);
+// void	err_toomanytargets(Client &dst, std::vector<pollfd> &fds, std::string target, std::string error_code, std::string abort_msg)
+// {
+// 	std::string	msg(ERR_TOOMANYTARGETS);
 
-	msg.push_back(' ');
-	msg += dst.get_nickname();
-	msg += " :";
-	msg.append(error_code);
-	msg += " recipients. ";
-	msg.append(abort_msg);
-	add_crlf(msg);
-	send_msg_client(dst, fds, msg.c_str());
-}
+// 	msg.push_back(' ');
+// 	msg += dst.get_nickname();
+// 	msg += " :";
+// 	msg.append(error_code);
+// 	msg += " recipients. ";
+// 	msg.append(abort_msg);
+// 	add_crlf(msg);
+// 	send_msg_client(dst, fds, msg.c_str());
+// }
 
 void	err_noorigin(Client &dst, std::vector<pollfd> &fds)
 {

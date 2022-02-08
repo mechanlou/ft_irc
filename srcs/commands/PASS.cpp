@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   PASS.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:43:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 18:24:46 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:50:01 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ircserver.hpp"
-#include "PASS.hpp"
+#include "commands/PASS.hpp"
 
 pass::pass()
 {

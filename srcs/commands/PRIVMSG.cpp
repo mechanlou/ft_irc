@@ -1,11 +1,11 @@
-#include "PRIVMSG.hpp"
+#include "commands/PRIVMSG.hpp"
 
 privmsg::privmsg(void) {}
 
 privmsg::~privmsg(void) {}
 
 void	privmsg::_send_channel(std::string msg, Client *src,
-	std::vector<Channel> *all_chans, std::vector<Client> *all_clients,
+	std::vector<Channel> *all_chans,
 	std::vector<pollfd> &fds, std::vector<std::string> args)
 {
 	std::vector<Channel>::iterator	it_chan;
@@ -30,8 +30,8 @@ void	privmsg::_send_channel(std::string msg, Client *src,
 }
 
 void	privmsg::_send_client(std::string msg, Client *src,
-	std::vector<Channel> *all_chans, std::vector<Client> *all_clients,
-	std::vector<pollfd> &fds, std::vector<std::string> args)
+	std::vector<Client> *all_clients, std::vector<pollfd> &fds,
+	std::vector<std::string> args)
 {
 	std::vector<Client>::iterator	it_cli;
 	std::vector<Client>::iterator	it_cli_end;
@@ -71,7 +71,7 @@ void	privmsg::execute(std::string msg, Client *src, std::vector<Channel> *all_ch
 		return ;
 	}
 	if (args[0][0] == '#')
-		_send_channel(msg, src, all_chans, all_clients, fds, args);
+		_send_channel(msg, src, all_chans, fds, args);
 	else
-		_send_client(msg, src, all_chans, all_clients, fds, args);
+		_send_client(msg, src, all_clients, fds, args);
 }

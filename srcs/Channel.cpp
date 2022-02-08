@@ -104,3 +104,8 @@ void	Channel::msg_to_channel(const char *msg, std::vector<pollfd> &fds)
 		it++;
 	}
 }
+
+std::string	Channel::get_name(void) const
+{
+	return (_name);
+}

@@ -21,7 +21,6 @@
 #include "reply_functions.hpp"
 #include "commands/commands.hpp"
 #include "Channel.hpp"
-#include "parser.hpp"
 
 #define	END_OF_MSG "\n" //a remplacer par "\n\r" pour IRC
 #define QUEUE_LEN 5
@@ -35,7 +34,6 @@
 #define PROTOCOLE_VERSION "2.9"
 
 
-class parser;
 
 class			ReplyDoesntExistException : public std::exception
 {

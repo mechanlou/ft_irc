@@ -1,12 +1,12 @@
-#include "NOTICE.hpp"
+#include "commands/NOTICE.hpp"
 
 notice::notice(void) {}
 
 notice::~notice(void) {}
 
 void	notice::_send_channel(std::string msg, Client *src,
-	std::vector<Channel> *all_chans, std::vector<Client> *all_clients,
-	std::vector<pollfd> &fds, std::vector<std::string> args)
+	std::vector<Channel> *all_chans, std::vector<pollfd> &fds,
+	std::vector<std::string> args)
 {
 	std::vector<Channel>::iterator	it_chan;
 	std::vector<Channel>::iterator	it_chan_end;
@@ -25,8 +25,7 @@ void	notice::_send_channel(std::string msg, Client *src,
 	}
 }
 
-void	notice::_send_client(std::string msg, Client *src,
-	std::vector<Channel> *all_chans, std::vector<Client> *all_clients,
+void	notice::_send_client(std::string msg, std::vector<Client> *all_clients,
 	std::vector<pollfd> &fds, std::vector<std::string> args)
 {
 	std::vector<Client>::iterator	it_cli;
@@ -59,7 +58,7 @@ void	notice::execute(std::string msg, Client *src, std::vector<Channel> *all_cha
 	if (args.size() == 1)
 		return ;
 	if (args[0][0] == '#')
-		_send_channel(msg, src, all_chans, all_clients, fds, args);
+		_send_channel(msg, src, all_chans, fds, args);
 	else
-		_send_client(msg, src, all_chans, all_clients, fds, args);
+		_send_client(msg, all_clients, fds, args);
 }

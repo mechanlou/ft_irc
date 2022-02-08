@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   JOIN.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:11:36 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:53:30 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "JOIN.hpp"
+#include "commands/JOIN.hpp"
 
 join::join()
 {   
@@ -70,7 +70,7 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
 		new_cli = true;
     }
 
-    _inform_members(name, cli, chan);
+    _inform_members(name, cli, chan, fds);
 
     if(new_cli)
     {
@@ -78,13 +78,9 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
     }
 }
 
-void	join::_inform_members(std::string name, Client *cli, Channel *chan)
+void	join::_inform_members(std::string name, Client *cli, Channel *chan, std::vector<pollfd> &fds)
 {
 	std::string msg = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " JOIN " + name + "\r\n";
 	std::vector<Client*> members = chan->get_all_users();
-	for (std::vector<Client*>::iterator it = members.begin(); it != members.end(); it++)
-	{
-		Client *c = *it;
-	//	send();
-    }
+	chan->msg_to_channel(msg.c_str(), fds);
 }

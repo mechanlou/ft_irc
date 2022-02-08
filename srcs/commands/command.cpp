@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:35:12 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:20:17 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:43:10 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands.hpp"
+#include "commands/commands.hpp"
 
 commands::commands()
 {

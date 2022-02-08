@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   KICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:20:36 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:22:01 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:55:20 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "KICK.hpp"
+#include "commands/KICK.hpp"
 
 kick::kick()
 {
@@ -31,17 +31,6 @@ bool kick::_check_Client_nick(std::string cli, Channel *chan)
 			return true;
 	}
 	return false;
-}
-
-void	kick::_inform_members(std::string msg, Channel *chan)
-{
-	Client *c;
-	std::vector<Client*> members = chan->get_all_users();
-	for (std::vector<Client*>::iterator it = members.begin(); it != members.end(); it++)
-	{
-		c = *it;
-		//send(c->getSd(), msg.c_str(), msg.length(), 0); change fnct send;
-	}
 }
 
 Client*	kick::_get_Client(std::string name, Channel *chan)
@@ -78,7 +67,7 @@ void	kick::execute(std::string buf, Client *cli, std::vector<Channel > *channels
            err_notochannel(*cli,fds,_cmd[1]);
 		return ;
 	}
-	if (!chan->is_operator(cli))
+	if (!chan->is_operator(cli->get_nickname()))
 	{
 		err_chanoprivsneeded(*cli,fds,_cmd[1]);
 		return ;
@@ -103,6 +92,6 @@ void	kick::execute(std::string buf, Client *cli, std::vector<Channel > *channels
 	if (reason.size() >= 1 && reason[0] != ':')
 		reason = ':' + reason;
 	msg = ":" + cli->get_nickname() + " KICK " + _cmd[1] + " " + _cmd[2] + " " + reason + "\r\n";
-	_inform_members(msg, chan);
+	chan->msg_to_channel(msg.c_str(), fds);
 	chan->remove_user(_get_Client(_cmd[2], chan));
 }

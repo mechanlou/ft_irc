@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:11:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:17:53 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:46:33 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "Client.hpp"
 
 class commands
-{           
+{
     protected:
         std::vector<std::string> _cmd;
         

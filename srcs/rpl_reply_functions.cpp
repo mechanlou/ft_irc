@@ -619,14 +619,14 @@ void	rpl_motdstart(Client &dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_motd(Client &dst, std::vector<pollfd> &fds, std::string msg)
+void	rpl_motd(Client &dst, std::vector<pollfd> &fds, std::string message)
 {
 	std::string	msg(RPL_MOTD);
 
 	msg.push_back(' ');
 	msg += dst.get_nickname();
 	msg += " :- ";
-	msg += msg;
+	msg += message;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }

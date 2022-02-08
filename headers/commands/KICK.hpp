@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   KICK.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:17:44 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:21:50 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:55:05 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ class kick : public commands
 {
 	private:
 		bool	_check_Client_nick(std::string cli, Channel *chan);
-		void	_inform_members(std::string message, Channel *chan);
 		Client*	_get_Client(std::string name, Channel *chan);
 
 	public:

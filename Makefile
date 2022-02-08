@@ -11,6 +11,22 @@ SRCS =	srcs/main.cpp \
 		srcs/Client.cpp \
 		srcs/Channel.cpp \
 		srcs/msg_handling.cpp \
+		srcs/parser.cpp \
+		srcs/commands/command.cpp \
+		srcs/commands/JOIN.cpp \
+		srcs/commands/KICK.cpp \
+		srcs/commands/LIST.cpp \
+		srcs/commands/NAMES.cpp \
+		srcs/commands/NICK.cpp \
+		srcs/commands/NOTICE.cpp \
+		srcs/commands/PART.cpp \
+		srcs/commands/PASS.cpp \
+		srcs/commands/PRIVMSG.cpp \
+		srcs/commands/QUIT.cpp \
+		srcs/commands/TOPIC.cpp \
+		srcs/commands/USER.cpp \
+		srcs/rpl_reply_functions.cpp \
+		srcs/err_reply_functions.cpp \
 		srcs/msg_sending.cpp
 
 OBJS = ${SRCS:.cpp=.o}
