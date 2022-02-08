@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   TOPIC.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:03:46 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/07 11:20:26 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 12:33:55 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ class topic : public commands
     public:
         topic();
         ~topic();
-        void excute(std::string buf, client *cli, std::vecor<Channel *> *chan, std::vector<pollfd> &fds);
-}
+        void excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<pollfd> &fds);
+};
