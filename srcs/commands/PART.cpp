@@ -8,7 +8,7 @@ part::~part()
 {
 }
 
-void	part::execute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<pollfd> &fds)
+void	part::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<pollfd> &fds)
 {
     std::string msg;
 	_getcmd(buf);
@@ -33,7 +33,7 @@ void	part::execute(std::string buf, Client *cli, std::vector<Channel *> *chan, s
 			Client *c = *it;
 			send(c->get_sock_fd(), msg.c_str(), msg.length(), 0);
 		}
-		tmp_chan->del_cli(cli);
+		tmp_chan->remove_user(cli);
 	}
 	else
 	{

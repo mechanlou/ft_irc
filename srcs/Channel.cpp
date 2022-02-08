@@ -71,15 +71,25 @@ void Channel::set_topic(std::string topic)
 	_topic = topic;
 }
 
- bool Channel::is_members(std::string client)
- {
+bool Channel::is_members(std::string client)
+{
 	for(std::vector<Client *>::iterator it = _all_users.begin(); it != _all_users.end(); it++)
 	{
 		if((*it)->get_nickname() == client)
 			return true;
 	}
 	return false;
- }
+}
+
+bool Channel::is_operator(std::string op)
+{
+	for(std::vector<Client *>::iterator it = _operators.begin(); it != _operators.end(); it++)
+	{
+		if((*it)->get_nickname() == op)
+			return true;
+	}
+	return false;
+}
 
 void	Channel::msg_to_channel(const char *msg, std::vector<pollfd> &fds)
 {

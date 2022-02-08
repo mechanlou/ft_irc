@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   KICK.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:17:44 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 12:34:34 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:21:50 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ class kick : public commands
 	public:
 		kick();
 		~kick();
-		void	execute(std::string buf, Client *cli, std::vector<Channel *> *channels, std::vector<pollfd> &fds);
+		void	execute(std::string buf, Client *cli, std::vector<Channel> *channels, std::vector<pollfd> &fds);
 };

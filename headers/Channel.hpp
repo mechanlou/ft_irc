@@ -23,9 +23,9 @@ class	Channel
 	std::string				get_topic() const;
 	void					set_name(std::string const &new_name);
 	bool					is_members(std::string client);
+	bool					is_operator(std::string op);
 	std::vector<Client *>	get_operators() const;
 	std::vector<Client *>	get_all_users() const;
-	void					del_cli(Client *user);
 
 	void			msg_to_channel(const char *msg, std::vector<pollfd> &fds);
 

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 18:43:31 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:26:36 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ nick::~nick()
     
 }
 
-bool nick:: _checknick(std::string user, std::vector<Client *> *clients)
+bool nick:: _checknick(std::string user, std::vector<Client > *clients)
 {
-    for (std::vector<Client *>::iterator it = clients->begin(); it != clients->end(); it++)
+    for (std::vector<Client >::iterator it = clients->begin(); it != clients->end(); it++)
 	{
-		Client *c = *it;
-		if (c->get_nickname() == user)
+		if (it->get_nickname() == user)
 			return false;
 	}
 	return true;
@@ -45,42 +44,40 @@ bool nick::_validnick(std::string nick)
     return true;
 }
 
-bool nick::_is_informed(Client *dest, std::vector<Client *> informed)
+bool nick::_is_informed(Client *dest, std::vector<Client > informed)
 {
-	for(std::vector<Client *>::iterator it = informed.begin(); it != informed.end(); it++)
+	for(std::vector<Client >::iterator it = informed.begin(); it != informed.end(); it++)
 	{
-		Client *search = *it;
-		if(search->get_nickname() == dest->get_nickname())
+		if(it->get_nickname() == dest->get_nickname())
 			return true;
 	}
 	return false;
 }
 
 
-void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<Channel *> *chan)
+void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<Channel > *chan)
 {
-    std::vector<Client *> informe;
+    std::vector<Client > informe;
 	
-	for(std::vector<Channel *>::iterator it = chan->begin(); it != chan->end(); it++)
+	for(std::vector<Channel >::iterator it = chan->begin(); it != chan->end(); it++)
 	{
-		Channel *c = *it;
-		if(c->is_members(cli->get_nickname()))
+		if(it->is_members(cli->get_nickname()))
 		{
-			std::vector<Client *> clis = c->get_all_users();
+			std::vector<Client *> clis = it->get_all_users();
 			for(std::vector<Client *>::iterator its = clis.begin(); its != clis.end();its++)
 			{
 				Client *dest = *its;
 				if(!_is_informed(dest,informe))
 				send(dest->get_sock_fd(),message.c_str(),message.length(),0);
-				informe.push_back(dest);
+				informe.push_back(*dest);
 			}
 		}
 	}
 }
 
-void nick::excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<Client *> *Clients, std::vector<pollfd> &fds)
+void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std::vector<Client> *Clients, std::vector<pollfd> &fds)
 {
-    std::string message;
+    std::string msg;
     if(buf.find(' ') == buf.npos)
     {
         err_nonicknamegiven(*cli,fds);
@@ -107,8 +104,8 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel *> *chan, st
 		return ;
 	}
 
-    message = ":" + cli->get_nickname() + " NICK " + nick +"\r\n";
+    msg = ":" + cli->get_nickname() + " NICK " + nick +"\r\n";
 	cli->set_nickname(nick);
     
-    _announcement_new_nick(message, cli, chan);
+    _announcement_new_nick(msg, cli, chan);
 }      

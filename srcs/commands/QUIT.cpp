@@ -32,17 +32,16 @@ bool _is_informed(Client *dest, std::vector<Client *> informed)
 	return false;
 }
 
-void _announcement(std::string message, Client *cli, std::vector<Channel *> *chan)
+void _announcement(std::string message, Client *cli, std::vector<Channel> *chan)
 {
 	std::vector<Client *> informed;
 	informed.push_back(cli);
 
-	for (std::vector<Channel *>::iterator it = chan->begin(); it != chan->end(); it++)
+	for (std::vector<Channel >::iterator it = chan->begin(); it != chan->end(); it++)
 	{
-		Channel *c = *it;
-		if (c->is_members(cli->get_nickname()))
+		if (it->is_members(cli->get_nickname()))
 		{
-			std::vector<Client *> cls = c->get_all_users();
+			std::vector<Client *> cls = it->get_all_users();
 			for (std::vector<Client *>::iterator it2 = cls.begin(); it2 != cls.end(); it2++)
 			{
 				Client *dest = *it2;
@@ -52,12 +51,12 @@ void _announcement(std::string message, Client *cli, std::vector<Channel *> *cha
 					informed.push_back(dest);
 				}
 			}
-		//	c->del_cli(cli);
+			it->remove_user(cli);
 		}
 	}
 }
 
-void quit::excute(std::string buf, Client *cli, std::vector<Channel *> *chan,std::vector<pollfd> &fds)
+void quit::excute(std::string buf, Client *cli, std::vector<Channel> *chan,std::vector<pollfd> &fds)
 {
     std::string bye = buf.substr(5, buf.length() - 5);
 	if (bye[0] == ':')

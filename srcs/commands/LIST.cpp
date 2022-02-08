@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:08:24 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 18:53:47 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:25:20 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ list::~list()
     
 }
 
-void list::excute(std::string cmd, std::vector<Channel *> *chan, Client *cli,std::vector<pollfd> &fds)
+void list::excute(std::string cmd, std::vector<Channel> *chan, Client *cli,std::vector<pollfd> &fds)
 {
     _getcmd(cmd);
     std::string list_chan;
@@ -47,10 +47,10 @@ void list::excute(std::string cmd, std::vector<Channel *> *chan, Client *cli,std
     if(_cmd.size() == 1)
     {    
         rpl_liststart(*cli,fds);
-        for(std::vector<Channel *>:: iterator it = chan->begin(); it != chan->end(); it++)
+        for(std::vector<Channel>:: iterator it = chan->begin(); it != chan->end(); it++)
         {
-            list_chan.append(cli->get_nickname() + " " + (*it)->get_name() + std::to_string((*it)->get_all_users().size()));
-            list_chan.append(":" + (*it)->get_topic());
+            list_chan.append(cli->get_nickname() + " " + it->get_name() + std::to_string(it->get_all_users().size()));
+            list_chan.append(":" + it->get_topic());
             rpl_list(*cli, fds, list_chan);
         }
         list_chan.clear();

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:35:12 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/02 14:49:54 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:20:17 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@ commands::~commands()
 {
 }
 
-Channel* commands::_check_chan(std::string name, std::vector<Channel *> *chan) const
+Channel* commands::_check_chan(std::string name, std::vector<Channel > *chan) const
 {
-    std::vector<Channel *>::iterator it = chan->begin();
-    Channel *c;
+    std::vector<Channel >::iterator it = chan->begin();
     for(;it != chan->end(); it++)
     {
-        c = *it;
-        if(name == c->get_name())
-            return (c);
+        if(name == (*it).get_name())
+            return (&(*it));
     }
     return (NULL);
 }

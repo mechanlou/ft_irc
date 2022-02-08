@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:56:07 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 15:41:28 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 16:09:23 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 class nick : public commands
 {
     private:
-        bool _checknick(std::string user, std::vector<Client *> *clients);
+        bool _checknick(std::string user, std::vector<Client > *clients);
         bool _validnick(std::string nick);
-        bool _is_informed(Client *dest, std::vector<Client *> informed);
-        void _announcement_new_nick(std::string message, Client *cli,std::vector<Channel *> *chan);
+        bool _is_informed(Client *dest, std::vector<Client > informed);
+        void _announcement_new_nick(std::string message, Client *cli,std::vector<Channel > *chan);
         
     public:
         nick();
         ~nick();
-        void excute(std::string buf, Client *cli, std::vector<Channel *> *chan, std::vector<Client *> *Clients,std::vector<pollfd> &fds);
+        void excute(std::string buf, Client *cli, std::vector<Channel > *chan, std::vector<Client > *Clients,std::vector<pollfd> &fds);
         
     
 };

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:00:25 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 15:40:09 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:30:34 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ topic::~topic()
 {   
 }
 
-void topic::excute(std::string buf, Client *cli, std::vector<Channel *> *chan,std::vector<pollfd> &fds)
+void topic::excute(std::string buf, Client *cli, std::vector<Channel > *chan,std::vector<pollfd> &fds)
 {
     Channel *tmp_chan;
     get_cmd(buf);

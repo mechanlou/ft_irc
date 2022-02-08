@@ -17,10 +17,10 @@ class quit : public commands
 {
     private:
         bool _is_informed(Client *dest, std::vector<Client *> informed);
-        void _announcement(std::string message, Client *cli,std::vector<Channel *> *chan);
+        void _announcement(std::string message, Client *cli,std::vector<Channel > *chan);
     
     public:
         quit();
         ~quit();
-        void excute(std::string buf, Client *cli, std::vector<Channel *> *chan,std::vector<pollfd> &fds);
+        void excute(std::string buf, Client *cli, std::vector<Channel > *chan,std::vector<pollfd> &fds);
 };

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:18:48 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 18:55:52 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:22:37 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ names::~names()
 
 }
 
-void names::excute(std::string buf,Client *cli, std::vector<Channel *> *chan, std::vector<pollfd> &fds)
+void names::excute(std::string buf,Client *cli, std::vector<Channel> *chan, std::vector<pollfd> &fds)
 {
     std::string msg;
     std::string cli_list;

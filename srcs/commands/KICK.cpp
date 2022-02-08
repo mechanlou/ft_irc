@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:20:36 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 15:45:54 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:22:01 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ Client*	kick::_get_Client(std::string name, Channel *chan)
 	return NULL;
 }
 
-void	kick::execute(std::string buf, Client *cli, std::vector<Channel *> *channels,std::vector<pollfd> &fds)
+void	kick::execute(std::string buf, Client *cli, std::vector<Channel > *channels,std::vector<pollfd> &fds)
 {
 	_getcmd(buf);
 	std::string msg;
@@ -104,5 +104,5 @@ void	kick::execute(std::string buf, Client *cli, std::vector<Channel *> *channel
 		reason = ':' + reason;
 	msg = ":" + cli->get_nickname() + " KICK " + _cmd[1] + " " + _cmd[2] + " " + reason + "\r\n";
 	_inform_members(msg, chan);
-	chan->del_cli(_get_Client(_cmd[2], chan));
+	chan->remove_user(_get_Client(_cmd[2], chan));
 }
