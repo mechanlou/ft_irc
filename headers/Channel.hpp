@@ -25,6 +25,7 @@ class	Channel
 	bool					is_members(std::string client);
 	std::vector<Client *>	get_operators() const;
 	std::vector<Client *>	get_all_users() const;
+	void					del_cli(Client *user);
 
 	void			msg_to_channel(const char *msg, std::vector<pollfd> &fds);
 

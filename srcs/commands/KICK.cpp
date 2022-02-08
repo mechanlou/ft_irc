@@ -57,7 +57,7 @@ client*	kick::_get_Client(std::string name, channel *chan)
 	return NULL;
 }
 
-void	kick::execute(std::string buf, client *cli, std::vector<channel *> *channels, bool isBot, std::string botName)
+void	kick::execute(std::string buf, client *cli, std::vector<channel *> *channels,std::vector<pollfd> &fds)
 {
 	_getCmd(buf);
 	std::string msg;

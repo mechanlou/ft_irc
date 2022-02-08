@@ -23,5 +23,5 @@ class kick : public command
 	public:
 		kick();
 		~kick();
-		void	execute(std::string buf, client *cli, std::vector<channel *> *channels, );
+		void	execute(std::string buf, client *cli, std::vector<channel *> *channels, std::vector<pollfd> &fds);
 };

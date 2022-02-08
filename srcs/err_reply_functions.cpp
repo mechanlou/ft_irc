@@ -319,14 +319,12 @@ void	err_notochannel(Client &dst, std::vector<pollfd> &fds, std::string channel)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	err_useronchannel(Client &dst, std::vector<pollfd> &fds, std::string user, std::string channel)
+void	err_useronchannel(Client &dst, std::vector<pollfd> &fds, std::string channel)
 {
 	std::string	msg(ERR_USERONCHANNEL);
 
 	msg.push_back(' ');
 	msg += dst.get_nickname();
-	msg.push_back(' ');
-	msg += user;
 	msg.push_back(' ');
 	msg += channel;
 	msg += " :is already on channel";

@@ -30,7 +30,7 @@ void	err_nickcollision(Client &dst, std::vector<pollfd> &fds, std::string user, 
 void	err_unavailableresource(Client &dst, std::vector<pollfd> &fds, std::string resource);
 void	err_usernotinchannel(Client &dst, std::vector<pollfd> &fds, std::string target_nick, std::string channel);
 void	err_notochannel(Client &dst, std::vector<pollfd> &fds, std::string channel);
-void	err_useronchannel(Client &dst, std::vector<pollfd> &fds, std::string user, std::string channel);
+void	err_useronchannel(Client &dst, std::vector<pollfd> &fds, std::string channel);
 void	err_nologin(Client &dst, std::vector<pollfd> &fds, std::string user);
 void	err_summondisabled(Client &dst, std::vector<pollfd> &fds);
 void	err_userdisabled(Client &dst, std::vector<pollfd> &fds);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JOIN.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:55:27 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/03 16:26:37 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 02:11:22 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,12 @@
 class join : public commands
 {
     private:
-
-      //  void join_chan(std::string name, client *cli, std::vector<channel *> *chan);
+        bool _check_names(std::string name, std::vector<Channel *> *channels);
+        void _join_chan(std::string name, Client *cli, std::vector<Channel *> *chan);
+        void _inform_members(std::string name, Client *cli, Channel *chan);
     public:
-       // void execute(std::string argument, Client *client, std::vector<channel *> *chan);
+        void execute(std::string buf, Client *client, std::vector<Channel *> *chan, std::vector<pollfd> &fds);
         join(){};
         ~join(){};
 };
-/*
-void JOIN::excute(std::string argument, Client *client, std::vector<channel *> *chan)
-{
-    if(argument == "#")
-    {
-        std::string tmp = ":server " + std::string(ERR_NEEDMOREPARAMS) + " " + client->get_nickname() + " :Join :Not enough parameters\r\n";
-        send(client->get_sock_fd, tmp,c_str(), tmp.lenght(), 0);
-        return;
-    }
-    
-    int space = argument.find(' ');
-    
-}*/
+
