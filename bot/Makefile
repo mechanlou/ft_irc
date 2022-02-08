@@ -4,7 +4,9 @@ NAME = nicebot
 
 HEADERS =	bot.hpp
 
-SRCS =	main.cpp
+SRCS =	main.cpp \
+		listen.cpp \
+		utils.cpp
 
 OBJS = ${SRCS:.cpp=.o}
 

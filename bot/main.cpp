@@ -13,6 +13,7 @@ int	get_sock_fd(char *IP, char *port)
 	int			sock_fd;
 	addrinfo	hints, *serv_info, *tmp;
 	char		buff[INET6_ADDRSTRLEN];
+	struct timeval tv;
 
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_UNSPEC;
@@ -28,7 +29,12 @@ int	get_sock_fd(char *IP, char *port)
 		if ((sock_fd = socket(tmp->ai_family, tmp->ai_socktype,
 			tmp->ai_protocol)) != -1)
 		{
-			if (connect(sock_fd, tmp->ai_addr, tmp->ai_addrlen) != -1)
+			tv.tv_sec = 1;
+			tv.tv_usec = 0;
+			if (setsockopt(sock_fd, SOL_SOCKET, SO_RCVTIMEO,
+				reinterpret_cast<const char*>(&tv), sizeof tv))
+				perror("setsockopt");
+			else if (connect(sock_fd, tmp->ai_addr, tmp->ai_addrlen) != -1)
 				break;
 			if (close(sock_fd))
 				perror("close (wat?)");
@@ -36,47 +42,16 @@ int	get_sock_fd(char *IP, char *port)
 		tmp = tmp->ai_next;
 	}
 	if (tmp == NULL)
+	{
 		std::cout << "Couldn't connect to " << IP << ':' << port << std::endl;
+		sock_fd = -1;
+	}
 	else
 		std::cout << "Successfully connected to " << inet_ntop(tmp->ai_family,
 		get_sin_addr(tmp->ai_addr), buff, INET6_ADDRSTRLEN) << ':' << port <<
 		std::endl;
 	freeaddrinfo(serv_info);
 	return (sock_fd);
-}
-
-int	recv_entire_msg(int	sock_fd, std::string &msg)
-{
-	int		recv_ret;
-	char	buff[BUFFER_SIZE];
-
-	do
-	{
-		recv_ret = recv(sock_fd, buff, BUFFER_SIZE - 1, 0);
-		if (recv_ret > 0)
-		{
-			buff[recv_ret] = '\0';
-			msg += buff;
-		}
-	}
-	while (recv_ret > 0 && !strstr(buff, EOM));
-	return (recv_ret);
-}
-
-int	listen_to_server(int sock_fd)
-{
-	int			recv_ret;
-	std::string	msg;
-
-	do
-	{
-		recv_ret = recv_entire_msg(sock_fd, msg);
-		if (recv_ret > 0)
-			std::cout << msg;
-		msg.clear();
-	}
-	while (recv_ret > 0);
-	return (0);
 }
 
 int main(int argc, char **argv)
@@ -92,5 +67,8 @@ int main(int argc, char **argv)
 	sock_fd = get_sock_fd(argv[1], argv[2]);
 	if (sock_fd < 0)
 		return (1);
-	return (listen_to_server(sock_fd));
+	if (connect_to_server(sock_fd, argv[3], argv[4]))
+		return (1);
+	server_listen_loop(sock_fd, argv[4]);
+	return (0);
 }
