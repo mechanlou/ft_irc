@@ -1,9 +1,27 @@
-NAME = server
+NAME = ircserv
 
 HEADERS_DIR = headers
 
 HEADERS =	headers/Client.hpp \
 			headers/Channel.hpp \
+			headers/parser.hpp \
+			headers/reply_codes.hpp \
+			headers/reply_functions.hpp \
+			headers/commands/INVITE.hpp \
+			headers/commands/KICK.hpp \
+			headers/commands/MODE.hpp \
+			headers/commands/NICK.hpp \
+			headers/commands/PART.hpp \
+			headers/commands/PRIVMSG.hpp \
+			headers/commands/TOPIC.hpp \
+			headers/commands/JOIN.hpp \
+			headers/commands/LIST.hpp \
+			headers/commands/NAMES.hpp \
+			headers/commands/NOTICE.hpp \
+			headers/commands/PASS.hpp \
+			headers/commands/QUIT.hpp \
+			headers/commands/USER.hpp \
+			headers/commands/commands.hpp \
 			headers/ircserver.hpp
 
 SRCS =	srcs/main.cpp \

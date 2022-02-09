@@ -26,7 +26,7 @@ void	part::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 	}
 	if (tmp_chan != NULL)
 	{
-		msg = ":" + cli->get_nickname() + "!" + cli->get_truename() + cli->get_ip() + " PART " + _cmd[1] + ":" + "bye" + "\r\n";
+		msg = ":" + cli->get_nickname() + "!" + cli->get_truename() + cli->get_ip() + " PART " + _cmd[1] + ":" + "bye" + END_OF_MSG;
 		std::vector<Client *> members = tmp_chan->get_all_users();
 		for (std::vector<Client *>::iterator it = members.begin(); it != members.end(); it++)
 		{

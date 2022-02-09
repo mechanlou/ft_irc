@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:43:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:50:01 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 12:13:42 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void pass::excute(std::string buf, Client *cli, std::vector<pollfd> &fds)
         err_needmoreparams(*cli,fds, buf.substr(0, 4));
         return;
     }
-    std::string mdp = buf.substr(5,buf.length() - 5); 
+    std::string mdp = buf.substr(5,buf.length() - 5);
     cli->set_pass(mdp);
     cli->set_etat();
 }

@@ -22,18 +22,16 @@
 #include "commands/commands.hpp"
 #include "Channel.hpp"
 
-#define	END_OF_MSG "\n" //a remplacer par "\n\r" pour IRC
+#define	END_OF_MSG "\r\n" //a remplacer par "\r\n" pour IRC
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
-#define PORT "6667"
-#define PASSWORD "bonjour"
 
 #define SERV_NAME "irc.tamere.net"
 #define VERSION "6.6.7"
 #define	START_DATE "not long ago acutally"
 #define PROTOCOLE_VERSION "2.9"
 
-
+extern char	*g_password;
 
 class			ReplyDoesntExistException : public std::exception
 {
@@ -45,7 +43,7 @@ class			ReplyDoesntExistException : public std::exception
 	}
 };
 
-class	Channel;
+// class	Channel;
 
 int			receive_msg(int src_fd,	std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients, std::vector<Channel> &all_channels);
@@ -60,3 +58,5 @@ void		send_msg_client(Client &dst, std::vector<pollfd> &fds,
 	const char *msg);	//FONCTION A UTILISER POUR ENOVYER UN MESSAGE
 int			send_pending_msg(Client &dst, std::vector<pollfd> &fds);
 Client		&get_client_from_fd(int src_fd, std::vector<Client> &clients);
+int			close_connection(int src_fd, std::vector<pollfd> &fds,
+	std::vector<Client> &all_clients, std::vector<Channel> &all_chans);

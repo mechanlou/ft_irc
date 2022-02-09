@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:50:37 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 12:20:19 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void user::_register(Client *cli)
     
     if(cli->get_name().empty() || cli->get_nickname().empty() || cli->get_truename().empty())
         return;
-    if(cli->get_pass() == PASSWORD)
+    if(cli->get_pass() == g_password)
     {
         cli->set_register(true);
     }

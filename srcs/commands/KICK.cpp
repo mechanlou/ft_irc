@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:20:36 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:55:20 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 13:28:03 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	kick::execute(std::string buf, Client *cli, std::vector<Channel > *channels
 	std::cout << "reason : " << reason << std::endl;
 	if (reason.size() >= 1 && reason[0] != ':')
 		reason = ':' + reason;
-	msg = ":" + cli->get_nickname() + " KICK " + _cmd[1] + " " + _cmd[2] + " " + reason + "\r\n";
+	msg = ":" + cli->get_nickname() + " KICK " + _cmd[1] + " " + _cmd[2] + " " + reason + END_OF_MSG;
 	chan->msg_to_channel(msg.c_str(), fds);
 	chan->remove_user(_get_Client(_cmd[2], chan));
 }

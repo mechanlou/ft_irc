@@ -1,5 +1,6 @@
 #include "ircserver.hpp"
 #include "parser.hpp"
+
 int	close_connection(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients, std::vector<Channel> &all_chans)
 {
@@ -24,6 +25,7 @@ int	close_connection(int src_fd, std::vector<pollfd> &fds,
 		perror("close fd (what)");
 		return (-1);
 	}
+	std::cout << src_fd << " déconnecté" << std::endl;
 	return (0);
 }
 
@@ -44,7 +46,6 @@ int	recv_entire_msg(int	src_fd, std::string *msg)
 int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients, std::vector<Channel> &all_channels)
 {
-	// std::ostringstream				to_send;
 	parser							tool;
 	int								recv_ret;
 	std::string						received_msg;
@@ -57,10 +58,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 		return (-1);
 	}
 	else if (!recv_ret)
-	{
-		std::cout << src_fd << " déconnecté" << std::endl;
 		return (close_connection(src_fd, fds, all_clients, all_channels));
-	}
 	else
 	{
 		src_client.recv_buffer += received_msg;
@@ -70,9 +68,6 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 			src_client.recv_buffer.clear();
 			tool.parse(received_msg, &get_client_from_fd(src_fd, all_clients),
 				&all_clients, &all_channels, fds); // parse call
-			// to_send << src_fd << " : " << received_msg;
-			// std::cout << to_send.str();
-			// send_msg_to_others(src_fd, all_clients, fds, (to_send.str()).c_str());
 		}
 	}
 	return (0);

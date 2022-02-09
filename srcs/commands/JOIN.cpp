@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:53:30 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 13:56:42 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
 
 void	join::_inform_members(std::string name, Client *cli, Channel *chan, std::vector<pollfd> &fds)
 {
-	std::string msg = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " JOIN " + name + "\r\n";
+	std::string msg = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " JOIN " + name + END_OF_MSG;
 	std::vector<Client*> members = chan->get_all_users();
 	chan->msg_to_channel(msg.c_str(), fds);
 }

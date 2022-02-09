@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:33:26 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 12:55:46 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client > *list_cli,
 		_names.excute(buf,cli,list_chan,fds);
 		
 	else if(com == "QUIT")
-		_quit.excute(buf,cli,list_chan,fds);
+		_quit.excute(buf,cli,list_chan, list_cli, fds);
 		
 	else if(com == "JOIN")
 		_join.execute(buf,cli,list_chan,fds);

@@ -1,6 +1,6 @@
 #include "ircserver.hpp"
 
-int	get_listen_sock_fd(void)
+int	get_listen_sock_fd(char *port)
 {
 	int					sock_fd;
 	addrinfo			hints;
@@ -10,7 +10,7 @@ int	get_listen_sock_fd(void)
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
-	if (getaddrinfo(NULL, PORT, &hints, &serv_info))
+	if (getaddrinfo(NULL, port, &hints, &serv_info))
 	{
 		perror("Struct error");
 		return (-1);
@@ -83,7 +83,6 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 		}
 		if (fds[i].revents & POLLOUT)
 		{
-			puts("ok");
 			if (send_pending_msg(get_client_from_fd(fds[i].fd, all_clients), fds))
 				exit(1);
 			poll_ret--;
@@ -92,7 +91,11 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 	}
 }
 
-int main(void)
+char	*g_password;
+
+// ./ircserv <port> <password>
+
+int main(int argc, char **argv)
 {
 	int		sock_fd;
 	int		poll_ret;
@@ -102,7 +105,13 @@ int main(void)
 	std::vector<Client>		clients;
 	std::vector<Channel>	channels;
 
-	if ((sock_fd = get_listen_sock_fd()) == -1)
+	if (argc != 3)
+	{
+		std::cerr << "Usage : ./ircserv <port> <password>" << std::endl;
+		return (-1);
+	}
+	g_password = argv[2];
+	if ((sock_fd = get_listen_sock_fd(argv[1])) == -1)
 		return (1);
 	tmp_poll.events = POLLIN;
 	tmp_poll.fd = sock_fd;

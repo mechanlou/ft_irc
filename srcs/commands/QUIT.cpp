@@ -48,12 +48,13 @@ void quit::_announcement(std::string message, Client *cli, std::vector<Channel> 
 	}
 }
 
-void quit::excute(std::string buf, Client *cli, std::vector<Channel> *chan,std::vector<pollfd> &fds)
+int	quit::excute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<Client> *clients,std::vector<pollfd> &fds)
 {
     std::string bye = buf.substr(5, buf.length() - 5);
 	if (bye[0] == ':')
 		bye = bye.substr(1, bye.length() - 1);
 
-	buf = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " QUIT :Quit: " + bye + "\r\n";
+	buf = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " QUIT :Quit: " + bye + END_OF_MSG;
 	_announcement(buf, cli, chan, fds);
+	return (close_connection(cli->get_sock_fd(), fds, *clients, *chan));
 }
