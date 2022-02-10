@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   USER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/09 12:20:19 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 16:45:28 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
     if(cli->get_name().empty() && cli->get_truename().empty())
     {
         cli->set_name(user);
-        cli->set_name(realname);
+        cli->set_truename(realname);
     }
     else
     {
@@ -74,11 +74,8 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
 
 void user::_register(Client *cli)
 {
-    
     if(cli->get_name().empty() || cli->get_nickname().empty() || cli->get_truename().empty())
         return;
-    if(cli->get_pass() == g_password)
-    {
+    if(!cli->get_pass().compare(g_password))
         cli->set_register(true);
-    }
 }

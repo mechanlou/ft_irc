@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   TOPIC.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:00:25 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:50:34 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 15:56:05 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void topic::excute(std::string buf, Client *cli, std::vector<Channel > *chan,std
 {
     Channel *tmp_chan;
     get_cmd(buf);
-
     if(_cmd.size() < 2)
     {
        err_needmoreparams(*cli, fds,buf.substr(0,5));

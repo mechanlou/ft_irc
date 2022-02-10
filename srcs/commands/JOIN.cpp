@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JOIN.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/09 13:56:42 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 16:24:32 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ join::~join()
 void join::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<pollfd> &fds)
 {
     _getcmd(buf);
+	
     if (_cmd.size() < 2)
     {
         err_needmoreparams(*cli, fds, _cmd[0]);
@@ -32,7 +33,7 @@ void join::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
     }
     if (_cmd[1][0] && _cmd[1][0] != '#')
 		_cmd[1] = '#' + _cmd[1];
-	if (_check_names(_cmd[1], chan))
+	if (!_check_names(_cmd[1], chan))
 	{
 		Channel nchan(_cmd[1],cli);
 		chan->push_back(nchan);

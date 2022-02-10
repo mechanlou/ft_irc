@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/09 13:19:21 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 16:46:14 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std
 
     int begin = buf.find(' ') + 1;
     int len = buf.length() - begin + 1;
-    if(buf.find(END_OF_MSG) != buf.npos)
-        len = buf.find(END_OF_MSG) - begin;
-    std::string nick = buf.substr(begin,len);
+    if(buf.find('\r') != buf.npos)
+        len = buf.find('\r') - begin;
+	std::string nick = buf.substr(begin,len - 2);
     if(nick[0] == ':')
         nick = nick.substr(1, nick.length() - 1);
     if(nick == cli->get_nickname())
