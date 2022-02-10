@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JOIN.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 16:24:32 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 18:01:28 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void join::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 		chan->push_back(nchan);
 	}
 	_join_chan(_cmd[1], cli, chan,fds);
-    
 }
 
 bool join::_check_names(std::string name, std::vector<Channel > *channels)

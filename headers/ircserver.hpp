@@ -22,7 +22,7 @@
 #include "commands/commands.hpp"
 #include "Channel.hpp"
 
-#define	END_OF_MSG "\r\n" //a remplacer par "\r\n" pour IRC
+#define	END_OF_MSG "\n" //a remplacer par "\r\n" pour IRC
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
 
@@ -60,3 +60,4 @@ int			send_pending_msg(Client &dst, std::vector<pollfd> &fds);
 Client		&get_client_from_fd(int src_fd, std::vector<Client> &clients);
 int			close_connection(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients, std::vector<Channel> &all_chans);
+std::string	get_cmd_from_msg(std::string msg);

@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:32:11 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/02 15:41:42 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 18:01:41 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ std::string Client::get_pass() const
     return(_password);
 }
 
-std::string	Client::get_full_prefix() const //with ':'
+std::string	Client::get_full_prefix() const //with ':' and space at the end
 {
 	std::string	prefix(":");
 
@@ -61,6 +61,7 @@ std::string	Client::get_full_prefix() const //with ':'
 	prefix += _name;
 	prefix += '@';
 	prefix += get_ip();
+	prefix += ' ';
 	return (prefix);
 }
 
