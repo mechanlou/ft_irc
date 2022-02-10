@@ -66,6 +66,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 		{
 			received_msg = src_client.recv_buffer;
 			src_client.recv_buffer.clear();
+			std::cout << "received msg : \"" << received_msg << "\"" << std::endl;
 			tool.parse(received_msg, &get_client_from_fd(src_fd, all_clients),
 				&all_clients, &all_channels, fds); // parse call
 		}

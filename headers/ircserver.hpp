@@ -22,7 +22,7 @@
 #include "commands/commands.hpp"
 #include "Channel.hpp"
 
-#define	END_OF_MSG "\n" //a remplacer par "\r\n" pour IRC
+#define	END_OF_MSG "\r\n" //a remplacer par "\r\n" pour IRC
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
 
