@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 16:45:28 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 18:23:10 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
         return;
     }
     
-    if(cli->get_name().empty() && cli->get_truename().empty())
+    if((cli->get_name().empty() && cli->get_truename().empty() )|| cli->get_register() == false)
     {
         cli->set_name(user);
         cli->set_truename(realname);

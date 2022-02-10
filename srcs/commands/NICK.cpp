@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 18:32:36 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 18:40:02 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std
 		return ;
 	}
 
-    msg = ":" + cli->get_nickname() + " NICK " + nick +END_OF_MSG;
+    msg = ":" + cli->get_nickname() + " NICK " + nick + END_OF_MSG;
 	cli->set_nickname(nick);
     
     _announcement_new_nick(msg, cli, chan);
