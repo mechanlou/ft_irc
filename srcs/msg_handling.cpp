@@ -46,10 +46,10 @@ int	recv_entire_msg(int	src_fd, std::string *msg)
 int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client> &all_clients, std::vector<Channel> &all_channels)
 {
-	parser							tool;
-	int								recv_ret;
-	std::string						received_msg;
-	Client				&src_client = get_client_from_fd(src_fd, all_clients);
+	parser		tool;
+	int			recv_ret;
+	std::string	received_msg;
+	Client		&src_client = get_client_from_fd(src_fd, all_clients);
 
 	recv_ret = recv_entire_msg(src_fd, &received_msg);
 	if (recv_ret < 0)
@@ -62,7 +62,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	else
 	{
 		src_client.recv_buffer += received_msg;
-		if (received_msg.find_first_of(END_OF_MSG) != std::string::npos)
+		if (src_client.recv_buffer.find(END_OF_MSG) != std::string::npos)
 		{
 			received_msg = src_client.recv_buffer;
 			src_client.recv_buffer.clear();
