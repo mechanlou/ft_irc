@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 18:23:10 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 15:29:16 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,32 @@ int user::_check_arg(std::string buf)
 
 void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
 {
+    std::string tmp_buf;
     if(buf.find(' ') == buf.npos)
     {
         err_needmoreparams(*cli,fds, buf.substr(0, 4));
         return;
     }
-    buf = buf.substr(5, buf.length() - 5);
-    std::string user = buf.substr(0,buf.find(' '));
+    tmp_buf = buf.substr(5, buf.length() - 5);
+    std::string user = tmp_buf.substr(0,buf.find(' '));
     std::string realname;
     
-    if(buf.find('*') != buf.npos)
+    if(buf.find('*') != tmp_buf.npos)
     {
-        realname = buf.substr(buf.find('*') + 2, buf.length() - buf.find('*') + 2);
+        realname = tmp_buf.substr(tmp_buf.find('*') + 2, tmp_buf.length() - tmp_buf.find('*') + 2);
         if(realname[0] == ':')
             realname = realname.substr(1,realname.length() - 1);
-        if(realname.find('\r') != buf.npos)
+        if(realname.find('\r') != tmp_buf.npos)
             realname = realname.substr(0, realname.length() - 2);
         else
             realname.pop_back();
     }
-    if(realname.empty() || _check_arg(buf) < 3)
+    if(realname.empty() || _check_arg(tmp_buf) < 3)
     {
         err_needmoreparams(*cli,fds, buf.substr(0, 4));
         return;
     }
-    
+    std::cout<<realname<<" "<<user<<std::endl;
     if((cli->get_name().empty() && cli->get_truename().empty() )|| cli->get_register() == false)
     {
         cli->set_name(user);
@@ -74,6 +75,7 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
 
 void user::_register(Client *cli)
 {
+    std::cout<<"|"+cli->get_pass()+"|"<<" "<<"|"<< g_password <<"|"<<std::endl;
     if(cli->get_name().empty() || cli->get_nickname().empty() || cli->get_truename().empty())
         return;
     if(!cli->get_pass().compare(g_password))

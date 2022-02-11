@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 18:40:02 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 15:15:52 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ bool nick:: _checknick(std::string user, std::vector<Client > *clients)
 bool nick::_validnick(std::string nick)
 {
     size_t i = 0;
+	
+	std::cout<<"|"+nick+"|"<<std::endl;
 	while (i < nick.length())
 	{
 		if (nick[i] <= 32 || nick[i] > 126 || nick[i] == ':' || nick[i] == '#' || nick[i] == '!' || nick[i] == '@')
@@ -88,7 +90,7 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std
     int len = buf.length() - begin + 1;
     if(buf.find('\r') != buf.npos)
         len = buf.find('\r') - begin;
-	std::string nick = buf.substr(begin,len - 2);
+	std::string nick = buf.substr(begin,len - 1);
     if(nick[0] == ':')
         nick = nick.substr(1, nick.length() - 1);
     if(nick == cli->get_nickname())
@@ -103,7 +105,7 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std
 		err_nicknameinuse(*cli,fds);
 		return ;
 	}
-
+	puts("oknick");
     msg = ":" + cli->get_nickname() + " NICK " + nick + END_OF_MSG;
 	cli->set_nickname(nick);
     
