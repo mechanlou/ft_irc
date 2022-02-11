@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:43:39 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 16:45:47 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 15:44:29 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ pass::~pass()
 
 void pass::excute(std::string buf, Client *cli, std::vector<pollfd> &fds)
 {
+    std::vector<std::string> arg;
     if(cli->get_register())
     {
         err_alreadyregistered(*cli,fds);
@@ -34,7 +35,9 @@ void pass::excute(std::string buf, Client *cli, std::vector<pollfd> &fds)
         err_needmoreparams(*cli,fds, buf.substr(0, 4));
         return;
     }
-    std::string mdp = buf.substr(5,buf.length() - 6);
-    cli->set_pass(mdp);
+    std::string mdp;
+    pars_msg(buf,mdp,arg);
+    std::cout<<arg[0]<<std::endl;
+    cli->set_pass(arg[0]);
     cli->set_etat();
 }
