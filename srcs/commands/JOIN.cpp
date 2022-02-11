@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JOIN.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 18:01:28 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 16:29:07 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ bool join::_check_names(std::string name, std::vector<Channel > *channels)
     for (std::vector<Channel >::iterator it = channels->begin(); it != channels->end(); it++)
 	{
 		if (it->get_name() == name)
-			return false;
+			return true;
 	}
-	return true;
+	return false;
 }
 
 void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *channels, std::vector<pollfd> &fds)
@@ -56,7 +56,7 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
 	bool new_cli = false;
 	std::string tmp;
     Channel *chan = _check_chan(name, channels);
-
+	
     if (chan->is_members(cli->get_nickname()))
 	{
 		err_useronchannel(*cli,fds,name);
