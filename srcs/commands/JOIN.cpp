@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/11 16:29:07 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 17:17:40 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void join::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 		_cmd[1] = '#' + _cmd[1];
 	if (!_check_names(_cmd[1], chan))
 	{
-		Channel nchan(_cmd[1],cli);
+		Channel nchan(_cmd[1]);
 		chan->push_back(nchan);
 	}
+
 	_join_chan(_cmd[1], cli, chan,fds);
 }
 
@@ -56,7 +57,7 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
 	bool new_cli = false;
 	std::string tmp;
     Channel *chan = _check_chan(name, channels);
-	
+
     if (chan->is_members(cli->get_nickname()))
 	{
 		err_useronchannel(*cli,fds,name);
@@ -82,5 +83,5 @@ void	join::_inform_members(std::string name, Client *cli, Channel *chan, std::ve
 {
 	std::string msg = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " JOIN " + name + END_OF_MSG;
 	std::vector<Client*> members = chan->get_all_users();
-	chan->msg_to_channel(msg.c_str(), fds);
+	chan->msg_to_channel_no_me(msg.c_str(), fds, cli);
 }
