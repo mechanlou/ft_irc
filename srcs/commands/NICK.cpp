@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/11 15:15:52 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 15:49:36 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,35 +79,30 @@ void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<
 
 void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std::vector<Client> *Clients, std::vector<pollfd> &fds)
 {
-    std::string msg;
-    if(buf.find(' ') == buf.npos)
+    std::string cmd;
+	std::vector<std::string> args;
+
+	pars_msg(buf, cmd, args);
+    if(args.empty())
     {
         err_nonicknamegiven(*cli,fds);
 		return ;
     }
-
-    int begin = buf.find(' ') + 1;
-    int len = buf.length() - begin + 1;
-    if(buf.find('\r') != buf.npos)
-        len = buf.find('\r') - begin;
-	std::string nick = buf.substr(begin,len - 1);
-    if(nick[0] == ':')
-        nick = nick.substr(1, nick.length() - 1);
-    if(nick == cli->get_nickname())
+    if(args[0] == cli->get_nickname())
         return;
-    if (!_validnick(nick))
+    if (!_validnick(args[0]))
 	{
 		err_erroneusnickname(*cli,fds);
 		return ;
 	}
-	if (!_checknick(nick, Clients))
+	if (!_checknick(args[0], Clients))
 	{
 		err_nicknameinuse(*cli,fds);
 		return ;
 	}
 	puts("oknick");
-    msg = ":" + cli->get_nickname() + " NICK " + nick + END_OF_MSG;
-	cli->set_nickname(nick);
+    cmd = ":" + cli->get_nickname() + " NICK " + args[0] + END_OF_MSG;
+	cli->set_nickname(args[0]);
     
-    _announcement_new_nick(msg, cli, chan);
+    _announcement_new_nick(cmd, cli, chan);
 }      
