@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NAMES.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:10:27 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:22:47 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 16:56:53 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ class names : public commands
     public:
         names();
         ~names();
-        void excute(std::string buf, Client *cli, std::vector<Channel > *chan, std::vector<pollfd> &fds);
-        void displayname(Channel *chan, Client *cli);
+        void	excute(std::string buf,Client *cli, std::vector<Channel> *chan,
+			std::vector<Client> *all_clients, std::vector<pollfd> &fds);
 };

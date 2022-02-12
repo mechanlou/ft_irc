@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/10 18:32:27 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 17:01:26 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client > *list_cli,
 {
 	std::string cmd = get_cmd_from_msg(buf);
 
-	std::cout << "commande : \"" << cmd << "\"" << std::endl;
-	std::cout << "etat : " << cli->get_etat() << " register : " << cli->get_register() << std::endl;
+	// std::cout << "commande : \"" << cmd << "\"" << std::endl;
+	// std::cout << "etat : " << cli->get_etat() << " register : " << cli->get_register() << std::endl;
 	if(cmd == "PASS")
 		_pass.excute(buf, cli,fds);
 	else if(cmd == "NICK" && cli->get_etat() == 1)
@@ -41,7 +41,7 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client > *list_cli,
 	else if(cmd == "LIST" && cli->get_register() == true)
 		_list.excute(buf,list_chan,cli,fds);	
 	else if(cmd == "NAMES" && cli->get_register() == true)
-		_names.excute(buf,cli,list_chan,fds);
+		_names.excute(buf,cli,list_chan, list_cli,fds);
 	else if(cmd == "QUIT" && cli->get_register() == true)
 		_quit.excute(buf,cli,list_chan, list_cli, fds);
 	else if(cmd == "JOIN" && cli->get_register() == true)

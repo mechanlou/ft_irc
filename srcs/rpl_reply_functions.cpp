@@ -486,7 +486,7 @@ void	rpl_version(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // AREVOIR
+void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre a revoir 
 {
 	std::string	msg(RPL_NAMREPLY);
 	std::vector<Client *>::iterator it = chan.get_all_users().begin();
@@ -496,7 +496,7 @@ void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // AREVOI
 
 	msg.push_back(' ');
 	msg += dst.get_nickname();
-	msg.push_back(' ');
+	msg += " =";
 	msg += chan.get_name();
 	msg += " :";
 	while (it != it_end)
