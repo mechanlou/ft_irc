@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:03:46 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 17:30:31 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/14 17:15:55 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 class topic : public commands
 {
     private :
-        void get_cmd(std::string buf);
+     //   void get_cmd(std::string buf);
 
     public:
         topic();
