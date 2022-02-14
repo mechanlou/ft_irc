@@ -512,6 +512,50 @@ void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre
 	send_msg_client(dst, fds, msg.c_str());
 }
 
+bool	is_in_a_chan(Client *cli, std::vector<Channel> &all_chans)
+{
+	std::vector<Channel>::iterator it = all_chans.begin();
+	std::vector<Channel>::iterator it_end = all_chans.end();
+	std::vector<Client *> tmp;
+
+	while (it != it_end)
+	{
+		tmp = it->get_all_users();
+		if (std::find(tmp.begin(), tmp.end(), cli) != tmp.end())
+			return (true);
+		it++;
+	}
+	return (false);
+}
+
+void	rpl_namreply_other_clients(Client &dst, std::vector<pollfd> &fds,
+	std::vector<Channel> &all_channels,
+	std::vector<Client> &all_clients)
+{
+	std::string	msg(RPL_NAMREPLY);
+	std::vector<Client>::iterator it_cli = all_clients.begin();
+	std::vector<Client>::iterator it_cli_end = all_clients.end();
+
+	msg.push_back(' ');
+	msg += dst.get_nickname();
+	msg += " * :";
+	while (it_cli != it_cli_end)
+	{
+		if (!is_in_a_chan(&(*it_cli), all_channels))
+		{
+			msg += it_cli->get_nickname();
+			it_cli++;
+			if (it_cli != it_cli_end)
+				msg.push_back(' ');
+		}
+		else
+			it_cli++;
+
+	}
+	add_crlf(msg);
+	send_msg_client(dst, fds, msg.c_str());
+}
+
 void	rpl_endofnames(Client &dst, std::vector<pollfd> &fds, std::string channel)
 {
 	std::string	msg(RPL_ENDOFNAMES);

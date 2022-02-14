@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:35:12 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/11 16:22:51 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/14 14:27:42 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ commands::~commands()
 
 Channel* commands::_check_chan(std::string name, std::vector<Channel > *chan) const
 {
-    std::vector<Channel >::iterator it = chan->begin();
+    std::vector<Channel>::iterator it = chan->begin();
     for(;it != chan->end(); it++)
     {
-        if(name == (*it).get_name())
+        if(name == it->get_name())
             return (&(*it));
     }
     return (NULL);

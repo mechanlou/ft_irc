@@ -95,7 +95,10 @@ void	rpl_version(Client &dst, std::vector<pollfd> &fds);
 void	rpl_whoreply(Client &dst, std::vector<pollfd> &fds, std::string chan, std::string user, std::string host, std::string server, std::string nick,
 		std::string weird_args, int hop_count, std::string real_name);
 void	rpl_endofwho(Client &dst, std::vector<pollfd> &fds, std::string name);
-void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan); // AREVOIR
+void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan);
+void	rpl_namreply_other_clients(Client &dst, std::vector<pollfd> &fds,
+	std::vector<Channel> &all_channels,
+	std::vector<Client> &all_clients);
 void	rpl_endofnames(Client &dst, std::vector<pollfd> &fds, std::string channel);
 void	rpl_links(Client &dst, std::vector<pollfd> &fds, std::string mask, std::string server, int hop_count, std::string serv_info);
 void	rpl_endoflinks(Client &dst, std::vector<pollfd> &fds);

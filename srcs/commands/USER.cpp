@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   USER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/11 16:10:57 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/14 13:38:03 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
     {
         cli->set_name(arg[0]);
         cli->set_truename(arg[3]);
-        std::cout<<cli->get_name()<<" "<<cli->get_truename()<<std::endl;
+        // std::cout<<cli->get_name()<<" "<<cli->get_truename()<<std::endl;
     }
     else
     {
