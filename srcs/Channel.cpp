@@ -1,10 +1,9 @@
 #include "ircserver.hpp"
 #include "Channel.hpp"
 
-Channel::Channel(std::string name, Client *creator) : _name(name)
+Channel::Channel(std::string name) : _name(name)
 {
-	_all_users.push_back(creator);
-	_operators.push_back(creator);
+
 }
 
 Channel::Channel(Channel const &src) : _name(src._name),
@@ -101,6 +100,21 @@ void	Channel::msg_to_channel(const char *msg, std::vector<pollfd> &fds)
 	while (it != end)
 	{
 		send_msg_client(**it, fds, msg);
+		it++;
+	}
+}
+
+void	Channel::msg_to_channel_no_me(const char *msg, std::vector<pollfd> &fds, Client *cli)
+{
+	std::vector<Client *>::iterator it;
+	std::vector<Client *>::iterator end;
+
+	it = _all_users.begin();
+	end = _all_users.end();
+	while (it != end)
+	{
+		if(cli->get_nickname() != (*it)->get_nickname())
+			send_msg_client(**it, fds, msg);
 		it++;
 	}
 }

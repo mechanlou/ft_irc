@@ -9,7 +9,7 @@ class	Channel
 	public :
 
 	// Channel(void);
-	Channel(std::string name, Client *creator);
+	Channel(std::string name);
 	Channel(Channel const &src);
 	virtual	~Channel(void);
 	Channel	&operator=(Channel const &src);
@@ -28,7 +28,7 @@ class	Channel
 	std::vector<Client *>	get_all_users() const;
 
 	void			msg_to_channel(const char *msg, std::vector<pollfd> &fds);
-
+	void			msg_to_channel_no_me(const char *msg, std::vector<pollfd> &fds, Client *cli);
 	std::string				_name;
 	//int size;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/11 15:49:36 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 17:10:42 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ bool nick::_validnick(std::string nick)
 {
     size_t i = 0;
 	
-	std::cout<<"|"+nick+"|"<<std::endl;
 	while (i < nick.length())
 	{
 		if (nick[i] <= 32 || nick[i] > 126 || nick[i] == ':' || nick[i] == '#' || nick[i] == '!' || nick[i] == '@')
@@ -100,7 +99,6 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std
 		err_nicknameinuse(*cli,fds);
 		return ;
 	}
-	puts("oknick");
     cmd = ":" + cli->get_nickname() + " NICK " + args[0] + END_OF_MSG;
 	cli->set_nickname(args[0]);
     
