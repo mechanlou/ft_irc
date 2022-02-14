@@ -489,11 +489,17 @@ void	rpl_version(Client &dst, std::vector<pollfd> &fds)
 void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre a revoir 
 {
 	std::string	msg(RPL_NAMREPLY);
-	std::vector<Client *>::iterator it = chan.get_all_users().begin();
-	std::vector<Client *>::iterator it_end = chan.get_all_users().end();
-	std::vector<Client *>::iterator it_op = chan.get_operators().begin();
-	std::vector<Client *>::iterator it_op_end = chan.get_operators().end();
+	std::vector<Client *>			all_users = chan.get_all_users();
+	std::vector<Client *>			operators = chan.get_operators();
+	std::vector<Client *>::iterator it;
+	std::vector<Client *>::iterator it_end;
+	std::vector<Client *>::iterator it_op;
+	std::vector<Client *>::iterator it_op_end;
 
+	it = chan.get_all_users().begin();
+	it_end = chan.get_all_users().end();
+	it_op = chan.get_operators().begin();
+	it_op_end = chan.get_operators().end();
 	msg.push_back(' ');
 	msg += dst.get_nickname();
 	msg += " =";

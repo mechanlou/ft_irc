@@ -9,8 +9,9 @@ int	get_listen_sock_fd(char *port)
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
-	if (getaddrinfo(NULL, port, &hints, &serv_info))
+	if (HOSTNAME == NULL)
+		hints.ai_flags = AI_PASSIVE;
+	if (getaddrinfo(HOSTNAME, port, &hints, &serv_info))
 	{
 		perror("Struct error");
 		return (-1);
