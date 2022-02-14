@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/11 17:17:40 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/14 17:14:14 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ join::~join()
 void join::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<pollfd> &fds)
 {
     _getcmd(buf);
-	
+
     if (_cmd.size() < 2)
     {
         err_needmoreparams(*cli, fds, _cmd[0]);
@@ -65,23 +65,22 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
     }
     else
     {
+
         chan->add_regular_user(cli);
+
 	    if (chan->get_all_users().size() == 1)
 			chan->add_operator_user(cli);
 		new_cli = true;
     }
 
     _inform_members(name, cli, chan, fds);
-
+	
     if(new_cli)
-    {
         rpl_topic(*cli, fds, name, chan->get_topic());
-    }
 }
 
 void	join::_inform_members(std::string name, Client *cli, Channel *chan, std::vector<pollfd> &fds)
 {
 	std::string msg = ":" + cli->get_nickname() + "!" + cli->get_name() + "@" + cli->get_ip() + " JOIN " + name + END_OF_MSG;
-	std::vector<Client*> members = chan->get_all_users();
 	chan->msg_to_channel_no_me(msg.c_str(), fds, cli);
 }
