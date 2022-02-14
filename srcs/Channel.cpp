@@ -26,7 +26,6 @@ void	Channel::add_regular_user(Client *user)
 
 void	Channel::add_operator_user(Client *user)
 {
-	_all_users.push_back(user);
 	_operators.push_back(user);
 }
 
