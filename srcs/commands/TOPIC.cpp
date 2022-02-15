@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:00:25 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/14 17:15:45 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 15:21:35 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void topic::excute(std::string buf, Client *cli, std::vector<Channel > *chan,std
 {
     Channel *tmp_chan;
     std::string tmp_buf;
+    
     pars_msg(buf,tmp_buf,_cmd);
-    std::cout<<_cmd.size()<<std::endl;
     if(_cmd.size() < 1)
     {
        err_needmoreparams(*cli, fds,buf.substr(0,5));

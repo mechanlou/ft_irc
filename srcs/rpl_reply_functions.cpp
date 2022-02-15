@@ -532,12 +532,11 @@ bool	is_in_a_chan(Client *cli, std::vector<Channel> &all_chans)
 {
 	std::vector<Channel>::iterator it = all_chans.begin();
 	std::vector<Channel>::iterator it_end = all_chans.end();
-	std::vector<Client *> tmp;
+
 
 	while (it != it_end)
 	{
-		tmp = it->get_all_users();
-		if (std::find(tmp.begin(), tmp.end(), cli) != tmp.end())
+		if(it->is_members(cli->get_nickname()))
 			return (true);
 		it++;
 	}
