@@ -324,7 +324,6 @@ void	rpl_list(Client &dst, std::vector<pollfd> &fds, std::string channel,
 	msg += nb_users;
 	msg += " :";
 	msg += topic;
-	std::cout << "msg to send : " << msg << std::endl;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
