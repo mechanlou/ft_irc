@@ -66,8 +66,12 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 
 	tmp_poll.events = POLLIN;
 	i = 0;
-	while (poll_ret)
+	// std::cout << "Handle poll event start. fds size : " << fds.size() << std::endl;
+	while (poll_ret > 0)
 	{
+		// std::cout << "poll_ret : " << poll_ret << std::endl;
+		// std::cout << "POLLIN : " << (fds[i].revents & POLLIN) << std::endl;
+		// std::cout << "POLLOUT : " << (fds[i].revents & POLLOUT) << std::endl;
 		fds.at(i); // throws exception if we ever get out of range
 		if (fds[i].revents & POLLIN)
 		{

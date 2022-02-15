@@ -57,7 +57,7 @@ $(NAME): $(OBJS) $(HEADERS)
 	clang++ $(OBJS) -o $(NAME)
 
 $(OBJS): %.o: %.cpp $(HEADERS)
-	clang++ -Wall -Wextra -Werror -std=c++98 -I$(HEADERS_DIR) -c $< -o $@
+	clang++ -Wall -Wextra -Werror -g3 -std=c++98 -I$(HEADERS_DIR) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

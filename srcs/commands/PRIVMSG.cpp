@@ -16,7 +16,7 @@ void	privmsg::_send_channel(std::string msg, Client *src,
 	int i = 0;
 	while (it_chan != it_chan_end)
 	{
-		std::cout << "nb : " << i++ << " name : " << it_chan->get_name() << std::endl;
+		std::cout << "nb : " << i++ << " name : \"" << it_chan->get_name() << "\"" << std::endl;
 		if (it_chan->get_name() == args[0])
 		{
 			if (it_chan->is_members(src->get_nickname()))

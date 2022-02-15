@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   LIST.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:08:24 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/14 16:51:08 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 15:52:30 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,55 @@
 
 list::list()
 {
-    
+	
 }
 
 list::~list()
 {
-    
+	
 }
 
-void list::excute(std::string cmd, std::vector<Channel> *chan, Client *cli,std::vector<pollfd> &fds)
+void list::excute(std::string msg, std::vector<Channel> *all_channels,
+	Client *src,std::vector<pollfd> &fds)
 {
-    _getcmd(cmd);
-    std::string list_chan;
-    Channel *cur_chan;
-    size_t i  = 0;
-        
-    if(_cmd.size() > 1)
-    {
-        rpl_liststart(*cli, fds);
-        while(i < _cmd.size())
-        {
-                cur_chan = _check_chan(_cmd[i],chan);
-                list_chan.append(cli->get_nickname() + " " + cur_chan->get_name() +" " + std::to_string(cur_chan->get_all_users().size()));
-                list_chan.append(":" + cur_chan->get_topic());
-                rpl_list(*cli,fds,cur_chan->get_name());
-                list_chan.clear();
-                i++;
-        }
-           
-    }
-    
-    if(_cmd.size() == 1)
-    {    
-        rpl_liststart(*cli,fds);
-        for(std::vector<Channel>:: iterator it = chan->begin(); it != chan->end(); it++)
-        {
-            list_chan.append(cli->get_nickname() + " " + it->get_name() + " " + std::to_string(it->get_all_users().size()));
-            list_chan.append(":" + it->get_topic());
-            rpl_list(*cli, fds, list_chan);
-        }
-        list_chan.clear();
-    }
-    rpl_listend(*cli, fds);   
+	std::vector<Channel>::iterator	it;
+	std::vector<Channel>::iterator	it_end;
+	Channel							*tmp_chan;
+	std::string 					cmd;
+	std::vector<std::string>		args;
+	std::string						chan_name;
+	std::istringstream				names_list;
+	std::ostringstream				conv;
+
+	pars_msg(msg, cmd, args);
+	if (args.size() > 0)
+	{
+		names_list.str(args[0]);
+		while (std::getline(names_list, chan_name, ','))
+		{
+			tmp_chan = _check_chan(chan_name, all_channels);
+			if(tmp_chan != NULL)
+			{
+				conv.str("");
+				conv << tmp_chan->get_all_users().size();
+				rpl_list(*src, fds, tmp_chan->get_name(), conv.str(), tmp_chan->get_topic());
+			}
+		}
+		rpl_listend(*src, fds);
+	}
+	else
+	{
+		it = all_channels->begin();
+		it_end = all_channels->end();
+		while (it != it_end)
+		{
+			std::cout << "all users nb : " << it->get_all_users().size() << std::endl;
+			conv.str("");
+			conv << it->get_all_users().size();
+			std::cout << "converted nb : " << conv.str() << std::endl;
+			rpl_list(*src, fds, it->get_name(), conv.str(), it->get_topic());
+			it++;
+		}
+		rpl_listend(*src, fds);
+	} 
 }

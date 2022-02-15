@@ -82,7 +82,8 @@ void	rpl_whoischannels(Client &dst, std::vector<pollfd> &fds, std::string nick, 
 void	rpl_whowasuser(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string user, std::string host, std::string real_name);
 void	rpl_endofwhowas(Client &dst, std::vector<pollfd> &fds, std::string nick);
 void	rpl_liststart(Client &dst, std::vector<pollfd> &fds);
-void	rpl_list(Client &dst, std::vector<pollfd> &fds, std::string channel);
+void	rpl_list(Client &dst, std::vector<pollfd> &fds, std::string channel,
+	std::string nb_users, std::string topic);
 void	rpl_listend(Client &dst, std::vector<pollfd> &fds);
 void	rpl_channelmodeis(Client &dst, std::vector<pollfd> &fds, std::string channel, std::string mode, std::string mode_params);
 void	rpl_notopic(Client &dst, std::vector<pollfd> &fds, std::string channel);

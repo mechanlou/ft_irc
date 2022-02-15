@@ -303,18 +303,28 @@ void	rpl_liststart(Client &dst, std::vector<pollfd> &fds)
 {
  	std::string	msg(RPL_LISTSTART);
 
+	msg.push_back(' ');
+	msg += dst.get_nickname();
  	msg.push_back(' ');
 	msg += "Channel :Users Name";
  	add_crlf(msg);
  	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_list(Client &dst, std::vector<pollfd> &fds, std::string channel)
+void	rpl_list(Client &dst, std::vector<pollfd> &fds, std::string channel,
+	std::string nb_users, std::string topic)
 {
 	std::string	msg(RPL_LIST);
 
 	msg.push_back(' ');
+	msg += dst.get_nickname();
+	msg.push_back(' ');
 	msg += channel;
+	msg.push_back(' ');
+	msg += nb_users;
+	msg += " :";
+	msg += topic;
+	std::cout << "msg to send : " << msg << std::endl;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
@@ -325,7 +335,7 @@ void	rpl_listend(Client &dst, std::vector<pollfd> &fds)
 
 	msg.push_back(' ');
 	msg += dst.get_nickname();
-	msg += ":End of /LIST";
+	msg += " :End of LIST";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
@@ -502,7 +512,7 @@ void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre
 	it_op_end = chan.get_operators().end();
 	msg.push_back(' ');
 	msg += dst.get_nickname();
-	msg += " =";
+	msg += " = ";
 	msg += chan.get_name();
 	msg += " :";
 	while (it != it_end)
