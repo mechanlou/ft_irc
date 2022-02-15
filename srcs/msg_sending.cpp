@@ -6,8 +6,12 @@ void	send_msg_client(Client &dst, std::vector<pollfd> &fds, const char *msg)
 
 	dst.send_buffer.push_back(msg);
 	i = 0;
+	// std::cout << "fds size : " << fds.size() << std::endl;
 	while (fds[i].fd != dst.get_sock_fd())
+	{
+		// std::cout << "i : " << i << std::endl;
 		i++;
+	}
 	fds[i].events = POLLIN | POLLOUT;
 }
 

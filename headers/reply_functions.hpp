@@ -61,6 +61,7 @@ void	err_usersdontmatch(Client &dst, std::vector<pollfd> &fds);
 
 // messages
 
+void	send_part(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string chan);
 void	rpl_welcome(Client &dst, std::vector<pollfd> &fds, std::string user, std::string host);
 void	rpl_yourhost(Client &dst, std::vector<pollfd> &fds);
 void	rpl_created(Client &dst, std::vector<pollfd> &fds); // fait un truc un peu mieux quand meme

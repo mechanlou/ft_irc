@@ -1,5 +1,12 @@
 #include "ircserver.hpp"
 
+void	send_part(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string chan)
+{
+	std::string	msg;
+	
+	msg = ":" + nick + " PART " + chan + ":" + "bye" + END_OF_MSG;
+	send_msg_client(dst, fds, msg.c_str());
+}
 
 void	rpl_welcome(Client &dst, std::vector<pollfd> &fds, std::string user, std::string host)
 {
@@ -507,14 +514,14 @@ void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre
 
 	it = all_users.begin();
 	it_end = all_users.end();
-	it_op = chan.get_operators().begin();
-	it_op_end = chan.get_operators().end();
+	it_op = operators.begin();
+	it_op_end = operators.end();
 	msg.push_back(' ');
 	msg += dst.get_nickname();
 	msg += " = ";
 	msg += chan.get_name();
 	msg += " :";
-	while ((it != it_end))
+	while (it != it_end)
 	{
 		if (chan.is_operator((*it)->get_nickname()))
 			msg.push_back('@');
@@ -549,6 +556,7 @@ void	rpl_namreply_other_clients(Client &dst, std::vector<pollfd> &fds,
 	std::string	msg(RPL_NAMREPLY);
 	std::vector<Client>::iterator it_cli = all_clients.begin();
 	std::vector<Client>::iterator it_cli_end = all_clients.end();
+	bool		send_message = false;
 
 	msg.push_back(' ');
 	msg += dst.get_nickname();
@@ -557,6 +565,7 @@ void	rpl_namreply_other_clients(Client &dst, std::vector<pollfd> &fds,
 	{
 		if (!is_in_a_chan(&(*it_cli), all_channels))
 		{
+			send_message = true;
 			msg += it_cli->get_nickname();
 			it_cli++;
 			if (it_cli != it_cli_end)
@@ -567,7 +576,8 @@ void	rpl_namreply_other_clients(Client &dst, std::vector<pollfd> &fds,
 
 	}
 	add_crlf(msg);
-	send_msg_client(dst, fds, msg.c_str());
+	if (send_message)
+		send_msg_client(dst, fds, msg.c_str());
 }
 
 void	rpl_endofnames(Client &dst, std::vector<pollfd> &fds, std::string channel)

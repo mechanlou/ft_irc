@@ -18,7 +18,7 @@ class	Channel
 	void 					set_topic(std::string topic);
 	void					add_regular_user(Client *user);
 	void					add_operator_user(Client *user);
-	void					remove_user(Client *user);
+	bool					remove_user(Client *user);
 	std::string				get_name(void) const;
 	std::string				get_topic() const;
 	void					set_name(std::string const &new_name);

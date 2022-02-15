@@ -8,6 +8,7 @@ int	close_connection(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client>::iterator	it_clients = all_clients.begin();
 	std::vector<Channel>::iterator	it_chans = all_chans.begin();
 	std::vector<Channel>::iterator	it_chans_end = all_chans.end();
+	std::string	part_msg;
 
 	while (it_fds->fd != src_fd)
 		it_fds++;
@@ -16,7 +17,13 @@ int	close_connection(int src_fd, std::vector<pollfd> &fds,
 		it_clients++;
 	while (it_chans != it_chans_end)
 	{
-		it_chans->remove_user(&(*it_clients));
+		if (it_chans->remove_user(&(*it_clients)))
+		{
+			part_msg = ":" + it_clients->get_nickname() + "!" +
+				it_clients->get_truename() + it_clients->get_ip() + " PART " +
+				it_chans->get_name() + ":" + "bye" + END_OF_MSG;
+			it_chans->msg_to_channel(part_msg.c_str(), fds);
+		}
 		it_chans++;
 	}
 	all_clients.erase(it_clients);

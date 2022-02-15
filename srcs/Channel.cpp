@@ -29,7 +29,7 @@ void	Channel::add_operator_user(Client *user)
 	_operators.push_back(user);
 }
 
-void	Channel::remove_user(Client *user)
+bool	Channel::remove_user(Client *user)
 {
 	std::vector<Client *>::iterator it;
 	std::vector<Client *>::iterator end;
@@ -46,7 +46,11 @@ void	Channel::remove_user(Client *user)
 	while (it != end && (*it)->get_nickname() != user->get_nickname())
 		it++;
 	if (it != end)
+	{
 		_all_users.erase(it);
+		return (true);
+	}
+	return (false);
 }
 
 std::vector<Client *>	Channel::get_all_users() const

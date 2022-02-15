@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:08:24 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/15 15:52:30 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 17:16:09 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ void list::excute(std::string msg, std::vector<Channel> *all_channels,
 		it_end = all_channels->end();
 		while (it != it_end)
 		{
-			std::cout << "all users nb : " << it->get_all_users().size() << std::endl;
 			conv.str("");
 			conv << it->get_all_users().size();
-			std::cout << "converted nb : " << conv.str() << std::endl;
 			rpl_list(*src, fds, it->get_name(), conv.str(), it->get_topic());
 			it++;
 		}
