@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:00:25 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/15 15:21:35 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/15 17:47:14 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ void topic::excute(std::string buf, Client *cli, std::vector<Channel > *chan,std
         }
         else
         {
-            if(_cmd[2].front() == ':')
-                tmp_chan->set_topic(&_cmd[1][1]);
-            else
-                tmp_chan->set_topic(_cmd[1]);
+            tmp_chan->set_topic(_cmd[1]);
         }
     }
     

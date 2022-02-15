@@ -505,8 +505,8 @@ void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre
 	std::vector<Client *>::iterator it_op;
 	std::vector<Client *>::iterator it_op_end;
 
-	it = chan.get_all_users().begin();
-	it_end = chan.get_all_users().end();
+	it = all_users.begin();
+	it_end = all_users.end();
 	it_op = chan.get_operators().begin();
 	it_op_end = chan.get_operators().end();
 	msg.push_back(' ');
@@ -514,9 +514,9 @@ void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre
 	msg += " = ";
 	msg += chan.get_name();
 	msg += " :";
-	while (it != it_end)
+	while ((it != it_end))
 	{
-		if (std::find(it_op, it_op_end, *it) != it_op_end)
+		if (chan.is_operator((*it)->get_nickname()))
 			msg.push_back('@');
 		msg += (*it)->get_nickname();
 		it++;
