@@ -33,7 +33,7 @@ int	close_connection(int src_fd, std::vector<pollfd> &fds,
 		return (-1);
 	}
 	std::cout << src_fd << " déconnecté" << std::endl;
-	return (0);
+	return (1);
 }
 
 int	recv_entire_msg(int	src_fd, std::string *msg)

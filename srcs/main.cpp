@@ -2,9 +2,10 @@
 
 int	get_listen_sock_fd(char *port)
 {
-	int					sock_fd;
-	addrinfo			hints;
-	addrinfo			*serv_info;
+	int			sock_fd;
+	addrinfo	hints;
+	addrinfo	*serv_info;
+	int			opt_val = 1;
 
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_INET;
@@ -23,7 +24,13 @@ int	get_listen_sock_fd(char *port)
 		perror("Socket error");
 		return (-1);
 	}
-	fcntl(sock_fd, F_SETFL, O_NONBLOCK);
+	if (fcntl(sock_fd, F_SETFL, O_NONBLOCK) < 0 || setsockopt(sock_fd,
+		SOL_SOCKET, SO_REUSEADDR, &opt_val, sizeof(opt_val)) < 0)
+	{
+		freeaddrinfo(serv_info);
+		perror("fcntl/setsockopt error");
+		return (-1);
+	}
 	if (bind(sock_fd, serv_info->ai_addr, serv_info->ai_addrlen) == -1)
 	{
 		freeaddrinfo(serv_info);
@@ -63,15 +70,14 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 {
 	int		i;
 	pollfd	tmp_poll;
+	int		recv_ret;
 
 	tmp_poll.events = POLLIN;
 	i = 0;
-	// std::cout << "Handle poll event start. fds size : " << fds.size() << std::endl;
 	while (poll_ret > 0)
 	{
-		// std::cout << "poll_ret : " << poll_ret << std::endl;
-		// std::cout << "POLLIN : " << (fds[i].revents & POLLIN) << std::endl;
-		// std::cout << "POLLOUT : " << (fds[i].revents & POLLOUT) << std::endl;
+		recv_ret = 0;
+
 		fds.at(i); // throws exception if we ever get out of range
 		if (fds[i].revents & POLLIN)
 		{
@@ -82,17 +88,22 @@ void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
 				else
 					fds.push_back(tmp_poll);
 			}
-			else if (receive_msg(fds[i].fd, fds, all_clients, all_channels))
-				exit(1);
+			else
+			{
+				recv_ret = receive_msg(fds[i].fd, fds, all_clients, all_channels);
+				if (recv_ret < 0)
+					exit(1);
+			}
 			poll_ret--;
 		}
-		if (fds[i].revents & POLLOUT)
+		else if (fds[i].revents & POLLOUT)
 		{
 			if (send_pending_msg(get_client_from_fd(fds[i].fd, all_clients), fds))
 				exit(1);
 			poll_ret--;
 		}
-		i++;
+		if (!recv_ret)
+			i++;
 	}
 }
 
