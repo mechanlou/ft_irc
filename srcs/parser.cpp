@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/16 16:56:18 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 18:31:42 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli
 	else if(cmd == "USER" && cli->get_etat() == 1)
 	{
 		_user.excute(buf, cli,fds);
-		_user._register(cli);
+		_user._register(cli, fds);
 	}
 	else if(cmd == "LIST" && cli->get_register() == true)
 		_list.excute(buf,list_chan, cli,fds);	

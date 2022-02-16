@@ -7,9 +7,7 @@ HEADERS =	headers/Client.hpp \
 			headers/parser.hpp \
 			headers/reply_codes.hpp \
 			headers/reply_functions.hpp \
-			headers/commands/INVITE.hpp \
 			headers/commands/KICK.hpp \
-			headers/commands/MODE.hpp \
 			headers/commands/NICK.hpp \
 			headers/commands/PART.hpp \
 			headers/commands/PRIVMSG.hpp \

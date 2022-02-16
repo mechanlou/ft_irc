@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 	pollfd	tmp_poll;
 
 	std::vector<pollfd>		fds;
-	std::vector<Client *>		clients;
+	std::vector<Client *>	clients;
 	std::vector<Channel>	channels;
 
 	if (argc != 3)
@@ -137,13 +137,20 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		// std::cout << "blocked" << std::endl;
-		if ((poll_ret = poll(&fds[0], fds.size(), -1)) == -1)
+		poll_ret = poll(&fds[0], fds.size(), 20000);
+		if (poll_ret < 0)
 		{
 			perror("poll error wtf bruh");
 			return (1);
 		}
+		else if (poll_ret == 0)
+		{
+			// std::cout << "Sending PING :allo" << std::endl;
+			// broadcast_msg(clients, fds, "PING :a l'huile\r\n");
+		}
+		else
+			handle_poll_event(fds, poll_ret, sock_fd, clients, channels);
 		// std::cout << "unblocked" << std::endl;
-		handle_poll_event(fds, poll_ret, sock_fd, clients, channels);
 	}
 	return (0);
 }

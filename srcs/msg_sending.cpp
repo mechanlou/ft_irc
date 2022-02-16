@@ -29,7 +29,7 @@ void	send_msg_to_others(int src_fd, std::vector<Client *> &all_clients,
 	}
 }
 
-int	broadcast_msg(std::vector<Client *> &all_clients,
+void	broadcast_msg(std::vector<Client *> &all_clients,
 	std::vector<pollfd> &fds, const char *msg)
 {
 	std::vector<Client *>::iterator	it = all_clients.begin();
@@ -40,7 +40,6 @@ int	broadcast_msg(std::vector<Client *> &all_clients,
 		send_msg_client(*it, fds, msg);
 		it++;
 	}
-	return (0);
 }
 
 int	send_pending_msg(Client *dst, std::vector<pollfd> &fds)

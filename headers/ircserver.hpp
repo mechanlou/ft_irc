@@ -27,10 +27,10 @@
 #define BUFFER_SIZE 10
 
 #define	HOSTNAME NULL
-#define SERV_NAME "irc.tamere.net"
+#define SERV_NAME "rkowalsk_wperu"
 #define VERSION "6.6.7"
 #define	START_DATE "not long ago acutally"
-#define PROTOCOLE_VERSION "2.9"
+#define PROTOCOLE_VERSION "1.9.9.5"
 
 extern char	*g_password;
 
@@ -51,7 +51,7 @@ int			receive_msg(int src_fd,	std::vector<pollfd> &fds,
 void		add_crlf(std::string &msg);
 void		pars_msg(std::string msg, std::string &command,
 	std::vector<std::string> &args);
-int			broadcast_msg(std::vector<Client *> &all_clients,
+void		broadcast_msg(std::vector<Client *> &all_clients,
 	std::vector<pollfd> &fds, const char *msg); // POUR BROADCAST UN MSG
 void		send_msg_to_others(int src_fd, std::vector<Client *> &all_clients,
 	std::vector<pollfd> &fds, const char *msg); // POUR BROADCAST SAUF A UN CLIENT

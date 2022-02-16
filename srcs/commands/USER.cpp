@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/16 17:11:50 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 18:30:28 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int user::_check_arg(std::string buf)
         return (i);
 }
 
-void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
+void user::excute(std::string buf, Client *cli, std::vector<pollfd> &fds)
 {
     std::vector<std::string> arg;
     std::string tmp_buf;
@@ -61,10 +61,16 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
     }
 }
 
-void user::_register(Client *cli)
+void user::_register(Client *cli, std::vector<pollfd> &fds)
 {
     if(cli->get_name().empty() || cli->get_nickname().empty() || cli->get_truename().empty())
         return;
     if(!cli->get_pass().compare(g_password))
+	{
         cli->set_register(true);
+		rpl_welcome(cli, fds);
+		rpl_yourhost(cli, fds);
+		rpl_created(cli, fds);
+		rpl_myinfo(cli, fds, "", "");
+	}
 }

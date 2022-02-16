@@ -8,18 +8,18 @@ void	send_part(Client *dst, std::vector<pollfd> &fds, std::string nick, std::str
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_welcome(Client *dst, std::vector<pollfd> &fds, std::string user, std::string host)
+void	rpl_welcome(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_WELCOME);
 
 	msg.push_back(' ');
 	msg += dst->get_nickname();
-	msg += " Welcome to the Internet Relay Network ";
+	msg += " :Welcome to our IRC Server ";
 	msg += dst->get_nickname();
 	msg.push_back('!');
-	msg += user;
+	msg += dst->get_name();
 	msg.push_back('@');
-	msg += host;
+	msg += dst->get_ip();
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
@@ -30,7 +30,7 @@ void	rpl_yourhost(Client *dst, std::vector<pollfd> &fds)
 
 	msg.push_back(' ');
 	msg += dst->get_nickname();
-	msg += "Your host is ";
+	msg += " :Your host is ";
 	msg += SERV_NAME;
 	msg += ", running version ";
 	msg += VERSION;
@@ -38,13 +38,13 @@ void	rpl_yourhost(Client *dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_created(Client *dst, std::vector<pollfd> &fds) // fait un truc un peu mieux quand meme
+void	rpl_created(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_CREATED);
 
 	msg.push_back(' ');
 	msg += dst->get_nickname();
-	msg += "This server was created ";
+	msg += " :This server was created ";
 	msg += START_DATE;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
@@ -56,7 +56,7 @@ void	rpl_myinfo(Client *dst, std::vector<pollfd> &fds, std::string user_modes, s
 
 	msg.push_back(' ');
 	msg += dst->get_nickname();
-	msg.push_back(' ');
+	msg += " :";
 	msg += SERV_NAME;
 	msg.push_back(' ');
 	msg += VERSION;

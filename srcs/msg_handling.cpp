@@ -25,8 +25,17 @@ int	close_connection(int src_fd, std::vector<pollfd> &fds,
 				cli->get_truename() + cli->get_ip() + " PART " +
 				it_chans->get_name() + ":" + "bye" + END_OF_MSG;
 			it_chans->msg_to_channel(part_msg.c_str(), fds);
+			if (it_chans->get_all_users().size() == 0)
+			{
+				all_chans.erase(it_chans);
+				it_chans = all_chans.begin();
+				it_chans_end = all_chans.end();
+			}
+			else
+				it_chans++;
 		}
-		it_chans++;
+		else
+			it_chans++;
 	}
 	all_clients.erase(it_clients);
 	delete cli;
@@ -53,6 +62,19 @@ int	recv_entire_msg(int	src_fd, std::string *msg)
 	return (recv_ret);
 }
 
+std::string	get_next_msg(std::string &buffer)
+{
+	std::string	new_msg;
+	size_t		eom_pos;
+
+	eom_pos = buffer.find(END_OF_MSG);
+	if (eom_pos != buffer.npos)
+		eom_pos += 2;
+	new_msg = buffer.substr(0, eom_pos);
+	buffer.erase(0, eom_pos);
+	return (new_msg);
+}
+
 int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client *> &all_clients, std::vector<Channel> &all_channels)
 {
@@ -74,8 +96,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 		src_client->recv_buffer += received_msg;
 		if (src_client->recv_buffer.find(END_OF_MSG) != std::string::npos)
 		{
-			received_msg = src_client->recv_buffer;
-			src_client->recv_buffer.clear();
+			received_msg = get_next_msg(src_client->recv_buffer);
 			std::cout << "received msg : \"" << received_msg << "\"" << std::endl;
 			tool.parse(received_msg, get_client_from_fd(src_fd, all_clients),
 				&all_clients, &all_channels, fds); // parse call
