@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/16 16:59:41 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 18:06:09 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 #include "commands/NICK.hpp"
 #include "commands/NOTICE.hpp"
 #include "commands/TOPIC.hpp"
-// #include "commands/INVITE.hpp"
-//#include "commands/MODE.hpp"
 #include "commands/LIST.hpp"
 #include "commands/NAMES.hpp"
 #include "commands/QUIT.hpp"
