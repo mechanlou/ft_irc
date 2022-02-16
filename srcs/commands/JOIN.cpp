@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JOIN.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:56:20 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/15 15:17:54 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:06:15 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void join::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 
     if (_cmd.size() < 2)
     {
-        err_needmoreparams(*cli, fds, _cmd[0]);
+        err_needmoreparams(cli, fds, _cmd[0]);
         return;
     }
     if (_cmd[1][0] && _cmd[1][0] != '#')
@@ -60,7 +60,7 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
 	
     if (chan->is_members(cli->get_nickname()))
 	{
-		err_useronchannel(*cli,fds,name);
+		err_useronchannel(cli,fds,name);
 		return;
     }
     else
@@ -74,8 +74,8 @@ void	join::_join_chan(std::string name, Client *cli, std::vector<Channel> *chann
 	
       if(new_cli)
 	  {
-          rpl_topic(*cli, fds, name, chan->get_topic());
-		  rpl_namreply(*cli,fds,*chan);
+          rpl_topic(cli, fds, name, chan->get_topic());
+		  rpl_namreply(cli,fds,*chan);
 	  }
 }
 

@@ -47,11 +47,12 @@ int	get_listen_sock_fd(char *port)
 	return (sock_fd);
 }
 
-int	handle_new_accept(int sock_fd, std::vector<Client> &all_clients)
+int	handle_new_accept(int sock_fd, std::vector<Client *> &all_clients)
 {
 	int					client_sock;
 	sockaddr_in			client_addr;
 	socklen_t			client_addr_size;
+	Client				*new_cli;
 
 	client_addr_size = sizeof(client_addr);
 	if ((client_sock = accept(sock_fd,
@@ -60,13 +61,13 @@ int	handle_new_accept(int sock_fd, std::vector<Client> &all_clients)
 	fcntl(client_sock, F_SETFL, O_NONBLOCK);
 	std::cout << inet_ntoa(client_addr.sin_addr) << " connecté au fd "
 		<< client_sock << std::endl;
-	Client	new_cli(client_sock, client_addr);
+	new_cli = new Client(client_sock, client_addr);
 	all_clients.push_back(new_cli);
 	return (client_sock);
 }
 
 void	handle_poll_event(std::vector<pollfd> &fds, int poll_ret,
-	int const &sock_fd, std::vector<Client> &all_clients,
+	int const &sock_fd, std::vector<Client *> &all_clients,
 	std::vector<Channel> &all_channels)
 {
 	int		i;
@@ -119,7 +120,7 @@ int main(int argc, char **argv)
 	pollfd	tmp_poll;
 
 	std::vector<pollfd>		fds;
-	std::vector<Client>		clients;
+	std::vector<Client *>		clients;
 	std::vector<Channel>	channels;
 
 	if (argc != 3)
@@ -133,7 +134,6 @@ int main(int argc, char **argv)
 	tmp_poll.events = POLLIN;
 	tmp_poll.fd = sock_fd;
 	fds.push_back(tmp_poll);
-	clients.reserve(1000);
 	while (1)
 	{
 		// std::cout << "blocked" << std::endl;

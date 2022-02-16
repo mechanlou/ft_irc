@@ -20,7 +20,7 @@ quit::~quit()
 {
 }
 
-int	quit::excute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<Client> *clients,std::vector<pollfd> &fds)
+int	quit::excute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<Client *> *clients,std::vector<pollfd> &fds)
 {
 	std::string	announcement;
 

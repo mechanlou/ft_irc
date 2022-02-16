@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/15 15:19:35 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 16:56:18 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ parser::~parser()
 	
 }
 
-void parser::parse(std::string buf, Client *cli, std::vector<Client > *list_cli,
+void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,
 		std::vector<Channel> *list_chan, std::vector<pollfd> &fds)
 {
 	std::string cmd = get_cmd_from_msg(buf);

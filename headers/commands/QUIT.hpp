@@ -18,5 +18,5 @@ class quit : public commands
     public:
         quit();
         ~quit();
-        int	excute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<Client> *clients,std::vector<pollfd> &fds);
+        int	excute(std::string buf, Client *cli, std::vector<Channel> *chan, std::vector<Client *> *clients,std::vector<pollfd> &fds);
 };

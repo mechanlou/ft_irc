@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:14:14 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/14 13:38:03 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:11:50 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
     pars_msg(buf,tmp_buf,arg);
     if(buf.find(' ') == buf.npos)
     {
-        err_needmoreparams(*cli,fds, buf.substr(0, 4));
+        err_needmoreparams(cli,fds, buf.substr(0, 4));
         return;
     }
     if(arg.size() < 4 || arg[3].empty())
     {
-        err_needmoreparams(*cli,fds, buf.substr(0, 4));
+        err_needmoreparams(cli,fds, buf.substr(0, 4));
         return;
     }
     if((cli->get_name().empty() && cli->get_truename().empty() )|| cli->get_register() == false)
@@ -56,7 +56,7 @@ void user::excute(std::string buf, Client *cli,std::vector<pollfd> &fds)
     }
     else
     {
-        err_alreadyregistered(*cli,fds);
+        err_alreadyregistered(cli,fds);
         return;
     }
 }

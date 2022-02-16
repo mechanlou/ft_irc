@@ -25,17 +25,17 @@ void	notice::_send_channel(std::string msg, Client *src,
 	}
 }
 
-void	notice::_send_client(std::string msg, std::vector<Client> *all_clients,
+void	notice::_send_client(std::string msg, std::vector<Client *> *all_clients,
 	std::vector<pollfd> &fds, std::vector<std::string> args)
 {
-	std::vector<Client>::iterator	it_cli;
-	std::vector<Client>::iterator	it_cli_end;
+	std::vector<Client *>::iterator	it_cli;
+	std::vector<Client *>::iterator	it_cli_end;
 
 	it_cli = all_clients->begin();
 	it_cli_end = all_clients->end();
 	while (it_cli != it_cli_end)
 	{
-		if (it_cli->get_nickname() == args[0])
+		if ((*it_cli)->get_nickname() == args[0])
 		{
 			send_msg_client(*it_cli, fds, msg.c_str());
 			break;
@@ -45,7 +45,7 @@ void	notice::_send_client(std::string msg, std::vector<Client> *all_clients,
 }
 
 void	notice::execute(std::string msg, Client *src, std::vector<Channel> *all_chans,
-	std::vector<Client> *all_clients, std::vector<pollfd> &fds)
+	std::vector<Client *> *all_clients, std::vector<pollfd> &fds)
 {
 	std::string					cmd;
 	std::vector<std::string>	args;

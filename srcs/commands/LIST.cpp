@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:08:24 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/15 17:16:09 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:06:56 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void list::excute(std::string msg, std::vector<Channel> *all_channels,
 			{
 				conv.str("");
 				conv << tmp_chan->get_all_users().size();
-				rpl_list(*src, fds, tmp_chan->get_name(), conv.str(), tmp_chan->get_topic());
+				rpl_list(src, fds, tmp_chan->get_name(), conv.str(), tmp_chan->get_topic());
 			}
 		}
-		rpl_listend(*src, fds);
+		rpl_listend(src, fds);
 	}
 	else
 	{
@@ -58,9 +58,9 @@ void list::excute(std::string msg, std::vector<Channel> *all_channels,
 		{
 			conv.str("");
 			conv << it->get_all_users().size();
-			rpl_list(*src, fds, it->get_name(), conv.str(), it->get_topic());
+			rpl_list(src, fds, it->get_name(), conv.str(), it->get_topic());
 			it++;
 		}
-		rpl_listend(*src, fds);
+		rpl_listend(src, fds);
 	} 
 }

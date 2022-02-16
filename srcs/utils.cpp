@@ -64,14 +64,14 @@ std::string	get_cmd_from_msg(std::string msg)
 	return (extract_word(msg, i));
 }
 
-Client	&get_client_from_fd(int src_fd, std::vector<Client> &clients)
+Client	*get_client_from_fd(int src_fd, std::vector<Client *> &all_clients)
 {
-	std::vector<Client>::iterator	it = clients.begin();
-	std::vector<Client>::iterator	end = clients.end();
+	std::vector<Client *>::iterator	it = all_clients.begin();
+	std::vector<Client *>::iterator	end = all_clients.end();
 
 	while (it != end)
 	{
-		if (it->get_sock_fd() == src_fd)
+		if ((*it)->get_sock_fd() == src_fd)
 			return (*it);
 		it++;
 	}
@@ -79,10 +79,10 @@ Client	&get_client_from_fd(int src_fd, std::vector<Client> &clients)
 	return (*it);
 }
 
-void	print_all_clients_infos(std::vector<Client> const &all_clients)
+void	print_all_clients_infos(std::vector<Client *> const &all_clients)
 {
-	std::vector<Client>::const_iterator	it = all_clients.begin();
-	std::vector<Client>::const_iterator	it_end = all_clients.end();
+	std::vector<Client *>::const_iterator	it = all_clients.begin();
+	std::vector<Client *>::const_iterator	it_end = all_clients.end();
 	int	i;
 
 	std::cout << "All Clients start" << std::endl;
@@ -90,8 +90,8 @@ void	print_all_clients_infos(std::vector<Client> const &all_clients)
 	while (it != it_end)
 	{
 		std::cout << i++ << ": ";
-		std::cout << "nick : " << it->get_nickname();
-		std::cout << "address : " << &(*it) << std::endl;
+		std::cout << "nick : " << (*it)->get_nickname();
+		std::cout << "address : " << (*it) << std::endl;
 		it++;
 	}
 }

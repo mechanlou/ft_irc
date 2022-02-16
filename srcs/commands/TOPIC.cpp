@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   TOPIC.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:00:25 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/15 17:47:14 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:11:31 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void topic::excute(std::string buf, Client *cli, std::vector<Channel > *chan,std
     pars_msg(buf,tmp_buf,_cmd);
     if(_cmd.size() < 1)
     {
-       err_needmoreparams(*cli, fds,buf.substr(0,5));
+       err_needmoreparams(cli, fds,buf.substr(0,5));
        return; 
     }
     tmp_chan = _check_chan(_cmd[0], chan);
@@ -37,19 +37,19 @@ void topic::excute(std::string buf, Client *cli, std::vector<Channel > *chan,std
     {
         if(!tmp_chan->is_members(cli->get_nickname()))
         {
-            err_notochannel(*cli,fds,_cmd[1]);
+            err_notochannel(cli,fds,_cmd[1]);
             return;
         }
         else if (_cmd.size() == 1)
         {
             if(tmp_chan->get_topic().empty())
             {
-                rpl_notopic(*cli, fds, _cmd[0]);
+                rpl_notopic(cli, fds, _cmd[0]);
                 return;
             }
             else
             {
-                rpl_topic(*cli, fds, _cmd[0], tmp_chan->get_topic());
+                rpl_topic(cli, fds, _cmd[0], tmp_chan->get_topic());
                 return;
             }
         }

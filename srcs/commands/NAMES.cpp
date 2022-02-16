@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:18:48 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/15 17:14:24 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:07:27 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ names::~names()
 }
 
 void names::excute(std::string buf, Client *src,
-	std::vector<Channel> *all_channels, std::vector<Client> *all_clients,
+	std::vector<Channel> *all_channels, std::vector<Client *> *all_clients,
 	std::vector<pollfd> &fds)
 {
 	std::vector<Channel>::iterator	it;
@@ -42,8 +42,8 @@ void names::excute(std::string buf, Client *src,
 		{
 			tmp_chan = _check_chan(chan_name, all_channels);
 			if(tmp_chan != NULL)
-				rpl_namreply(*src, fds, *tmp_chan);
-			rpl_endofnames(*src, fds, chan_name);
+				rpl_namreply(src, fds, *tmp_chan);
+			rpl_endofnames(src, fds, chan_name);
 		}
 	}
 	else
@@ -52,10 +52,10 @@ void names::excute(std::string buf, Client *src,
 		it_end = all_channels->end();
 		while (it != it_end)
 		{
-			rpl_namreply(*src, fds, *it);
+			rpl_namreply(src, fds, *it);
 			it++;
 		}
-		rpl_namreply_other_clients(*src, fds, *all_channels, *all_clients);
-		rpl_endofnames(*src, fds, "*");
+		rpl_namreply_other_clients(src, fds, *all_channels, *all_clients);
+		rpl_endofnames(src, fds, "*");
 	}
 }

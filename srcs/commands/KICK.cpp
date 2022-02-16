@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:20:36 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/09 13:28:03 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 17:06:36 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,27 @@ void	kick::execute(std::string buf, Client *cli, std::vector<Channel > *channels
 
 	if (chan == NULL)
 	{
-		err_nosuchchannel(*cli,fds,_cmd[1]);;
+		err_nosuchchannel(cli,fds,_cmd[1]);;
 		return ;
 	}
 	if (_cmd[2].empty())
 	{
-           err_needmoreparams(*cli,fds,_cmd[0]);
+           err_needmoreparams(cli,fds,_cmd[0]);
 		return ;
 	}
 	if (!_check_client(cli, chan))
 	{
-           err_notochannel(*cli,fds,_cmd[1]);
+           err_notochannel(cli,fds,_cmd[1]);
 		return ;
 	}
 	if (!chan->is_operator(cli->get_nickname()))
 	{
-		err_chanoprivsneeded(*cli,fds,_cmd[1]);
+		err_chanoprivsneeded(cli,fds,_cmd[1]);
 		return ;
 	}
 	if (!_check_Client_nick(_cmd[2], chan))
 	{
-           err_usernotinchannel(*cli,fds,_cmd[2],_cmd[1]);
+           err_usernotinchannel(cli,fds,_cmd[2],_cmd[1]);
 		return ;
 	}
 	std::string reason;

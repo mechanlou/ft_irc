@@ -22,27 +22,27 @@ void	privmsg::_send_channel(std::string msg, Client *src,
 			if (it_chan->is_members(src->get_nickname()))
 				it_chan->msg_to_channel_no_me(msg.c_str(), fds, src);
 			else
-				err_cannotsendtochan(*src, fds, it_chan->get_name());
+				err_cannotsendtochan(src, fds, it_chan->get_name());
 			break;
 		}
 		it_chan++;
 	}
 	if (it_chan == it_chan_end)
-		err_nosuchnick(*src, fds);
+		err_nosuchnick(src, fds);
 }
 
 void	privmsg::_send_client(std::string msg, Client *src,
-	std::vector<Client> *all_clients, std::vector<pollfd> &fds,
+	std::vector<Client *> *all_clients, std::vector<pollfd> &fds,
 	std::vector<std::string> args)
 {
-	std::vector<Client>::iterator	it_cli;
-	std::vector<Client>::iterator	it_cli_end;
+	std::vector<Client *>::iterator	it_cli;
+	std::vector<Client *>::iterator	it_cli_end;
 
 	it_cli = all_clients->begin();
 	it_cli_end = all_clients->end();
 	while (it_cli != it_cli_end)
 	{
-		if (it_cli->get_nickname() == args[0])
+		if ((*it_cli)->get_nickname() == args[0])
 		{
 			send_msg_client(*it_cli, fds, msg.c_str());
 			break;
@@ -50,11 +50,11 @@ void	privmsg::_send_client(std::string msg, Client *src,
 		it_cli++;
 	}
 	if (it_cli == it_cli_end)
-		err_nosuchnick(*src, fds);
+		err_nosuchnick(src, fds);
 }
 
 void	privmsg::execute(std::string msg, Client *src, std::vector<Channel> *all_chans,
-	std::vector<Client> *all_clients, std::vector<pollfd> &fds)
+	std::vector<Client *> *all_clients, std::vector<pollfd> &fds)
 {
 	std::string					cmd;
 	std::vector<std::string>	args;
@@ -64,12 +64,12 @@ void	privmsg::execute(std::string msg, Client *src, std::vector<Channel> *all_ch
 		msg.insert(0, src->get_full_prefix());
 	if (args.size() == 0)
 	{
-		err_norecipient(*src, fds, "PRIVMSG");
+		err_norecipient(src, fds, "PRIVMSG");
 		return ;
 	}
 	if (args.size() == 1)
 	{
-		err_notexttosend(*src, fds);
+		err_notexttosend(src, fds);
 		return ;
 	}
 	if (args[0][0] == '#')

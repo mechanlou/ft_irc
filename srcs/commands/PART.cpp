@@ -15,13 +15,13 @@ void	part::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 
 	if (_cmd.size() < 2)
 	{
-		err_needmoreparams(*cli,fds,_cmd[0]);
+		err_needmoreparams(cli,fds,_cmd[0]);
 		return;
 	}
 	Channel *tmp_chan = _check_chan(_cmd[1], chan);
 	if (tmp_chan != NULL && !_check_client(cli, tmp_chan))
 	{
-		err_notochannel(*cli,fds,_cmd[1]);
+		err_notochannel(cli,fds,_cmd[1]);
 		return;
 	}
 	if (tmp_chan != NULL)
@@ -37,7 +37,7 @@ void	part::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 	}
 	else
 	{
-		err_nosuchchannel(*cli,fds,_cmd[1]);
+		err_nosuchchannel(cli,fds,_cmd[1]);
 		return;
 	}
 }

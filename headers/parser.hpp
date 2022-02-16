@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:49:30 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/08 16:08:15 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 16:59:41 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ class parser
 	public:
 	parser();
 	~parser();
-    void parse(std::string buf, Client *cli, std::vector<Client > *list_cli,
-		std::vector<Channel > *list_chan, std::vector<pollfd> &fds);
+    void parse(std::string buf, Client *cli, std::vector<Client *> *list_cli,
+		std::vector<Channel> *list_chan, std::vector<pollfd> &fds);
     
 };
 

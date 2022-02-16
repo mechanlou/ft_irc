@@ -1,6 +1,6 @@
 #include "ircserver.hpp"
 
-void	send_part(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string chan)
+void	send_part(Client *dst, std::vector<pollfd> &fds, std::string nick, std::string chan)
 {
 	std::string	msg;
 	
@@ -8,14 +8,14 @@ void	send_part(Client &dst, std::vector<pollfd> &fds, std::string nick, std::str
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_welcome(Client &dst, std::vector<pollfd> &fds, std::string user, std::string host)
+void	rpl_welcome(Client *dst, std::vector<pollfd> &fds, std::string user, std::string host)
 {
 	std::string	msg(RPL_WELCOME);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " Welcome to the Internet Relay Network ";
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back('!');
 	msg += user;
 	msg.push_back('@');
@@ -24,12 +24,12 @@ void	rpl_welcome(Client &dst, std::vector<pollfd> &fds, std::string user, std::s
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_yourhost(Client &dst, std::vector<pollfd> &fds)
+void	rpl_yourhost(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_YOURHOST);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += "Your host is ";
 	msg += SERV_NAME;
 	msg += ", running version ";
@@ -38,24 +38,24 @@ void	rpl_yourhost(Client &dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_created(Client &dst, std::vector<pollfd> &fds) // fait un truc un peu mieux quand meme
+void	rpl_created(Client *dst, std::vector<pollfd> &fds) // fait un truc un peu mieux quand meme
 {
 	std::string	msg(RPL_CREATED);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += "This server was created ";
 	msg += START_DATE;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_myinfo(Client &dst, std::vector<pollfd> &fds, std::string user_modes, std::string channel_modes)
+void	rpl_myinfo(Client *dst, std::vector<pollfd> &fds, std::string user_modes, std::string channel_modes)
 {
 	std::string	msg(RPL_MYINFO);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += SERV_NAME;
 	msg.push_back(' ');
@@ -68,7 +68,7 @@ void	rpl_myinfo(Client &dst, std::vector<pollfd> &fds, std::string user_modes, s
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_pong(Client &dst, std::vector<pollfd> &fds)
+void	rpl_pong(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg("PONG");
 
@@ -78,36 +78,36 @@ void	rpl_pong(Client &dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-// void	rpl_bounce(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_bounce(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
 
-// void	rpl_none(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_none(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-void	rpl_userhost(Client &dst, std::vector<pollfd> &fds, std::string *replies, int nb_replies)
+void	rpl_userhost(Client *dst, std::vector<pollfd> &fds, std::string *replies, int nb_replies)
 {
 	std::string	msg(RPL_USERHOST);
 	int	i;
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :";
 	i = 0;
 	while (i < nb_replies)
@@ -121,13 +121,13 @@ void	rpl_userhost(Client &dst, std::vector<pollfd> &fds, std::string *replies, i
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_ison(Client &dst, std::vector<pollfd> &fds, std::string *nicks, int nb_nicks)
+void	rpl_ison(Client *dst, std::vector<pollfd> &fds, std::string *nicks, int nb_nicks)
 {
 	std::string	msg(RPL_ISON);
 	int	i;
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :";
 	i = 0;
 	while (i < nb_nicks)
@@ -141,12 +141,12 @@ void	rpl_ison(Client &dst, std::vector<pollfd> &fds, std::string *nicks, int nb_
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_away(Client &dst, std::vector<pollfd> &fds, std::string away_nick, std::string away_msg)
+void	rpl_away(Client *dst, std::vector<pollfd> &fds, std::string away_nick, std::string away_msg)
 {
 	std::string	msg(RPL_AWAY);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += away_nick;
 	msg += " :";
@@ -155,34 +155,34 @@ void	rpl_away(Client &dst, std::vector<pollfd> &fds, std::string away_nick, std:
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_unaway(Client &dst, std::vector<pollfd> &fds)
+void	rpl_unaway(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_UNAWAY);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :You are no longer marked as being away";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
+void	rpl_nowaway(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_NOWAWAY);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :You have been marked as being away";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-// void	rpl_whoisuser(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string user, std::string host, std::string real_name)
+// void	rpl_whoisuser(Client *dst, std::vector<pollfd> &fds, std::string nick, std::string user, std::string host, std::string real_name)
 // {
 // 	std::string	msg(RPL_WHOISUSER);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg.push_back(' ');
@@ -195,12 +195,12 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_whoisserver(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string server, std::string serv_info)
+// void	rpl_whoisserver(Client *dst, std::vector<pollfd> &fds, std::string nick, std::string server, std::string serv_info)
 // {
 // 	std::string	msg(RPL_WHOISSERVER);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg.push_back(' ');
@@ -211,12 +211,12 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_whoisoperator(Client &dst, std::vector<pollfd> &fds, std::string nick)
+// void	rpl_whoisoperator(Client *dst, std::vector<pollfd> &fds, std::string nick)
 // {
 // 	std::string	msg(RPL_WHOISOPERATOR);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg += " :is an IRC operator";
@@ -224,13 +224,13 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_whoisidle(Client &dst, std::vector<pollfd> &fds, std::string nick, int len)
+// void	rpl_whoisidle(Client *dst, std::vector<pollfd> &fds, std::string nick, int len)
 // {
 // 	std::string			msg(RPL_WHOISIDLE);
 // 	std::ostringstream	stream;
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg.push_back(' ');
@@ -241,12 +241,12 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_endofwhois(Client &dst, std::vector<pollfd> &fds, std::string nick)
+// void	rpl_endofwhois(Client *dst, std::vector<pollfd> &fds, std::string nick)
 // {
 // 	std::string	msg(RPL_ENDOFWHOIS);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg += " :End of WHOIS list";
@@ -254,13 +254,13 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_whoischannels(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string *channels, int nb_channels)
+// void	rpl_whoischannels(Client *dst, std::vector<pollfd> &fds, std::string nick, std::string *channels, int nb_channels)
 // {
 // 	std::string	msg(RPL_WHOISCHANNELS);
 // 	int	i;
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg += " :";
@@ -275,12 +275,12 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_whowasuser(Client &dst, std::vector<pollfd> &fds, std::string nick, std::string user, std::string host, std::string real_name)
+// void	rpl_whowasuser(Client *dst, std::vector<pollfd> &fds, std::string nick, std::string user, std::string host, std::string real_name)
 // {
 // 	std::string	msg(RPL_WHOWASUSER);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg.push_back(' ');
@@ -293,12 +293,12 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_endofwhowas(Client &dst, std::vector<pollfd> &fds, std::string nick)
+// void	rpl_endofwhowas(Client *dst, std::vector<pollfd> &fds, std::string nick)
 // {
 // 	std::string	msg(RPL_ENDOFWHOWAS);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += nick;
 // 	msg += " :End of WHOWAS";
@@ -306,25 +306,25 @@ void	rpl_nowaway(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-void	rpl_liststart(Client &dst, std::vector<pollfd> &fds)
+void	rpl_liststart(Client *dst, std::vector<pollfd> &fds)
 {
  	std::string	msg(RPL_LISTSTART);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
  	msg.push_back(' ');
 	msg += "Channel :Users Name";
  	add_crlf(msg);
  	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_list(Client &dst, std::vector<pollfd> &fds, std::string channel,
+void	rpl_list(Client *dst, std::vector<pollfd> &fds, std::string channel,
 	std::string nb_users, std::string topic)
 {
 	std::string	msg(RPL_LIST);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg.push_back(' ');
@@ -335,23 +335,23 @@ void	rpl_list(Client &dst, std::vector<pollfd> &fds, std::string channel,
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_listend(Client &dst, std::vector<pollfd> &fds)
+void	rpl_listend(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_LISTEND);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :End of LIST";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_channelmodeis(Client &dst, std::vector<pollfd> &fds, std::string channel, std::string mode, std::string mode_params)
+void	rpl_channelmodeis(Client *dst, std::vector<pollfd> &fds, std::string channel, std::string mode, std::string mode_params)
 {
 	std::string	msg(RPL_CHANNELMODEIS);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg.push_back(' ');
@@ -362,12 +362,12 @@ void	rpl_channelmodeis(Client &dst, std::vector<pollfd> &fds, std::string channe
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_notopic(Client &dst, std::vector<pollfd> &fds, std::string channel)
+void	rpl_notopic(Client *dst, std::vector<pollfd> &fds, std::string channel)
 {
 	std::string	msg(RPL_NOTOPIC);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg += " :No topic is set";
@@ -375,12 +375,12 @@ void	rpl_notopic(Client &dst, std::vector<pollfd> &fds, std::string channel)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_topic(Client &dst, std::vector<pollfd> &fds, std::string channel, std::string topic)
+void	rpl_topic(Client *dst, std::vector<pollfd> &fds, std::string channel, std::string topic)
 {
 	std::string	msg(RPL_TOPIC);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg += " :";
@@ -389,12 +389,12 @@ void	rpl_topic(Client &dst, std::vector<pollfd> &fds, std::string channel, std::
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_inviting(Client &dst, std::vector<pollfd> &fds, std::string channel, std::string nick)
+void	rpl_inviting(Client *dst, std::vector<pollfd> &fds, std::string channel, std::string nick)
 {
 	std::string	msg(RPL_INVITING);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg.push_back(' ');
@@ -403,12 +403,12 @@ void	rpl_inviting(Client &dst, std::vector<pollfd> &fds, std::string channel, st
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_summoning(Client &dst, std::vector<pollfd> &fds, std::string user)
+void	rpl_summoning(Client *dst, std::vector<pollfd> &fds, std::string user)
 {
 	std::string	msg(RPL_SUMMONING);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += user;
 	msg += " :Summoning user to IRC";
@@ -416,12 +416,12 @@ void	rpl_summoning(Client &dst, std::vector<pollfd> &fds, std::string user)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_exceptlist(Client &dst, std::vector<pollfd> &fds, std::string channel, std::string mask)
+void	rpl_exceptlist(Client *dst, std::vector<pollfd> &fds, std::string channel, std::string mask)
 {
 	std::string	msg(RPL_EXCEPTLIST);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg.push_back(' ');
@@ -430,12 +430,12 @@ void	rpl_exceptlist(Client &dst, std::vector<pollfd> &fds, std::string channel, 
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_endofexceptlist(Client &dst, std::vector<pollfd> &fds, std::string channel)
+void	rpl_endofexceptlist(Client *dst, std::vector<pollfd> &fds, std::string channel)
 {
 	std::string	msg(RPL_ENDOFEXCEPTLIST);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg += " :End of channel exception list";
@@ -443,12 +443,12 @@ void	rpl_endofexceptlist(Client &dst, std::vector<pollfd> &fds, std::string chan
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_version(Client &dst, std::vector<pollfd> &fds)
+void	rpl_version(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_VERSION);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += VERSION;
 	msg.push_back('.');
@@ -461,13 +461,13 @@ void	rpl_version(Client &dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-// void	rpl_whoreply(Client &dst, std::vector<pollfd> &fds, std::string chan, std::string user, std::string host, std::string server, std::string nick, std::string weird_args, int hop_count, std::string real_name)
+// void	rpl_whoreply(Client *dst, std::vector<pollfd> &fds, std::string chan, std::string user, std::string host, std::string server, std::string nick, std::string weird_args, int hop_count, std::string real_name)
 // {
 // 	std::string			msg(RPL_WHOREPLY);
 // 	std::ostringstream	itoa;
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += chan;
 // 	msg.push_back(' ');
@@ -489,12 +489,12 @@ void	rpl_version(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_endofwho(Client &dst, std::vector<pollfd> &fds, std::string name)
+// void	rpl_endofwho(Client *dst, std::vector<pollfd> &fds, std::string name)
 // {
 // 	std::string	msg(RPL_ENDOFWHO);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg.push_back(' ');
 // 	msg += name;
 // 	msg += " :End of WHO list";
@@ -502,7 +502,7 @@ void	rpl_version(Client &dst, std::vector<pollfd> &fds)
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre a revoir 
+void	rpl_namreply(Client *dst, std::vector<pollfd> &fds, Channel chan) // ptetre a revoir 
 {
 	std::string	msg(RPL_NAMREPLY);
 	std::vector<Client *>			all_users = chan.get_all_users();
@@ -517,7 +517,7 @@ void	rpl_namreply(Client &dst, std::vector<pollfd> &fds, Channel chan) // ptetre
 	it_op = operators.begin();
 	it_op_end = operators.end();
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " = ";
 	msg += chan.get_name();
 	msg += " :";
@@ -549,24 +549,24 @@ bool	is_in_a_chan(Client *cli, std::vector<Channel> &all_chans)
 	return (false);
 }
 
-void	rpl_namreply_other_clients(Client &dst, std::vector<pollfd> &fds,
+void	rpl_namreply_other_clients(Client *dst, std::vector<pollfd> &fds,
 	std::vector<Channel> &all_channels,
-	std::vector<Client> &all_clients)
+	std::vector<Client *> &all_clients)
 {
 	std::string	msg(RPL_NAMREPLY);
-	std::vector<Client>::iterator it_cli = all_clients.begin();
-	std::vector<Client>::iterator it_cli_end = all_clients.end();
+	std::vector<Client *>::iterator it_cli = all_clients.begin();
+	std::vector<Client *>::iterator it_cli_end = all_clients.end();
 	bool		send_message = false;
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " * :";
 	while (it_cli != it_cli_end)
 	{
-		if (!is_in_a_chan(&(*it_cli), all_channels))
+		if (!is_in_a_chan((*it_cli), all_channels))
 		{
 			send_message = true;
-			msg += it_cli->get_nickname();
+			msg += (*it_cli)->get_nickname();
 			it_cli++;
 			if (it_cli != it_cli_end)
 				msg.push_back(' ');
@@ -580,12 +580,12 @@ void	rpl_namreply_other_clients(Client &dst, std::vector<pollfd> &fds,
 		send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_endofnames(Client &dst, std::vector<pollfd> &fds, std::string channel)
+void	rpl_endofnames(Client *dst, std::vector<pollfd> &fds, std::string channel)
 {
 	std::string	msg(RPL_ENDOFNAMES);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg += " :End of NAMES list";
@@ -593,13 +593,13 @@ void	rpl_endofnames(Client &dst, std::vector<pollfd> &fds, std::string channel)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_links(Client &dst, std::vector<pollfd> &fds, std::string mask, std::string server, int hop_count, std::string serv_info)
+void	rpl_links(Client *dst, std::vector<pollfd> &fds, std::string mask, std::string server, int hop_count, std::string serv_info)
 {
 	std::string			msg(RPL_LINKS);
 	std::ostringstream	itoa;
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += mask;
 	msg.push_back(' ');
@@ -613,23 +613,23 @@ void	rpl_links(Client &dst, std::vector<pollfd> &fds, std::string mask, std::str
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_endoflinks(Client &dst, std::vector<pollfd> &fds)
+void	rpl_endoflinks(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_ENDOFLINKS);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += "";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_banlist(Client &dst, std::vector<pollfd> &fds, std::string channel, std::string banmask)
+void	rpl_banlist(Client *dst, std::vector<pollfd> &fds, std::string channel, std::string banmask)
 {
 	std::string	msg(RPL_BANLIST);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg.push_back(' ');
@@ -638,12 +638,12 @@ void	rpl_banlist(Client &dst, std::vector<pollfd> &fds, std::string channel, std
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_endofbanlist(Client &dst, std::vector<pollfd> &fds, std::string channel)
+void	rpl_endofbanlist(Client *dst, std::vector<pollfd> &fds, std::string channel)
 {
 	std::string	msg(RPL_ENDOFBANLIST);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += channel;
 	msg += " :End of channel ban list";
@@ -651,35 +651,35 @@ void	rpl_endofbanlist(Client &dst, std::vector<pollfd> &fds, std::string channel
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_info(Client &dst, std::vector<pollfd> &fds, std::string info)
+void	rpl_info(Client *dst, std::vector<pollfd> &fds, std::string info)
 {
 	std::string	msg(RPL_INFO);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :";
 	msg += info;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_endofinfo(Client &dst, std::vector<pollfd> &fds)
+void	rpl_endofinfo(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(ERR_NOTOPLEVEL);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :End of INFO list";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_motdstart(Client &dst, std::vector<pollfd> &fds)
+void	rpl_motdstart(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_MOTDSTART);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :- ";
 	msg += SERV_NAME;
 	msg += "Message of the day - ";
@@ -687,46 +687,46 @@ void	rpl_motdstart(Client &dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_motd(Client &dst, std::vector<pollfd> &fds, std::string message)
+void	rpl_motd(Client *dst, std::vector<pollfd> &fds, std::string message)
 {
 	std::string	msg(RPL_MOTD);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :- ";
 	msg += message;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_endofmotd(Client &dst, std::vector<pollfd> &fds)
+void	rpl_endofmotd(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_ENDOFMOTD);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :End of the MOTD command";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_youreoper(Client &dst, std::vector<pollfd> &fds)
+void	rpl_youreoper(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_YOUREOPER);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :You are now an IRC operator";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_rehashing(Client &dst, std::vector<pollfd> &fds, std::string config_file)
+void	rpl_rehashing(Client *dst, std::vector<pollfd> &fds, std::string config_file)
 {
 	std::string	msg(RPL_REHASHING);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += config_file;
 	msg += " :Rehashing";
@@ -734,7 +734,7 @@ void	rpl_rehashing(Client &dst, std::vector<pollfd> &fds, std::string config_fil
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_time(Client &dst, std::vector<pollfd> &fds)
+void	rpl_time(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_TIME);
 	time_t		now;
@@ -743,7 +743,7 @@ void	rpl_time(Client &dst, std::vector<pollfd> &fds)
 	now = time(0);
 	date_time = ctime(&now);
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += SERV_NAME;
 	msg += " :";
@@ -752,23 +752,23 @@ void	rpl_time(Client &dst, std::vector<pollfd> &fds)
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_usersstart(Client &dst, std::vector<pollfd> &fds)
+void	rpl_usersstart(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_USERSSTART);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :UsersID Terminal Host";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_users(Client &dst, std::vector<pollfd> &fds, std::string username, std::string ttyline, std::string hostname)
+void	rpl_users(Client *dst, std::vector<pollfd> &fds, std::string username, std::string ttyline, std::string hostname)
 {
 	std::string	msg(RPL_USERS);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :";
 	msg += username;
 	msg.push_back(' ');
@@ -779,365 +779,365 @@ void	rpl_users(Client &dst, std::vector<pollfd> &fds, std::string username, std:
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_endofusers(Client &dst, std::vector<pollfd> &fds)
+void	rpl_endofusers(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_ENDOFUSERS);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :End of users";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-void	rpl_nousers(Client &dst, std::vector<pollfd> &fds)
+void	rpl_nousers(Client *dst, std::vector<pollfd> &fds)
 {
 	std::string	msg(RPL_NOUSERS);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg += " :Nobody logged in";
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-// void	rpl_tracelink(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_tracelink(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(RPL_TRACELINK);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_traceconnecting(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_traceconnecting(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_tracehandshake(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_tracehandshake(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_traceunknown(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_traceunknown(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_traceoperator(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_traceoperator(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_traceuser(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_traceuser(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_traceserver(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_traceserver(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_tracenewtype(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_tracenewtype(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_tracelog(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_tracelog(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statslinkinfo(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statslinkinfo(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(RPL_STATSLINKINFO);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statscommands(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statscommands(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statscline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statscline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statsnline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statsnline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statsiline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statsiline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statskline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statskline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statsyline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statsyline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_endofstats(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_endofstats(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statslline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statslline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statsuptime(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statsuptime(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statsoline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statsoline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_statshline(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_statshline(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-void	rpl_umodeis(Client &dst, std::vector<pollfd> &fds, std::string user_mode)
+void	rpl_umodeis(Client *dst, std::vector<pollfd> &fds, std::string user_mode)
 {
 	std::string	msg(RPL_UMODEIS);
 
 	msg.push_back(' ');
-	msg += dst.get_nickname();
+	msg += dst->get_nickname();
 	msg.push_back(' ');
 	msg += user_mode;
 	add_crlf(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
-// void	rpl_luserclient(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_luserclient(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(RPL_LUSERCLIENT);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_luserop(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_luserop(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_luserunknown(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_luserunknown(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_luserchannels(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_luserchannels(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_luserme(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_luserme(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_adminme(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_adminme(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_adminloc1(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_adminloc1(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_adminloc2(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_adminloc2(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
-// void	rpl_adminemail(Client &dst, std::vector<pollfd> &fds)
+// void	rpl_adminemail(Client *dst, std::vector<pollfd> &fds)
 // {
 // 	std::string	msg(ERR_NOTOPLEVEL);
 
 // 	msg.push_back(' ');
-// 	msg += dst.get_nickname();
+// 	msg += dst->get_nickname();
 // 	msg += "";
 // 	add_crlf(msg);
 // 	send_msg_client(dst, fds, msg.c_str());

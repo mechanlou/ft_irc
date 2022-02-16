@@ -102,7 +102,7 @@ void	Channel::msg_to_channel(const char *msg, std::vector<pollfd> &fds)
 	end = _all_users.end();
 	while (it != end)
 	{
-		send_msg_client(**it, fds, msg);
+		send_msg_client(*it, fds, msg);
 		it++;
 	}
 }
@@ -117,7 +117,7 @@ void	Channel::msg_to_channel_no_me(const char *msg, std::vector<pollfd> &fds, Cl
 	while (it != end)
 	{
 		if(cli->get_nickname() != (*it)->get_nickname())
-			send_msg_client(**it, fds, msg);
+			send_msg_client(*it, fds, msg);
 		it++;
 	}
 }
