@@ -18,7 +18,7 @@ void	notice::_send_channel(std::string msg, Client *src,
 		if (it_chan->get_name() == args[0])
 		{
 			if (it_chan->is_members(src->get_nickname()))
-				it_chan->msg_to_channel(msg.c_str(), fds);
+				it_chan->msg_to_channel_no_me(msg.c_str(), fds, src);
 			break;
 		}
 		it_chan++;

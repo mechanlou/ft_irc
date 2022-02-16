@@ -60,7 +60,8 @@ int	handle_new_accept(int sock_fd, std::vector<Client> &all_clients)
 	fcntl(client_sock, F_SETFL, O_NONBLOCK);
 	std::cout << inet_ntoa(client_addr.sin_addr) << " connecté au fd "
 		<< client_sock << std::endl;
-	all_clients.push_back(Client(client_sock, client_addr));
+	Client	new_cli(client_sock, client_addr);
+	all_clients.push_back(new_cli);
 	return (client_sock);
 }
 
@@ -132,6 +133,7 @@ int main(int argc, char **argv)
 	tmp_poll.events = POLLIN;
 	tmp_poll.fd = sock_fd;
 	fds.push_back(tmp_poll);
+	clients.reserve(1000);
 	while (1)
 	{
 		// std::cout << "blocked" << std::endl;

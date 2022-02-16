@@ -78,3 +78,20 @@ Client	&get_client_from_fd(int src_fd, std::vector<Client> &clients)
 	throw (std::exception());
 	return (*it);
 }
+
+void	print_all_clients_infos(std::vector<Client> const &all_clients)
+{
+	std::vector<Client>::const_iterator	it = all_clients.begin();
+	std::vector<Client>::const_iterator	it_end = all_clients.end();
+	int	i;
+
+	std::cout << "All Clients start" << std::endl;
+	i = 0;
+	while (it != it_end)
+	{
+		std::cout << i++ << ": ";
+		std::cout << "nick : " << it->get_nickname();
+		std::cout << "address : " << &(*it) << std::endl;
+		it++;
+	}
+}

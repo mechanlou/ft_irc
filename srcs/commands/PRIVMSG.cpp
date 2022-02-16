@@ -13,14 +13,14 @@ void	privmsg::_send_channel(std::string msg, Client *src,
 
 	it_chan = all_chans->begin();
 	it_chan_end = all_chans->end();
-	int i = 0;
+	// int i = 0;
 	while (it_chan != it_chan_end)
 	{
-		std::cout << "nb : " << i++ << " name : \"" << it_chan->get_name() << "\"" << std::endl;
+		// std::cout << "nb : " << i++ << " name : \"" << it_chan->get_name() << "\"" << std::endl;
 		if (it_chan->get_name() == args[0])
 		{
 			if (it_chan->is_members(src->get_nickname()))
-				it_chan->msg_to_channel(msg.c_str(), fds);
+				it_chan->msg_to_channel_no_me(msg.c_str(), fds, src);
 			else
 				err_cannotsendtochan(*src, fds, it_chan->get_name());
 			break;
