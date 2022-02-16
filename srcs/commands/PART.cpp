@@ -34,6 +34,17 @@ void	part::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 			send(c->get_sock_fd(), msg.c_str(), msg.length(), 0);
 		}
 		tmp_chan->remove_user(cli);
+		if(tmp_chan->get_all_users().size() == 0)
+		{
+			for(std::vector<Channel>::iterator it2 = chan->begin(); it2 != chan->end(); it2++)
+			{	
+				if((*it2).get_name() == tmp_chan->get_name())
+				{
+					chan->erase(it2);
+					break;
+				}
+			}
+		}
 	}
 	else
 	{
