@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:07:43 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/16 17:09:24 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 15:35:27 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool nick::_is_informed(Client *dest, std::vector<Client *> informed)
 }
 
 
-void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<Channel > *chan)
+void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<Channel > *chan,std::vector<pollfd> &fds)
 {
     std::vector<Client *> informe;
 	
@@ -69,7 +69,7 @@ void nick:: _announcement_new_nick(std::string message, Client *cli,std::vector<
 			{
 				Client *dest = *its;
 				if(!_is_informed(dest,informe))
-				send(dest->get_sock_fd(),message.c_str(),message.length(),0);
+				send_msg_client(dest,fds,message.c_str());
 				informe.push_back(dest);
 			}
 		}
@@ -102,5 +102,5 @@ void nick::excute(std::string buf, Client *cli, std::vector<Channel > *chan, std
     cmd = ":" + cli->get_nickname() + " NICK " + args[0] + END_OF_MSG;
 	cli->set_nickname(args[0]);
     
-    _announcement_new_nick(cmd, cli, chan);
+    _announcement_new_nick(cmd, cli, chan,fds);
 }      

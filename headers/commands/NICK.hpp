@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:56:07 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/16 17:08:33 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 15:35:38 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class nick : public commands
         bool _checknick(std::string user, std::vector<Client *> *clients);
         bool _validnick(std::string nick);
         bool _is_informed(Client *dest, std::vector<Client *> informed);
-        void _announcement_new_nick(std::string message, Client *cli,std::vector<Channel > *chan);
+        void _announcement_new_nick(std::string message, Client *cli,std::vector<Channel > *chan,std::vector<pollfd> &fds);
         
     public:
         nick();
