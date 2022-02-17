@@ -8,8 +8,8 @@ int	close_connection(int src_fd, std::vector<pollfd> &fds,
 	std::vector<Client *>::iterator	it_clients = all_clients.begin();
 	std::vector<Channel>::iterator	it_chans = all_chans.begin();
 	std::vector<Channel>::iterator	it_chans_end = all_chans.end();
-	std::string	part_msg;
-	Client		*cli;
+	std::string				part_msg;
+	Client					*cli;
 
 	while (it_fds->fd != src_fd)
 		it_fds++;
@@ -32,7 +32,14 @@ int	close_connection(int src_fd, std::vector<pollfd> &fds,
 				it_chans_end = all_chans.end();
 			}
 			else
+			{
+				if (it_chans->get_operators().size() == 0)
+				{
+					it_chans->add_operator_user(it_chans->get_all_users()[0]);
+					rpl_youreoper(it_chans->get_operators().back(), fds);
+				}
 				it_chans++;
+			}
 		}
 		else
 			it_chans++;
@@ -97,7 +104,7 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 		if (src_client->recv_buffer.find(END_OF_MSG) != std::string::npos)
 		{
 			received_msg = get_next_msg(src_client->recv_buffer);
-			std::cout << "received msg : \"" << received_msg << "\"" << std::endl;
+			std::cout << "received msg : " << received_msg;
 			tool.parse(received_msg, get_client_from_fd(src_fd, all_clients),
 				&all_clients, &all_channels, fds); // parse call
 		}

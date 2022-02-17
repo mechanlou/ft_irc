@@ -10,8 +10,8 @@
 
 #include <iostream>
 
-#define BUFFER_SIZE 10
-#define EOM	"\n"
+#define BUFFER_SIZE 1000
+#define EOM	"\r\n"
 #define NICKNAME "nicebot"
 
 void		pars_msg(std::string msg, std::string &command,

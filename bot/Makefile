@@ -1,7 +1,5 @@
 NAME = nicebot
 
-# HEADERS_DIR = headers
-
 HEADERS =	bot.hpp
 
 SRCS =	main.cpp \
@@ -19,7 +17,6 @@ $(NAME): $(OBJS) $(HEADERS)
 
 $(OBJS): %.o: %.cpp $(HEADERS)
 	clang++ -Wall -Wextra -Werror -std=c++98 -c $< -o $@
-	# clang++ -Wall -Wextra -Werror -std=c++98 -I$(HEADERS_DIR) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

@@ -110,13 +110,53 @@ int	recv_answer_join(int sock_fd)
 		{
 			pars_msg(msg, cmd, args);
 			std::cout << "Received : " << msg;
-			if (cmd != "JOIN" && cmd != "332" && cmd != "366" && cmd != "353")
+			if (cmd != "JOIN" && cmd != "332" && cmd != "366" && cmd != "353"
+			 && cmd != "PING")
 			{
 				std::cerr << "Join error" << std::endl;
 				return (-1);
 			}
 		}
-	} while (cmd != "366");
+	} while (msg.find("353") == msg.npos);
+	return (0);
+}
+
+int	recv_answer_register(int sock_fd)
+{
+	int							ret;
+	std::string					msg;
+	std::string					cmd;
+	std::vector<std::string>	args;
+
+	do
+	{
+		if ((ret = recv_entire_msg(sock_fd, msg)) <= 0)
+		{
+			if (ret == 0)
+			{
+				std::cerr << "Connection lost" << std::endl;
+				return (-1);
+			}
+			if (ret == -1 && errno != EAGAIN)
+			{
+				perror("Register");
+				return (-1);
+			}
+			errno = 0;
+			std::cout << "No answer" << std::endl;
+		}
+		else
+		{
+			pars_msg(msg, cmd, args);
+			std::cout << "Received : " << msg;
+			if (cmd != "001" && cmd != "002" && cmd != "003" && cmd != "004"
+			 && cmd != "PING")
+			{
+				std::cerr << "Register error" << std::endl;
+				return (-1);
+			}
+		}
+	} while (msg.find("004") == msg.npos);
 	return (0);
 }
 
@@ -137,7 +177,7 @@ int	connect_to_server(int sock_fd, char *pass, char *chan)
 {
 	std::string	tmp;
 
-	tmp = "PASS :";
+	tmp = "PASS ";
 	tmp += pass;
 	if (send_connection_msg(sock_fd, tmp, "Pass"))
 		return (-1);
@@ -150,8 +190,12 @@ int	connect_to_server(int sock_fd, char *pass, char *chan)
 	tmp = "USER ";
 	tmp += NICKNAME;
 	tmp += " 0 * :Un Bot Sympa";
-	if (send_connection_msg(sock_fd, tmp, "User"))
+	tmp += EOM;
+	if (send_message_fd(sock_fd, tmp.c_str()) || recv_answer_register(sock_fd))
+	{
+		perror("Connection error");
 		return (-1);
+	}
 
 	tmp = "JOIN ";
 	tmp += chan;
