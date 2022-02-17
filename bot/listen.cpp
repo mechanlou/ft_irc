@@ -21,11 +21,11 @@ int	process_msg(int sock_fd, std::string msg, char *chan)
 		answer += EOM;
 		return (send_message_fd(sock_fd, answer.c_str()));
 	}
-	if (cmd == "QUIT" && target_nick != NICKNAME)
+	if (cmd == "PART" && target_nick != NICKNAME)
 	{
 		answer += "Cya later ";
 		answer += target_nick;
-		answer += ", hopefully later";
+		answer += " (never hopefully)";
 		answer += EOM;
 		return (send_message_fd(sock_fd, answer.c_str()));
 	}

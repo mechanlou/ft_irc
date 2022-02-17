@@ -601,7 +601,6 @@ void	rpl_namreply_other_clients(Client *dst, std::vector<pollfd> &fds,
 	std::vector<Client *>::iterator it_cli_end = all_clients.end();
 	bool		send_message = false;
 
-	msg += RPL_NAMREPLY;
 	msg.push_back(' ');
 	msg += dst->get_nickname();
 	msg += " * :";

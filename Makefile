@@ -52,10 +52,10 @@ OBJS = ${SRCS:.cpp=.o}
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS)
-	clang++ -fsanitize=address -g3 $(OBJS) -o $(NAME)
+	clang++ $(OBJS) -o $(NAME)
 
 $(OBJS): %.o: %.cpp $(HEADERS)
-	clang++ -Wall -Wextra -Werror -g3 -fsanitize=address -std=c++98 -I$(HEADERS_DIR) -c $< -o $@
+	clang++ -Wall -Wextra -Werror -std=c++98 -I$(HEADERS_DIR) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
