@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   KICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:20:36 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/17 16:17:54 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 17:14:23 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,50 +48,51 @@ Client*	kick::_get_Client(std::string name, Channel *chan)
 
 void	kick::execute(std::string buf, Client *cli, std::vector<Channel > *channels,std::vector<pollfd> &fds)
 {
-	_getcmd(buf);
+	std::vector<std::string> cmd;
+	std::string arg;
+	pars_msg(buf,arg,cmd);
 	std::string msg;
-	Channel *chan = _check_chan(_cmd[1], channels);
 
-	if (chan == NULL)
+	if (cmd.empty())
 	{
-		err_nosuchchannel(cli,fds,_cmd[1]);;
+           err_needmoreparams(cli,fds,arg);
 		return ;
 	}
-	if (_cmd[2].empty())
+	Channel *chan = _check_chan(cmd[0], channels);
+	if (chan == NULL)
 	{
-           err_needmoreparams(cli,fds,_cmd[0]);
+		err_nosuchchannel(cli,fds,cmd[0]);;
 		return ;
 	}
 	if (!_check_client(cli, chan))
 	{
-           err_notochannel(cli,fds,_cmd[1]);
+           err_notochannel(cli,fds,cmd[0]);
 		return ;
 	}
 	if (!chan->is_operator(cli->get_nickname()))
 	{
-		err_chanoprivsneeded(cli,fds,_cmd[1]);
+		err_chanoprivsneeded(cli,fds,cmd[0]);
 		return ;
 	}
-	if (!_check_Client_nick(_cmd[2], chan))
+	if (!_check_Client_nick(cmd[1], chan))
 	{
-           err_usernotinchannel(cli,fds,_cmd[2],_cmd[1]);
+           err_usernotinchannel(cli,fds,cmd[1],cmd[0]);
 		return ;
 	}
 	std::string reason;
-	if (_cmd.size() > 3)
+	if (cmd.size() > 2)
 	{
-		size_t i = 3;
-		while (i < _cmd.size())
+		size_t i = 2;
+		while (i < cmd.size())
 		{
-			reason += _cmd[i] + " ";
+			reason += cmd[i] + " ";
 			i++;
 		}
 		reason.pop_back();
 	}
-	// std::cout << "reason : " << reason << std::endl;
 	if (reason.size() >= 1 && reason[0] != ':')
 		reason = ':' + reason;
-	msg = ":" + cli->get_nickname() + " KICK " + _cmd[1] + " " + _cmd[2] + " " + reason + END_OF_MSG;
+	msg = ":" + cli->get_nickname() + " KICK " + cmd[0] + " " + cmd[1] + " " + reason + END_OF_MSG;
 	chan->msg_to_channel(msg.c_str(), fds);
-	chan->remove_user(_get_Client(_cmd[2], chan));
+	chan->remove_user(_get_Client(cmd[1], chan));
 }
