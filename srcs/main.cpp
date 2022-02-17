@@ -136,21 +136,16 @@ int main(int argc, char **argv)
 	fds.push_back(tmp_poll);
 	while (1)
 	{
-		// std::cout << "blocked" << std::endl;
-		poll_ret = poll(&fds[0], fds.size(), 20000);
+		poll_ret = poll(&fds[0], fds.size(), 10000);
 		if (poll_ret < 0)
 		{
 			perror("poll error wtf bruh");
 			return (1);
 		}
-		else if (poll_ret == 0)
-		{
-			// std::cout << "Sending PING :allo" << std::endl;
-			// broadcast_msg(clients, fds, "PING :a l'huile\r\n");
-		}
-		else
+		else if (poll_ret)
 			handle_poll_event(fds, poll_ret, sock_fd, clients, channels);
-		// std::cout << "unblocked" << std::endl;
+		else
+			broadcast_msg(clients, fds, "PING :allo\r\n");
 	}
 	return (0);
 }

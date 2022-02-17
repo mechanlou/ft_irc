@@ -27,7 +27,7 @@
 #define BUFFER_SIZE 10
 
 #define	HOSTNAME NULL
-#define SERV_NAME "rkowalsk_wperu"
+#define SERV_NAME "irc.truc.net"
 #define VERSION "6.6.7"
 #define	START_DATE "not long ago acutally"
 #define PROTOCOLE_VERSION "1.9.9.5"
@@ -49,6 +49,7 @@ class			ReplyDoesntExistException : public std::exception
 int			receive_msg(int src_fd,	std::vector<pollfd> &fds,
 	std::vector<Client *> &all_clients, std::vector<Channel> &all_channels);
 void		add_crlf(std::string &msg);
+void		add_server_prefix(std::string &msg);
 void		pars_msg(std::string msg, std::string &command,
 	std::vector<std::string> &args);
 void		broadcast_msg(std::vector<Client *> &all_clients,

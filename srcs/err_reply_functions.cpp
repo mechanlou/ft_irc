@@ -23,7 +23,8 @@ void	err_nosuchnick(Client *dst, std::vector<pollfd> &fds)
 	msg.push_back(' ');
 	msg += dst->get_nickname(); //reply message
 	msg += " :No such nick/channel";
-	add_crlf(msg); //CRLF
+	add_crlf(msg);
+	add_server_prefix(msg); //CRLF
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -37,6 +38,7 @@ void	err_nosuchserver(Client *dst, std::vector<pollfd> &fds, std::string server)
 	msg += server;
 	msg += " :No such server";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -50,6 +52,7 @@ void	err_nosuchchannel(Client *dst, std::vector<pollfd> &fds, std::string channe
 	msg += channel;
 	msg += " :No such channel";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -63,6 +66,7 @@ void	err_cannotsendtochan(Client *dst, std::vector<pollfd> &fds, std::string cha
 	msg += chan;
 	msg += " :Cannot send to channel";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -76,6 +80,7 @@ void	err_toomanychannels(Client *dst, std::vector<pollfd> &fds, std::string chan
 	msg += chan;
 	msg += " :You have joined too many channels";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -89,6 +94,7 @@ void	err_wasnosuchnick(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :There was no such nickname";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -103,6 +109,7 @@ void	err_wasnosuchnick(Client *dst, std::vector<pollfd> &fds)
 // 	msg += " recipients. ";
 // 	msg.append(abort_msg);
 // 	add_crlf(msg);
+// 	add_server_prefix(msg);
 // 	send_msg_client(dst, fds, msg.c_str());
 // }
 
@@ -114,6 +121,7 @@ void	err_noorigin(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :No origin specified";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -127,6 +135,7 @@ void	err_norecipient(Client *dst, std::vector<pollfd> &fds, std::string command)
 	msg += command;
 	msg.push_back(')');
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -138,6 +147,7 @@ void	err_notexttosend(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :No text to send";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -151,6 +161,7 @@ void	err_notoplevel(Client *dst, std::vector<pollfd> &fds, std::string mask)
 	msg += mask;
 	msg += " :No toplevel domain specified";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -164,6 +175,7 @@ void	err_wildtoplevel(Client *dst, std::vector<pollfd> &fds, std::string mask)
 	msg += mask;
 	msg += " :Wildcard in top level domain";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -177,6 +189,7 @@ void	err_badmask(Client *dst, std::vector<pollfd> &fds, std::string mask)
 	msg += mask;
 	msg += " :Bad Server/host mask";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -190,6 +203,7 @@ void	err_unknowncommand(Client *dst, std::vector<pollfd> &fds, std::string comma
 	msg += command;
 	msg += " :Unknown command";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -201,6 +215,7 @@ void	err_nomotd(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :MOTD File is missing";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -214,6 +229,7 @@ void	err_noadmininfo(Client *dst, std::vector<pollfd> &fds, std::string server)
 	msg += server;
 	msg += " :No administrative info available";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -228,6 +244,7 @@ void	err_fileerror(Client *dst, std::vector<pollfd> &fds, std::string file_op, s
 	msg += " on ";
 	msg += file;
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -239,6 +256,7 @@ void	err_nonicknamegiven(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :No nickname given";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -250,6 +268,7 @@ void	err_erroneusnickname(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Erroneous nickname";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -261,6 +280,7 @@ void	err_nicknameinuse(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Nickname already in use";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -275,6 +295,7 @@ void	err_nickcollision(Client *dst, std::vector<pollfd> &fds, std::string user, 
 	msg.push_back('@');
 	msg += host;
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -288,6 +309,7 @@ void	err_unavailableresource(Client *dst, std::vector<pollfd> &fds, std::string 
 	msg += resource;
 	msg += " :Nick/channel is temporarily unavailable";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -303,6 +325,7 @@ void	err_usernotinchannel(Client *dst, std::vector<pollfd> &fds, std::string tar
 	msg += channel;
 	msg += " :They aren't on that channel";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -316,6 +339,7 @@ void	err_notochannel(Client *dst, std::vector<pollfd> &fds, std::string channel)
 	msg += channel;
 	msg += " :You're not on that channel";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -329,6 +353,7 @@ void	err_useronchannel(Client *dst, std::vector<pollfd> &fds, std::string channe
 	msg += channel;
 	msg += " :is already on channel";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -342,6 +367,7 @@ void	err_nologin(Client *dst, std::vector<pollfd> &fds, std::string user)
 	msg += user;
 	msg += " :User not logged in";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -353,6 +379,7 @@ void	err_summondisabled(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :SUMMON has been disabled";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -364,6 +391,7 @@ void	err_userdisabled(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :USERS has been disabled";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -373,6 +401,7 @@ void	err_notregistered(Client *dst, std::vector<pollfd> &fds)
 
 	msg += " :You have not registered";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -386,6 +415,7 @@ void	err_needmoreparams(Client *dst, std::vector<pollfd> &fds, std::string comma
 	msg += command;
 	msg += " :Not enough parameters";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -397,6 +427,7 @@ void	err_alreadyregistered(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Unauthorized command (already registered)";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -408,6 +439,7 @@ void	err_nopermforhost(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Your host isn't among the privileged";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -417,6 +449,7 @@ void	err_passwdmismatch(Client *dst, std::vector<pollfd> &fds)
 
 	msg += " :Password incorrect";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -428,6 +461,7 @@ void	err_yourebannedcreep(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :You are banned from this server";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -438,6 +472,7 @@ void	err_youwillbebanned(Client *dst, std::vector<pollfd> &fds)
 	msg.push_back(' ');
 	msg += dst->get_nickname();
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -451,6 +486,7 @@ void	err_keyset(Client *dst, std::vector<pollfd> &fds, std::string channel)
 	msg += channel;
 	msg += " :Channel key already set";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -464,6 +500,7 @@ void	err_channelisfull(Client *dst, std::vector<pollfd> &fds, std::string channe
 	msg += channel;
 	msg += " :Cannot join channel (+l)";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -478,6 +515,7 @@ void	err_unknownmode(Client *dst, std::vector<pollfd> &fds, char mode, std::stri
 	msg += " :is unknown mode char to me for ";
 	msg += channel;
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -491,6 +529,7 @@ void	err_inviteonlychan(Client *dst, std::vector<pollfd> &fds, std::string chann
 	msg += channel;
 	msg += " :Cannot join channel (+i)";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -504,6 +543,7 @@ void	err_bannedfromchan(Client *dst, std::vector<pollfd> &fds, std::string chann
 	msg += channel;
 	msg += " :Cannot join channel (+b)";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -517,6 +557,7 @@ void	err_badchannelkey(Client *dst, std::vector<pollfd> &fds, std::string channe
 	msg += channel;
 	msg += " :Cannot join channel (+k)";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -530,6 +571,7 @@ void	err_badchanmask(Client *dst, std::vector<pollfd> &fds, std::string channel)
 	msg += channel;
 	msg += " :Bad Channel Mask";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -543,6 +585,7 @@ void	err_nochanmodes(Client *dst, std::vector<pollfd> &fds, std::string channel)
 	msg += channel;
 	msg += " :Channel doesn't support modes";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -558,6 +601,7 @@ void	err_banlistfull(Client *dst, std::vector<pollfd> &fds, char stuff, std::str
 	msg.push_back(stuff);
 	msg += " :Channel list is full";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -569,6 +613,7 @@ void	err_noprivileges(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Permission Denied- You're not an IRC operator";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -582,6 +627,7 @@ void	err_chanoprivsneeded(Client *dst, std::vector<pollfd> &fds, std::string cha
 	msg += channel;
 	msg += " :You're not channel operator";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -593,6 +639,7 @@ void	err_cantkillserver(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :You can't kill a server";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -604,6 +651,7 @@ void	err_restricted(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Your connection is restricted!";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -615,6 +663,7 @@ void	err_uniqoprivsneeded(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :You're not the original channel operator";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -626,6 +675,7 @@ void	err_nooperhost(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :No O-lines for your host";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -637,6 +687,7 @@ void	err_umodeunknownflag(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Unknown MODE flag";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
 
@@ -648,5 +699,6 @@ void	err_usersdontmatch(Client *dst, std::vector<pollfd> &fds)
 	msg += dst->get_nickname();
 	msg += " :Cannot change mode for other users";
 	add_crlf(msg);
+	add_server_prefix(msg);
 	send_msg_client(dst, fds, msg.c_str());
 }
