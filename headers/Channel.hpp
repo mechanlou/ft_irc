@@ -8,7 +8,6 @@ class	Channel
 {
 	public :
 
-	// Channel(void);
 	Channel(std::string name);
 	Channel(Channel const &src);
 	virtual	~Channel(void);
@@ -30,7 +29,6 @@ class	Channel
 	void			msg_to_channel(const char *msg, std::vector<pollfd> &fds);
 	void			msg_to_channel_no_me(const char *msg, std::vector<pollfd> &fds, Client *cli);
 	std::string				_name;
-	//int size;
 
 	private :
 

@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:35:12 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/14 14:27:42 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 16:17:49 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void commands::_getcmd(std::string buf)
     _cmd.clear();
     _cmd = cmd_tmp;
     
-    for(std::vector<std::string>::iterator it = _cmd.begin(); it != _cmd.end();it++)
-    {
-        std::cout << "cmd =  "<< *it << std::endl;
-    }    
+    // for(std::vector<std::string>::iterator it = _cmd.begin(); it != _cmd.end();it++)
+    // {
+    //     std::cout << "cmd =  "<< *it << std::endl;
+    // }    
 }

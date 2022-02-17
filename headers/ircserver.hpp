@@ -22,11 +22,11 @@
 #include "commands/commands.hpp"
 #include "Channel.hpp"
 
-#define	END_OF_MSG "\r\n" //a remplacer par "\r\n" pour IRC
+#define	END_OF_MSG "\r\n"
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
 
-#define	HOSTNAME NULL
+#define	HOSTNAME "z4r5p7"
 #define SERV_NAME "irc.truc.net"
 #define VERSION "6.6.7"
 #define	START_DATE "not long ago acutally"
@@ -43,8 +43,6 @@ class			ReplyDoesntExistException : public std::exception
 		return ("Error, reply doesn't exist");
 	}
 };
-
-// class	Channel;
 
 int			receive_msg(int src_fd,	std::vector<pollfd> &fds,
 	std::vector<Client *> &all_clients, std::vector<Channel> &all_channels);

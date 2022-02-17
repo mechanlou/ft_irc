@@ -6,12 +6,8 @@ void	send_msg_client(Client *dst, std::vector<pollfd> &fds, const char *msg)
 
 	dst->send_buffer.push_back(msg);
 	i = 0;
-	// std::cout << "fds size : " << fds.size() << std::endl;
 	while (fds[i].fd != dst->get_sock_fd())
-	{
-		// std::cout << "i : " << i << std::endl;
 		i++;
-	}
 	fds[i].events = POLLIN | POLLOUT;
 }
 
@@ -48,7 +44,7 @@ int	send_pending_msg(Client *dst, std::vector<pollfd> &fds)
 	size_t	i;
 	int		fd;
 
-	std::cout << "Sending : " << dst->send_buffer[0];
+	std::cout << "--> [" << dst->get_nickname() << "] : " << dst->send_buffer[0];
 	send_ret = send(dst->get_sock_fd(), dst->send_buffer[0].c_str(),
 		dst->send_buffer[0].size(), 0);
 	if (send_ret == -1)

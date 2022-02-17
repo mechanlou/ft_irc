@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:13:32 by wperu             #+#    #+#             */
-/*   Updated: 2022/02/16 18:31:42 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 16:16:52 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli
 {
 	std::string cmd = get_cmd_from_msg(buf);
 
-	// std::cout << "commande : \"" << cmd << "\"" << std::endl;
-	// std::cout << "etat : " << cli->get_etat() << " register : " << cli->get_register() << std::endl;
 	if(cmd == "PASS")
 		_pass.excute(buf, cli,fds);
 	else if(cmd == "NICK" && cli->get_etat() == 1)
@@ -56,12 +54,6 @@ void parser::parse(std::string buf, Client *cli, std::vector<Client *> *list_cli
 		_privmsg.execute(buf,cli,list_chan,list_cli,fds);
 	else if(cmd == "NOTICE" && cli->get_register() == true)
 		_notice.execute(buf,cli,list_chan,list_cli,fds);
-	// if(cmd == "MODE")
-	// 	_mode.excute();
-		
-	/*if(cmd == "INVITE")
-		_invite.excute();
-	*/
 }
 
 

@@ -104,7 +104,8 @@ int	receive_msg(int src_fd, std::vector<pollfd> &fds,
 		if (src_client->recv_buffer.find(END_OF_MSG) != std::string::npos)
 		{
 			received_msg = get_next_msg(src_client->recv_buffer);
-			std::cout << "received msg : " << received_msg;
+			std::cout << "<-- [" << src_client->get_nickname();
+			std::cout <<  "] : " << received_msg;
 			tool.parse(received_msg, get_client_from_fd(src_fd, all_clients),
 				&all_clients, &all_channels, fds); // parse call
 		}
