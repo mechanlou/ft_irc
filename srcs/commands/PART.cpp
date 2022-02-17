@@ -27,13 +27,12 @@ void	part::execute(std::string buf, Client *cli, std::vector<Channel> *chan, std
 	if (tmp_chan != NULL)
 	{
 		msg = ":" + cli->get_nickname() + "!" + cli->get_truename() + cli->get_ip() + " PART " + _cmd[1] + ":" + "bye" + END_OF_MSG;
-		std::vector<Client *> members = tmp_chan->get_all_users();
-		for (std::vector<Client *>::iterator it = members.begin(); it != members.end(); it++)
-		{
-			Client *c = *it;
-			send(c->get_sock_fd(), msg.c_str(), msg.length(), 0);
-		}
+		tmp_chan->msg_to_channel(msg.c_str(), fds);
 		tmp_chan->remove_user(cli);
+		if(tmp_chan->get_operators().size() == 0 && tmp_chan->get_all_users().size() > 0)
+		{
+			tmp_chan->add_operator_user(*(tmp_chan->get_all_users().begin()));
+		}
 		if(tmp_chan->get_all_users().size() == 0)
 		{
 			for(std::vector<Channel>::iterator it2 = chan->begin(); it2 != chan->end(); it2++)
