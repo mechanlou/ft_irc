@@ -26,7 +26,7 @@
 #define QUEUE_LEN 5
 #define BUFFER_SIZE 10
 
-#define	HOSTNAME "z4r5p7"
+#define	HOSTNAME "localhost"
 #define SERV_NAME "irc.truc.net"
 #define VERSION "6.6.7"
 #define	START_DATE "not long ago acutally"
